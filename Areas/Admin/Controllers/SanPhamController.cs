@@ -122,7 +122,121 @@ namespace CloudComputing.Areas.Admin.Controllers
             }
             return View("BANPHIM", banphim_SanPhamViewModel);
         }
-        
+        [HttpPost]
+        public IActionResult ThemSP_PCMANHINH(PCManhinh_SanPhamViewModel pCManhinh_SanPhamViewModel)
+        {
+            ModelState.Remove("uploadfile");
+            if (ModelState.IsValid)
+            {
+                if (pCManhinh_SanPhamViewModel.SanPham.uploadfile != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        pCManhinh_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
+                        pCManhinh_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                    }
+                }
+                else
+                {
+                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                    pCManhinh_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                }
+                pCManhinh_SanPhamViewModel.SanPham.TrangThai = true;
+                _db.SanPhams.Add(pCManhinh_SanPhamViewModel.SanPham);
+                _db.SaveChanges();
+                _db.PcManHinhs.Add(pCManhinh_SanPhamViewModel.pcManHinh);
+                _db.SaveChanges();
+                TempData["success"] = "Thêm sản phẩm thành công!";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
+                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(pCManhinh_SanPhamViewModel.SanPham.IdDm.Trim()));
+                ViewBag.danhmucID = danhmucne.Id;
+                ViewBag.danhmuc = danhmuctoanbo;
+                ViewBag.idsp = idsp;
+            }
+            return View("PCMANHINH", pCManhinh_SanPhamViewModel);
+        }
+        [HttpPost]
+        public IActionResult ThemSP_PCMAYTINHBO(PCMaytinhbo_SanPhamViewModel pCMaytinhbo_SanPhamViewModel)
+        {
+            ModelState.Remove("uploadfile");
+            if (ModelState.IsValid)
+            {
+                if (pCMaytinhbo_SanPhamViewModel.SanPham.uploadfile != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        pCMaytinhbo_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
+                        pCMaytinhbo_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                    }
+                }
+                else
+                {
+                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                    pCMaytinhbo_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                }
+                pCMaytinhbo_SanPhamViewModel.SanPham.TrangThai = true;
+                _db.SanPhams.Add(pCMaytinhbo_SanPhamViewModel.SanPham);
+                _db.SaveChanges();
+                _db.PcMayTinhBos.Add(pCMaytinhbo_SanPhamViewModel.pcMayTinhBo);
+                _db.SaveChanges();
+                TempData["success"] = "Thêm sản phẩm thành công!";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
+                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(pCMaytinhbo_SanPhamViewModel.SanPham.IdDm.Trim()));
+                ViewBag.danhmucID = danhmucne.Id;
+                ViewBag.danhmuc = danhmuctoanbo;
+                ViewBag.idsp = idsp;
+            }
+            return View("PCMAYTINHBO", pCMaytinhbo_SanPhamViewModel);
+        }
+        [HttpPost]
+        public IActionResult ThemSP_TAINGHE(Tainghe_SanPhamViewModel tainghe_SanPhamViewModel)
+        {
+            ModelState.Remove("uploadfile");
+            if (ModelState.IsValid)
+            {
+                if (tainghe_SanPhamViewModel.SanPham.uploadfile != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        tainghe_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
+                        tainghe_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                    }
+                }
+                else
+                {
+                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                    tainghe_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                }
+                tainghe_SanPhamViewModel.SanPham.TrangThai = true;
+                _db.SanPhams.Add(tainghe_SanPhamViewModel.SanPham);
+                _db.SaveChanges();
+                _db.TaiNghes.Add(tainghe_SanPhamViewModel.taiNghe);
+                _db.SaveChanges();
+                TempData["success"] = "Thêm sản phẩm thành công!";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
+                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(tainghe_SanPhamViewModel.SanPham.IdDm.Trim()));
+                ViewBag.danhmucID = danhmucne.Id;
+                ViewBag.danhmuc = danhmuctoanbo;
+                ViewBag.idsp = idsp;
+            }
+            return View("TAINGHE", tainghe_SanPhamViewModel);
+        }
+        [HttpPost]
         public IActionResult ThemSP_LAPTOP(Laptop_SanPhamViewModel latop_SanPhamViewModel)
         {
             ModelState.Remove("uploadfile");
