@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CloudComputing</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CloudComputing.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="~/glide-3.6.0/dist/css/glide.core.min.css" />
+    <link rel="stylesheet" href="~/glide-3.6.0/dist/css/glide.theme.min.css" />
+
+</head>
+<body>
+    <header>
+        <nav class="fixed-top navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <img class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" src="https://shopfront-cdn.tekoapis.com/static/phongvu/logo-full.svg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="DetailProduct">Detail Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a href="#" title="Tài khoản">
+                            <span class="material-symbols-outlined" style="color:black">person</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" title="Giỏ hàng">
+                            <span class="material-symbols-outlined" style="color:black">shopping_cart</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" title="Tìm kiếm" onClick="showsearchbar()">
+                            <span class="material-symbols-outlined" style="color:black">search</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <!-- Copyright -->
+        <div class="p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            <div class="row">
+                <!-- Grid column -->
+                <div class="col-md-5 col-lg-5 col-xl-5 col-5 mx-auto">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold">
+                        công ty cổ phần thương mại - dịch vụ phong vũ
+                    </h6>
+                    <p>
+                        &copy; 1997 - 2020 Công Ty Cổ Phần Thương Mại - Dịch Vụ Phong Vũ
+                    </p>
+                    <p>
+                        Giấy chứng nhận đăng ký doanh nghiệp: 0304998358 do Sở KH-ĐT TP.HCM cấp lần đầu ngày 30 tháng 05 năm 2007
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-6 col-lg-6 col-xl-6 col-6 mx-auto">
+                    <!-- Links -->
+                 
+                    <p class="fw-bold">
+                        Địa chỉ trụ sở chính:
+                    </p>
+                    <p>
+                        Tầng 5, Số 117-119-121 Nguyễn Du, Phường Bến Thành, Quận 1, Thành Phố Hồ Chí Minh
+                    </p>
+                    <p class="fw-bold">
+                        Văn phòng điều hành miền Bắc:
+                    </p>
+                    <p>
+                        Tầng 6, Số 1 Phố Thái Hà, Phường Trung Liệt, Quận Đống Đa, Hà Nội
+                    </p>
+                    <p class="fw-bold">
+                        Văn phòng điều hành miền Nam:
+                    </p>
+                    <p>
+                        Tầng 11 Minh Long Tower, số 17 Bà Huyện Thanh Quan, Phường Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh
+                    </p>
+                </div>
+                <!-- Grid column -->
+            </div>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <script src="~/glide-3.6.0/dist/glide.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.slim.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        var glide1 = new Glide('#glide-laptop', {
+            type: 'carousel',
+            perView: 5,
+            focusAt: 'center',
+            gap: 5,
+            autoplay: 2500
+        });
+        glide1.mount();
+
+        var glide2 = new Glide('#glide-pc', {
+            type: 'carousel',
+            perView: 5,
+            focusAt: 'center',
+            gap: 5,
+            autoplay: 2500
+        });
+        glide2.mount();
+
+        var glide3 = new Glide('#glide-pk', {
+            type: 'carousel',
+            perView: 5,
+            focusAt: 'center',
+            gap: 5,
+            autoplay: 2500
+        });
+        glide3.mount();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

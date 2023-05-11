@@ -1,0 +1,194 @@
+﻿@model Laptop_SanPhamViewModel
+@{
+    ViewData["Title"] = "LAPTOP";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<DanhMuc> danhmuctoanbo = ViewBag.danhmuc;
+    string danhmucid = ViewBag.danhmucID;
+    string idsanpham = ViewBag.idsp;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="text-primary  mb-3"> Chọn Danh Mục Sản Phẩm Thêm</h3>
+            </div>
+            <div class="card-body align-items-center">
+                <form method="get" asp-action="ThemChonTrangThemSP">
+                    <div style="float:left" class="w-50">
+                        <select name="danhmuc" class="form-select" aria-label="Default select example">
+                            @foreach (var x in danhmuctoanbo)
+                            {
+                                if (danhmucid.Trim().Equals(x.Id.Trim()))
+                                {
+                                    <option value="@x.Id" selected>@x.TenDm</option>
+                                }
+                                else
+                                {
+                                    <option value="@x.Id">@x.TenDm</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <input style="margin-left:20px" class="btn btn-primary" type="submit" value="Xác Nhận" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <h5 class="card-header">Thêm Sản Phẩm Chuột Máy Tính</h5>
+            <div class="card-body">
+                <form method="post" asp-action="ThemSP_LAPTOP" enctype="multipart/form-data">
+                    <input asp-for="laptop.Id" value="@idsanpham" type="hidden" />
+                    <input asp-for="laptop.IdDanhmuc" value="@danhmucid" type="hidden" />
+                    <input asp-for="SanPham.IdDm" value="@danhmucid" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.IdSp" class="control-label"></label>
+                        <input asp-for="SanPham.IdSp" value="@idsanpham" class="form-control" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.HinhAnh" class="control-label"></label>
+                        <input accept="image/*" asp-for="SanPham.uploadfile" id="chonhinhanh" type="file" class="form-control" />
+                        <span asp-validation-for="SanPham.HinhAnh" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.TenSanPham" class="control-label"></label>
+                        <textarea asp-for="SanPham.TenSanPham" class="form-control" ></textarea>
+                        <span asp-validation-for="SanPham.TenSanPham" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.ThuongHieu" class="control-label"></label>
+                        <input asp-for="SanPham.ThuongHieu" class="form-control" />
+                        <span asp-validation-for="SanPham.ThuongHieu" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="SanPham.BaoHanh" class="control-label"></label>
+                                <input asp-for="SanPham.BaoHanh" class=" form-control" />
+                                <span asp-validation-for="SanPham.BaoHanh" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="SanPham.KhoiLuong" class="control-label"></label>
+                                <input asp-for="SanPham.KhoiLuong" class="form-control" placeholder="Gam" />
+                                <span asp-validation-for="SanPham.KhoiLuong" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.Gia" class="control-label"></label>
+                        <input asp-for="SanPham.Gia" class="form-control" />
+                        <span asp-validation-for="SanPham.Gia" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="laptop.SeriesLaptop" class="control-label"></label>
+                                <input asp-for="laptop.SeriesLaptop" class="form-control" />
+                                <span asp-validation-for="laptop.SeriesLaptop" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="laptop.MauSac" class="control-label"></label>
+                                <input asp-for="laptop.MauSac" class="form-control" />
+                                <span asp-validation-for="laptop.MauSac" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                    <div class="form-group mb-3">
+                        <label asp-for="laptop.Cpu" class="control-label"></label>
+                        <input asp-for="laptop.Cpu" class="form-control" />
+                        <span asp-validation-for="laptop.Cpu" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group mb-3">
+                        <label asp-for="laptop.ChipDoHoa" class="control-label"></label>
+                        <input asp-for="laptop.ChipDoHoa" class="form-control" />
+                        <span asp-validation-for="laptop.ChipDoHoa" class="text-danger"></span>
+                    </div>
+
+                    
+
+
+                    <div class="form-group mb-3">
+                        <label asp-for="laptop.Ram" class="control-label"></label>
+                        <input asp-for="laptop.Ram" class="form-control" />
+                        <span asp-validation-for="laptop.Ram" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="laptop.ManHinh" class="control-label"></label>
+                        <input asp-for="laptop.ManHinh" class="form-control" />
+                        <span asp-validation-for="laptop.ManHinh" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="laptop.CongKetNoi" class="control-label"></label>
+                        <input asp-for="laptop.CongKetNoi" class="form-control" />
+                        <span asp-validation-for="laptop.CongKetNoi" class="text-danger"></span>
+                    </div>
+
+
+                     <div class="row">
+                        <div class="col-5">
+                            <div class="form-group mb-3">
+                                <label asp-for="laptop.BanPhim" class="control-label"></label>
+                                <input asp-for="laptop.BanPhim" class="form-control" />
+                                <span asp-validation-for="laptop.BanPhim" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-group mb-3">
+                                <label asp-for="laptop.LuuTru" class="control-label"></label>
+                                <input asp-for="laptop.LuuTru" class="form-control" />
+                                <span asp-validation-for="laptop.LuuTru" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="laptop.HeDieuHanh" class="control-label"></label>
+                                <input asp-for="laptop.HeDieuHanh" class="form-control" />
+                                <span asp-validation-for="laptop.HeDieuHanh" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="laptop.Pin" class="control-label"></label>
+                                <input asp-for="laptop.Pin" class="form-control" />
+                                <span asp-validation-for="laptop.Pin" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-end">
+                        <div style="float:left" class="align-text-bottom">
+                            <a asp-action="ThemSP">Back to List</a>
+                        </div>
+                        <input type="submit" value="Thêm Sản Phẩm" class="btn btn-primary w-50" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 me-0">
+        <div class="card mb-4">
+            <h5 class="card-header">Hình ảnh sản phẩm</h5>
+            <div class="card-body">
+                <img id="hinhanh" class="img-thumbnail" src="~/default-image.jpg" />
+            </div>
+        </div>
+    </div>
+</div>
+

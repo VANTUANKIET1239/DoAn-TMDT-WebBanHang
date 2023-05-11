@@ -1,0 +1,137 @@
+html {
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-top:70px;
+    font-family: Montserrat;
+    color: #333333;
+    line-height: 1.25rem;
+    background-color: #ffffff;
+    padding-bottom: 2px;
+    box-sizing:border-box;
+}
+
+img, svg{
+    vertical-align: middle;
+}
+
+a:hover{
+    color: #ffffff;
+}
+
+/*-------------------------------------------------*/
+/*carousel*/
+.carousel-indicators{
+    border-radius:50%;
+    margin-bottom: 80px;
+}
+.crs {
+    height: 566px;
+    width: 100%;
+    display: inline-block;
+    background-size: cover;
+    object-fit: cover;
+}
+.carousel{
+    position:absolute;
+    z-index:-1;
+}
+
+/*-------------------------------------------------*/
+/*font-face-uri image*/
+.smt {
+    max-width: 25%;
+}
+.img1{
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 500px;
+    object-fit: cover;
+    background-size: cover;
+    overflow: hidden;
+    transition: transform ease 0.5s;
+    vertical-align: middle;
+    display: inline-block;
+}
+.img1:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+/*-------------------------------------------------*/
+/*laptop carousel */
+
+.slide-laptop, .slide-pc, .slide-pk{
+    margin-top: 35px;
+    position: relative;
+}
+.bg-slide-laptop {  
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+.laptop-header {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: 3.5rem;
+    background-color: unset;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.title {
+    border-style: none;
+    border-width: 1px;
+    opacity: 1;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    text-decoration: unset;
+    font-size: 20px;
+    line-height: 28px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    padding: 0px 8px;
+}
+.view-more{
+    text-decoration: unset;
+    color: rgb(255, 255, 255);
+}
+
+.forward-button{
+    color: white;
+    width: 1em;
+    height: 1em;
+}
+
+/*glide & card*/
+
+.glide{
+    margin: 20px 0 20px 8px;
+}
+.card {
+    width: 15rem;
+}
+.card:hover{
+    cursor: pointer;
+}
+.card-title{
+    color: gray;
+
+}
+

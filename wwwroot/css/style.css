@@ -1,0 +1,18 @@
+﻿body {
+}
+.navbar{
+    box-shadow: 0 0.5rem 1rem 0;
+    z-index: 1040;
+    background-color: white;
+}
+.navbar-brand{
+    width: 25%;
+}
+footer {
+    font-size: 10px;
+}
+
+p{
+    margin:0px;
+}
+
