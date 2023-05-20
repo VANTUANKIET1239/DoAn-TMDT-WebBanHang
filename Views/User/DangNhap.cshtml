@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "DangNhap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row d-flex justify-content-center padding-large no-padding-bottom">
+    <div class="card w-50">
+        <div class="card-header text-center">
+            <h3>Đăng Nhập</h3>
+        </div>
+        <div class="card-body">
+            <form asp-controller="DiaChi" asp-action="ThemDiaChi">
+                <div class="form-group mb-3">
+                    <label class="control-label">Email</label>
+                    <input class="form-control" placeholder="Vui lòng nhập email" />
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Mật Khẩu</label>
+                    <input class="form-control" placeholder="Vui lòng nhập mật khẩu" />
+                </div>
+
+                <div class="row d-flex justify-content-end">
+                    <div class="col-md-6 text-end">
+                        <a asp-action="DonHang" class="btn btn-outline-dark">Quản Lý Đơn Hàng</a>
+                        <a asp-action="DiaChi" class="btn btn-outline-dark">Sổ Địa Chỉ</a>
+                        <a asp-action="Details" class="btn btn-outline-dark">Thông Tin Người Dùng</a>
+                        <button class="btn btn-dark w-50">Đăng Nhập</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center padding-small no-padding-bottom">
+                    <a asp-controller="User" asp-action="DangKy" >Bạn chưa có tài khoản? Hãy đăng ký</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

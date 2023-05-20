@@ -52,14 +52,19 @@
                         <input asp-for="SanPham.IdSp" value="@idsanpham" class="form-control" readonly />
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="SanPham.HinhAnh" class="control-label"></label>
-                        <input accept="image/*" asp-for="SanPham.uploadfile" id="chonhinhanh" type="file" class="form-control" />
-                        <span asp-validation-for="SanPham.HinhAnh" class="text-danger"></span>
+                        <label asp-for="SanPham.uploadfile" class="control-label"></label>
+                        <input accept="image/*" name="hinhanh" id="chonhinhanh" type="file" class="form-control" multiple />
+                        <span asp-validation-for="SanPham.uploadfile" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3">
                         <label asp-for="SanPham.TenSanPham" class="control-label"></label>
-                        <textarea asp-for="SanPham.TenSanPham" class="form-control" > </textarea>
+                        <textarea style="resize:none" asp-for="SanPham.TenSanPham" class="form-control"> </textarea>
                         <span asp-validation-for="SanPham.TenSanPham" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.MoTa" class="control-label"></label>
+                        <textarea asp-for="SanPham.MoTa"  name="ghichudonhang" class="form-control"></textarea>
+                        <span asp-validation-for="SanPham.MoTa" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3">
                         <label asp-for="SanPham.ThuongHieu" class="control-label"></label>
@@ -135,10 +140,31 @@
     <div class="col-md-6 me-0">
         <div class="card mb-4">
             <h5 class="card-header">Hình ảnh sản phẩm</h5>
-            <div class="card-body">
+            <div id="khuhienanh" class="card-body">
                 <img id="hinhanh" class="img-thumbnail" src="~/default-image.jpg" />
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('chonhinhanh').addEventListener('change', function (event) {
+        var preview = document.getElementById('khuhienanh');
+        preview.innerHTML = '';
+
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '300px';
+                preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 

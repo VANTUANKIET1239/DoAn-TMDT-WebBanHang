@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "DonHang";
+    Layout = "~/Views/Shared/_LayoutChuaDN.cshtml";
+}
+
+<div class="container padding-large">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-row align-baseline">
+                        <div class="me-2">
+                            <img class="img-fluid" style="height:50px;width:50px;" />
+                        </div>
+                        <div>
+                            <p class="no-margin">Tài Khoản Của</p>
+                            <h5>Văn Tuấn Kiệt</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column align-baseline mt-2">
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="Details"><i class='bx bxs-user-account'></i> Thông Tin Tài Khoản</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="DonHang"> <i class='bx bx-receipt'></i> Quản Lý Đơn Hàng</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="DiaChi"><i class='bx bx-map'></i> Sổ Địa Chỉ</a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <h4 class="text-center">
+                    Thông Tin Đơn Hàng
+                </h4>
+                <div class="card">
+                    <div class="card-body">
+                       <div class="row">
+                           <div class="col-md-2">
+                               <h6> Mã Đơn Hàng</h6>
+                           </div>
+                           <div class="col-md-2">
+                                <h6>Ngày Mua</h6>
+                           </div>
+                            <div class="col-md-5">
+                                <h6> Sản Phẩm</h6>
+                            </div>
+                            <div class="col-md-2">
+                                 <h6> Tổng Tiền</h6>
+                            </div>
+                            <div class="col-md-1">
+                                <h6> Tùy Chọn</h6>
+                            </div>
+                       </div>
+                       <hr />
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h6> 0120124224</h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>14:00,23/07/2023</h6>
+                            </div>
+                            <div class="col-md-5">
+                                <img class="img-fluid" style="height:30px;width:30px;"/>
+                                <img class="img-fluid" style="height:30px;width:30px;"/>
+                                <img class="img-fluid" style="height:30px;width:30px;"/>
+                                <img class="img-fluid" style="height:30px;width:30px;"/>
+                                <img class="img-fluid" style="height:30px;width:30px;"/>
+                            </div>
+                            <div class="col-md-2">
+                                <h6> 30.000.000đ</h6>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-dark"><i class='bx bx-edit'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

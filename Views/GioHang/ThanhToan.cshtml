@@ -1,0 +1,332 @@
+﻿@{
+    ViewData["Title"] = "ThanhToan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form>
+
+
+    <div class="row d-flex flex-column text-center padding-large no-padding-bottom bg-light-blue">
+        <h1 s class="justify-content-center">THANH TOÁN</h1>
+
+    </div>
+
+    <div class="container padding-small no-padding-left no-padding-right">
+        <div class="row ">
+            <div style="height:100%" class="thanhtoansp col-md-6 bg-white">
+                <div class="card" style="height:100%;width:100%;background-color:#EDF1F3">
+                    <div class="row" style="padding:5px;">
+                        <div class="col-md-9 mt-2">
+                            <h5>Thông Tin Đơn Hàng</h5>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center mt-2">
+                            <a class="btn btn-light">Chỉnh Sửa</a>
+                        </div>
+                    </div>
+
+
+                    <div class="cardspthanhtoan card no-padding-bottom ms-0 mt-2 w-100">
+
+                        <div class="sanpham row">
+                            <div style="height:100px;" class="col-12">
+                                <div style="float:left;">
+                                    <img style="width:100px;height:100px;" class="img-fluid" src="~/images/hehe.png" />
+                                </div>
+
+                                <div>
+                                    <h5 class="text-black">Laptop Asus</h5>
+                                    <p style="font-size:18px;"><span>số lượng: 2</span></p>
+                                    <p style="font-size:18px;"><span>30.000</span></p>
+                                </div>
+                            </div>
+
+                            <hr />
+                        </div>
+                        <div class="sanpham row">
+                            <div style="height:100px;" class="col-12">
+                                <div style="float:left;">
+                                    <img style="width:100px;height:100px;" class="img-fluid" src="~/images/hehe.png" />
+                                </div>
+
+                                <div>
+                                    <h5 class="text-black">Laptop Asus</h5>
+                                    <p style="font-size:18px;"><span>số lượng: 2</span></p>
+                                    <p style="font-size:18px;"><span>30.000</span></p>
+                                </div>
+                            </div>
+
+                            <hr />
+                        </div>
+                        <div class="sanpham row">
+                            <div style="height:100px;" class="col-12">
+                                <div style="float:left;">
+                                    <img style="width:100px;height:100px;" class="img-fluid" src="~/images/hehe.png" />
+                                </div>
+
+                                <div>
+                                    <h5 class="text-black">Laptop Asus</h5>
+                                    <p style="font-size:18px;"><span>số lượng: 2</span></p>
+                                    <p style="font-size:18px;"><span>30.000</span></p>
+                                </div>
+                            </div>
+
+                            <hr />
+                        </div>
+                        <div class="sanpham row">
+                            <div style="height:100px;" class="col-12">
+                                <div style="float:left;">
+                                    <img style="width:100px;height:100px;" class="img-fluid" src="~/images/hehe.png" />
+                                </div>
+
+                                <div>
+                                    <h5 class="text-black">Laptop Asus</h5>
+                                    <p style="font-size:18px;"><span>số lượng: 2</span></p>
+                                    <p style="font-size:18px;"><span>30.000</span></p>
+                                </div>
+                            </div>
+
+                            <hr />
+                        </div>
+
+                    </div>
+                    <div class="row padding-small m-2 no-padding-bottom">
+                        <h5>Nhận Mã online, hóa đơn qua email</h5>
+                        <input type="email" name="emailnhandon" class="form-control" placeholder="Nhập Email để nhận thông tin đơn hàng..." />
+                        <p style="font-style:italic;font-size:13px;">Lưu ý: Email phải đúng cấu trúc và vẫn đang sử dụng để thông tin có thể được gửi tới quý khách hàng</p>
+                    </div>
+                    <div class="row m-2">
+                        <h5>Ghi chú cho đơn hàng</h5>
+                        <textarea style="height:120px;resize: none;" name="ghichudonhang" class="form-control resize-none" placeholder="viết ghi chú cần thiết cho đơn hàng..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 bg-white">
+                <div class="card" style="height:100%;width:100%;background-color:#EDF1F3">
+
+                    <div class="row no-padding-bottom" style="padding:5px;">
+                        <div class="col-md-9 mt-2">
+                            <h5>Thông Tin Nhận Hàng</h5>
+                        </div>
+                    </div>
+                    <div class="row m-3">
+                        <div class="col-6 mb-0 p-1">
+                            <div class="card w-100 diachi" style="border-radius:18px;height:130px;">
+                                <div class="p-2">
+                                    <h6 class="text-black">Văn Tuấn Kiệt</h6>
+                                    <p class="m-0" style="font-size:15px;color:black"><span>0906889483</span></p>
+                                    <p class="m-0" style="font-size:15px;color:black"><span>61/19/1B Mã Lò, Phường Bình Trị Đông A, Quận Bình Tân, TP HCM</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-0 p-1">
+                            <div class="card w-100 diachi" style="border-radius:18px;height:130px;">
+                                <div class="p-2">
+                                    <h6 class="text-black">Văn Tuấn Kiệt</h6>
+                                    <p class="m-0" style="font-size:15px;color:black"><span>0906889483</span></p>
+                                    <p class="m-0" style="font-size:15px;color:black"><span>61/19/1B Mã Lò, Phường Bình Trị Đông A, Quận Bình Tân, TP HCM</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-0 p-1">
+                            <div class="card w-100 diachi" style="border-radius:18px;height:130px;display:flex;justify-content:center; align-items:center;">
+                                <button type="button" id="btnthem" class="btn btn-rounded-none">
+                                    <div class="p-2 themdiachi">
+
+                                        <p style="text-align: center;">
+                                            <sup style="font-size:18px;"><i class='bx bx-plus-circle'></i></sup><br>
+                                            Thêm Địa Chỉ
+                                        </p>
+
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-padding-bottom" style="padding:5px;">
+                        <div class="col-md-9 mt-2">
+                            <h5>Phương Thức Thanh Toán</h5>
+
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-md-6 p-2">
+                                <div class="thanhtoan card p-2 text-center" style="height:100px;width:250px;">
+                                    <h6>Thanh toán qua VN-PAY</h6>
+                                    <i class='bx bx-credit-card bx-md'></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-2">
+                                <div class="thanhtoan card p-2 text-center" style="height:100px;width:250px;">
+                                    <h6>Thanh toán khi nhận hàng</h6>
+                                    <i class='bx bx-money bx-md'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* <div class="col-md-9 mt-2">
+
+
+                    </div>*@
+                    <div class="row m-3">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-6 p-2">
+                                    <h6>Tổng tạm tính</h6>
+                                      <h6>Phí vận chuyển</h6>
+                                    <h6>Thành tiền</h6>
+                                </div>
+                                <div class="col-md-6 p-2 text-end">
+                                    <p class ="no-margin" style="font-size:16px;color:black;">61.230.000đ</p>
+                                    <p class="no-margin" style="font-size:16px;color:black;">Miễn Phí</p>
+                                    <p class="no-margin" style="font-size:20px;color:red;">61.230.000đ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-3">
+                        <button class="btn" style="background-color:cadetblue;height:70px;font-size:24px;">Thanh Toán </button>
+                     </div>
+
+                </div>
+            </div>
+            @* hiện khung thêm địa chỉ*@
+
+        </div>
+    </div>
+    <div id="bg-modal">
+        <div id="modalcontent">
+
+            <div class="p-3">
+                <h4 class="p-2 no-padding-bottom"> Thông Tin Nhận Hàng</h4>
+                <form asp-controller="DiaChi" asp-action="ThemDiaChi">
+                    <div class="form-group mb-3">
+                        <label class="control-label">Họ Tên</label>
+                        <input class="form-control" placeholder="Vui lòng nhập tên của bạn" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="control-label">Số Điện Thoại</label>
+                                <input class="form-control" type="email" placeholder="Nhập địa chỉ" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="control-label">Email</label>
+                                <input class="form-control" placeholder="Nhập số điện thoại" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <h4 class="p-2 no-padding-bottom"> Địa Chỉ Nhận Hàng</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="control-label">Tỉnh/Thành phố</label>
+                                <input class="form-control" placeholder="Nhập Tỉnh/Thành Phố" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="control-label">Quận/Huyện</label>
+                                <input class="form-control" placeholder="Nhập Quận/Huyện" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="control-label">Phường/Xã</label>
+                                <input class="form-control" placeholder="Nhập Phường/Xã" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="control-label">Địa Chỉ Cụ Thể</label>
+                                <input class="form-control" placeholder="Nhập Địa Chỉ" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-md-6 text-end">
+                            <div class="form-group mb-3">
+                                <input type="checkbox" name="macdinh" style="accent-color:black;" />
+                                <label class="control-label">Đặt làm mặc định</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-md-6 text-end">
+                            <button id="huybo" class="btn btn-outline-dark">Hủy Bỏ</button>
+                            <button class="btn btn-dark">Lưu Địa Chỉ</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</form>
+<script>
+    var thanhtoan = document.querySelectorAll('.thanhtoan');
+    var diachi = document.querySelectorAll('.diachi');
+    console.log(diachi);
+    diachi.forEach(x => {
+        x.addEventListener("click", function (event) {
+            diachi.forEach(y => {
+                y.classList.remove('hovered');
+            });
+            var card = event.target;
+            this.classList.add('hovered');
+        });
+
+    });
+    thanhtoan.forEach(x => {
+        x.addEventListener("click", function (event) {
+            thanhtoan.forEach(y => {
+                y.classList.remove('hovered');
+            });
+            var card = event.target;
+            this.classList.add('hovered');
+        });
+
+    });
+    document.getElementById("btnthem").addEventListener("click", function () {
+        // Hiển thị modal
+        document.getElementById("bg-modal").style.display = "flex";
+        // Vô hiệu hóa cuộn trang
+        document.body.style.overflow = "hidden";
+        // Cuộn lên đầu trang
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+        // Tạo và thêm backdrop
+
+        // Định vị lại modal
+        var modal = document.getElementById("modalcontent");
+        var modalWidth = modal.offsetWidth;
+        var modalHeight = modal.offsetHeight;
+        modal.style.marginLeft = -(modalWidth / 7) + "px";
+        modal.style.marginTop = -(modalHeight + modalHeight / 2 + 100) + "px";
+    });
+
+    // Đóng modal khi bấm ra ngoài
+    document.getElementById("bg-modal").addEventListener("click", function (event) {
+        if (event.target === this) {
+            document.getElementById("bg-modal").style.display = "none";
+            document.body.style.overflow = "auto";
+            //  document.querySelector(".bg-modal").remove();
+        }
+    });
+    document.getElementById("huybo").addEventListener("click", function (event) {
+        if (event.target === this) {
+            document.getElementById("bg-modal").style.display = "none";
+            document.body.style.overflow = "auto";
+            //  document.querySelector(".bg-modal").remove();
+        }
+    });
+
+
+
+</script>

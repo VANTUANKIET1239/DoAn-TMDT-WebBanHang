@@ -25,6 +25,10 @@ public partial class DbbhContext : DbContext
 
     public virtual DbSet<DetailHoaDon> DetailHoaDons { get; set; }
 
+    public virtual DbSet<DiaChi> DiaChis { get; set; }
+
+    public virtual DbSet<HinhAnhSp> HinhAnhSps { get; set; }
+
     public virtual DbSet<HoaDon> HoaDons { get; set; }
 
     public virtual DbSet<Laptop> Laptops { get; set; }
@@ -154,6 +158,51 @@ public partial class DbbhContext : DbContext
                 .HasColumnName("Ten_SP");
         });
 
+        modelBuilder.Entity<DiaChi>(entity =>
+        {
+            entity.HasKey(e => e.IdDiachi);
+
+            entity.ToTable("Dia_Chi");
+
+            entity.Property(e => e.IdDiachi)
+                .HasMaxLength(5)
+                .IsFixedLength()
+                .HasColumnName("ID_DIACHI");
+            entity.Property(e => e.DiaChiCuThe)
+                .HasMaxLength(60)
+                .HasColumnName("Dia_Chi_Cu_The");
+            entity.Property(e => e.Email)
+                .HasMaxLength(20)
+                .IsFixedLength();
+            entity.Property(e => e.HoTen).HasMaxLength(50);
+            entity.Property(e => e.IdNguoiDung)
+                .HasMaxLength(5)
+                .IsFixedLength()
+                .HasColumnName("ID_NguoiDung");
+            entity.Property(e => e.Phuong).HasMaxLength(50);
+            entity.Property(e => e.Quan).HasMaxLength(50);
+            entity.Property(e => e.Sdt)
+                .HasMaxLength(20)
+                .HasColumnName("SDT");
+            entity.Property(e => e.ThanhPho).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<HinhAnhSp>(entity =>
+        {
+            entity.HasKey(e => e.IdHinhanh);
+
+            entity.ToTable("Hinh_Anh_SP");
+
+            entity.Property(e => e.IdHinhanh)
+                .HasMaxLength(5)
+                .IsFixedLength()
+                .HasColumnName("ID_HINHANH");
+            entity.Property(e => e.IdSp)
+                .HasMaxLength(5)
+                .IsFixedLength()
+                .HasColumnName("ID_SP");
+        });
+
         modelBuilder.Entity<HoaDon>(entity =>
         {
             entity.ToTable("Hoa_don");
@@ -165,6 +214,9 @@ public partial class DbbhContext : DbContext
             entity.Property(e => e.DiaChi)
                 .HasMaxLength(70)
                 .HasColumnName("Dia_chi");
+            entity.Property(e => e.Ghichu)
+                .HasMaxLength(500)
+                .HasColumnName("ghichu");
             entity.Property(e => e.IdUser)
                 .HasMaxLength(5)
                 .IsFixedLength()
@@ -242,6 +294,7 @@ public partial class DbbhContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(20)
                 .IsFixedLength();
+            entity.Property(e => e.NgaySinh).HasColumnType("datetime");
             entity.Property(e => e.PassWord)
                 .HasMaxLength(300)
                 .HasColumnName("Pass_word");
@@ -340,7 +393,6 @@ public partial class DbbhContext : DbContext
                 .HasMaxLength(10)
                 .HasColumnName("BAO_HANH");
             entity.Property(e => e.Gia).HasColumnName("GIA");
-            entity.Property(e => e.HinhAnh).HasColumnName("HINH_ANH");
             entity.Property(e => e.IdDm)
                 .HasMaxLength(10)
                 .IsFixedLength()
@@ -349,6 +401,7 @@ public partial class DbbhContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("KHOI_LUONG");
+            entity.Property(e => e.MoTa).HasMaxLength(1500);
             entity.Property(e => e.TenSanPham)
                 .HasMaxLength(150)
                 .HasColumnName("TEN_SAN_PHAM");

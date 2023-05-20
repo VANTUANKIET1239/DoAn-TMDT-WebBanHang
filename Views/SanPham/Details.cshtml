@@ -1,0 +1,169 @@
+﻿@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row padding-large no-padding-bottom"> 
+        <div class="col-md-6 border-dark bg-light-blue" style="position:relative">
+
+            
+            <img style="width:500px;height:500px;" id="hinhchinh" class="img-fluid" src="~/images/SALE.png" />
+
+        </div>
+        <div class="col-md-6 d-flex flex-column">
+            <h2 class="text-uppercase">Laptop gaming full size</h2>
+            <p><span>Logitech</span></p>
+            <p><span style="font-size:32px;color:cadetblue"><strong>30.000Đ</strong></span></p>
+            <form>
+                <div class="input-group mb-3 w-25">
+                    
+                    <button id="tru" class="btn btn-outline-secondary" type="button">-</button>
+                    <input id="soluong" type="number" class="form-control text-center" value="1" readonly>
+                    <button id="cong" class="btn btn-outline-secondary" type="button">+</button>
+                    
+                </div>
+            </form>
+            <div class="van mt-auto justify-content-end">
+                           
+           
+                <div class=" align-content-center">                       
+                    <button style="width:45%;height:50px" class="btn btn-light" type="button"><i class='bx bx-cart-download'></i> Thêm vào giỏ hàng</button>
+                    <button style="width:45%;height:50px;text-align:center" class="btn btn-dark" type="button">Mua ngay</button>                 
+                </div>
+           
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 p-0">
+            <div class="swiper product-watch-swiper">
+                <div class="swiper-wrapper">
+                    <div class="kiet swiper-slide">
+                        <div style="width:100px;height:100px;" >
+                             <img class="hinhphu img-fluid" src="~/images/SALE.png" />
+                        </div>                        
+                    </div>
+                    <div class="kiet swiper-slide">
+                        <div style="width:100px;height:100px;">
+                            <img class="hinhphu img-fluid" src="~/images/dhl.png" />
+                        </div>
+                    </div>
+                    <div class="kiet swiper-slide">
+                        <div style="width:100px;height:100px;">
+                            <img class="hinhphu img-fluid" src="~/images/image.png" />
+                        </div>
+
+                    </div>
+                    <div class="kiet swiper-slide">
+                        <div style="width:100px;height:100px;">
+                            <img class="hinhphu img-fluid" src="~/images/hehe.png" />
+                        </div>
+
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    <div class="nav-align-top mb-4 padding-medium">
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+                <button type="button"
+                        class="nav-link active"
+                        role="tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#navs-justified-home"
+                        aria-controls="navs-justified-home"
+                        aria-selected="true">
+                    <i class="tf-icons bx bx-home"></i> Thông Tin Chi Tiết
+                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">3</span>
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button"
+                        class="nav-link"
+                        role="tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#navs-justified-profile"
+                        aria-controls="navs-justified-profile"
+                        aria-selected="false">
+                    <i class="tf-icons bx bx-user"></i> Mô Tả Sản Phẩm
+                </button>
+            </li>
+           
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
+                <table class="table table-light-blue">
+                    <thead>
+                        <tr>
+                            <th scope="col">Thông Tin</th>
+                            <th scope="col">Chi Tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dòng 1, cột 1</td>
+                            <td>Dòng 1, cột 2</td>  
+                        </tr>
+                        <tr>
+                            <td>Dòng 2, cột 1</td>
+                            <td>Dòng 2, cột 2</td>
+                        </tr>
+                        <tr>
+                            <td>Dòng 3, cột 1</td>
+                            <td>Dòng 3, cột 2</td>
+                        </tr>
+                        <tr>
+                            <td>Dòng 4, cột 1</td>
+                            <td>Dòng 4, cột 2</td>
+                        </tr>
+                        <tr>
+                            <td>Dòng 5, cột 1</td>
+                            <td>Dòng 5, cột 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+                <p>
+                    Donut dragée jelly pie halvah. Danish gingerbread bonbon cookie wafer candy oat cake ice
+                    cream. Gummies halvah tootsie roll muffin biscuit icing dessert gingerbread. Pastry ice cream
+                    cheesecake fruitcake.
+                </p>
+                <p class="mb-0">
+                    Jelly-o jelly beans icing pastry cake cake lemon drops. Muffin muffin pie tiramisu halvah
+                    cotton candy liquorice caramels.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script>
+    const btncong = document.getElementById('cong');
+    const btntru = document.getElementById('tru');
+    const soluong = document.getElementById('soluong');
+
+    btncong.addEventListener("click", function(){
+        soluong.value = parseInt(soluong.value) + 1;
+    });
+    btntru.addEventListener("click", function () {
+        if (parseInt(soluong.value) > 1) {
+            soluong.value = parseInt(soluong.value) - 1;
+        }
+    });
+
+    const divs = document.querySelectorAll('.kiet');
+    const hinhchinh = document.getElementById('hinhchinh');
+    divs.forEach(div => {
+        div.addEventListener('mouseover', function () {
+            divs.forEach(otherDiv => {
+                otherDiv.classList.remove('hovered');
+            });
+            this.classList.add('hovered');
+            var a = div.querySelector('.hinhphu');
+            hinhchinh.src = a.src;
+        });
+    });
+</script>

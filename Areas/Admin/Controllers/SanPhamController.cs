@@ -46,24 +46,40 @@ namespace CloudComputing.Areas.Admin.Controllers
             return View(dm);
         }
         [HttpPost]
-        public IActionResult ThemSP_CHUOT(Chuot_SanPhamViewModel chuot_SanPhamViewModel)
+        public IActionResult ThemSP_CHUOT([FromForm] List<IFormFile> hinhanh,Chuot_SanPhamViewModel chuot_SanPhamViewModel)
         {
-            ModelState.Remove("uploadfile");
+            ModelState.Remove("Sanpham.uploadfile");
+            
             if (ModelState.IsValid)
             {
-                if (chuot_SanPhamViewModel.SanPham.uploadfile != null)
-                {
-                    using (var memoryStream = new MemoryStream())
+                
+                                
+                    if (hinhanh.Count > 0)
                     {
-                        chuot_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
-                        chuot_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                        for (int i = 0; i < hinhanh.Count; i++)
+                        {
+                            HinhAnhSp ha = new HinhAnhSp();
+                            if (hinhanh[i].Length > 0)
+                            {
+                                using (var memoryStream = new MemoryStream())
+                                {                                  
+                                    hinhanh[i].CopyTo(memoryStream);
+                                   ha.HinhAnh = memoryStream.ToArray();                                  
+                                }
+                            }
+                            else
+                            {
+                                string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                                ha.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                            }
+                            var hanh = _db.HinhAnhSps.ToList();
+                            ha.IdHinhanh = "HA" + (hanh.Count + 1).ToString("000");
+                            ha.IdSp = chuot_SanPhamViewModel.SanPham.IdSp;
+                            _db.HinhAnhSps.Add(ha);
+                            _db.SaveChanges();
+                        }
                     }
-                }
-                else
-                {
-                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
-                    chuot_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
-                }
+                         
                 chuot_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(chuot_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
@@ -85,24 +101,38 @@ namespace CloudComputing.Areas.Admin.Controllers
             return View("CHUOT",chuot_SanPhamViewModel);
         }
         [HttpPost]
-        public IActionResult ThemSP_BANPHIM(Banphim_SanPhamViewModel banphim_SanPhamViewModel)
+        public IActionResult ThemSP_BANPHIM([FromForm] List<IFormFile> hinhanh, Banphim_SanPhamViewModel banphim_SanPhamViewModel)
         {
-            ModelState.Remove("uploadfile");
+            ModelState.Remove("Sanpham.uploadfile");
             if (ModelState.IsValid)
             {
-                if (banphim_SanPhamViewModel.SanPham.uploadfile != null)
-                {
-                    using (var memoryStream = new MemoryStream())
+                
+                    if (hinhanh.Count > 0)
                     {
-                        banphim_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
-                        banphim_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                        for (int i = 0; i < hinhanh.Count; i++)
+                        {
+                            HinhAnhSp ha = new HinhAnhSp();
+                            if (hinhanh[i].Length > 0)
+                            {
+                                using (var memoryStream = new MemoryStream())
+                                {
+                                    hinhanh[i].CopyTo(memoryStream);
+                                    ha.HinhAnh = memoryStream.ToArray();
+                                }
+                            }
+                            else
+                            {
+                                string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                                ha.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                            }
+                            var hanh = _db.HinhAnhSps.ToList();
+                            ha.IdHinhanh = "HA" + (hanh.Count + 1).ToString("000");
+                            ha.IdSp = banphim_SanPhamViewModel.SanPham.IdSp;
+                            _db.HinhAnhSps.Add(ha);
+                            _db.SaveChanges();
+                        }
                     }
-                }
-                else
-                {
-                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
-                    banphim_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
-                }
+                
                 banphim_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(banphim_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
@@ -123,23 +153,35 @@ namespace CloudComputing.Areas.Admin.Controllers
             return View("BANPHIM", banphim_SanPhamViewModel);
         }
         [HttpPost]
-        public IActionResult ThemSP_PCMANHINH(PCManhinh_SanPhamViewModel pCManhinh_SanPhamViewModel)
+        public IActionResult ThemSP_PCMANHINH([FromForm] List<IFormFile> hinhanh, PCManhinh_SanPhamViewModel pCManhinh_SanPhamViewModel)
         {
-            ModelState.Remove("uploadfile");
+            ModelState.Remove("Sanpham.uploadfile");
             if (ModelState.IsValid)
             {
-                if (pCManhinh_SanPhamViewModel.SanPham.uploadfile != null)
+                if (hinhanh.Count > 0)
                 {
-                    using (var memoryStream = new MemoryStream())
+                    for (int i = 0; i < hinhanh.Count; i++)
                     {
-                        pCManhinh_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
-                        pCManhinh_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                        HinhAnhSp ha = new HinhAnhSp();
+                        if (hinhanh[i].Length > 0)
+                        {
+                            using (var memoryStream = new MemoryStream())
+                            {
+                                hinhanh[i].CopyTo(memoryStream);
+                                ha.HinhAnh = memoryStream.ToArray();
+                            }
+                        }
+                        else
+                        {
+                            string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                            ha.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                        }
+                        var hanh = _db.HinhAnhSps.ToList();
+                        ha.IdHinhanh = "HA" + (hanh.Count + 1).ToString("000");
+                        ha.IdSp = pCManhinh_SanPhamViewModel.SanPham.IdSp;
+                        _db.HinhAnhSps.Add(ha);
+                        _db.SaveChanges();
                     }
-                }
-                else
-                {
-                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
-                    pCManhinh_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
                 }
                 pCManhinh_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(pCManhinh_SanPhamViewModel.SanPham);
@@ -161,23 +203,35 @@ namespace CloudComputing.Areas.Admin.Controllers
             return View("PCMANHINH", pCManhinh_SanPhamViewModel);
         }
         [HttpPost]
-        public IActionResult ThemSP_PCMAYTINHBO(PCMaytinhbo_SanPhamViewModel pCMaytinhbo_SanPhamViewModel)
+        public IActionResult ThemSP_PCMAYTINHBO([FromForm] List<IFormFile> hinhanh, PCMaytinhbo_SanPhamViewModel pCMaytinhbo_SanPhamViewModel)
         {
-            ModelState.Remove("uploadfile");
+            ModelState.Remove("Sanpham.uploadfile");
             if (ModelState.IsValid)
             {
-                if (pCMaytinhbo_SanPhamViewModel.SanPham.uploadfile != null)
+                if (hinhanh.Count > 0)
                 {
-                    using (var memoryStream = new MemoryStream())
+                    for (int i = 0; i < hinhanh.Count; i++)
                     {
-                        pCMaytinhbo_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
-                        pCMaytinhbo_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                        HinhAnhSp ha = new HinhAnhSp();
+                        if (hinhanh[i].Length > 0)
+                        {
+                            using (var memoryStream = new MemoryStream())
+                            {
+                                hinhanh[i].CopyTo(memoryStream);
+                                ha.HinhAnh = memoryStream.ToArray();
+                            }
+                        }
+                        else
+                        {
+                            string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                            ha.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                        }
+                        var hanh = _db.HinhAnhSps.ToList();
+                        ha.IdHinhanh = "HA" + (hanh.Count + 1).ToString("000");
+                        ha.IdSp = pCMaytinhbo_SanPhamViewModel.SanPham.IdSp;
+                        _db.HinhAnhSps.Add(ha);
+                        _db.SaveChanges();
                     }
-                }
-                else
-                {
-                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
-                    pCMaytinhbo_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
                 }
                 pCMaytinhbo_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(pCMaytinhbo_SanPhamViewModel.SanPham);
@@ -199,23 +253,35 @@ namespace CloudComputing.Areas.Admin.Controllers
             return View("PCMAYTINHBO", pCMaytinhbo_SanPhamViewModel);
         }
         [HttpPost]
-        public IActionResult ThemSP_TAINGHE(Tainghe_SanPhamViewModel tainghe_SanPhamViewModel)
+        public IActionResult ThemSP_TAINGHE([FromForm] List<IFormFile> hinhanh, Tainghe_SanPhamViewModel tainghe_SanPhamViewModel)
         {
-            ModelState.Remove("uploadfile");
+            ModelState.Remove("Sanpham.uploadfile");
             if (ModelState.IsValid)
             {
-                if (tainghe_SanPhamViewModel.SanPham.uploadfile != null)
+                if (hinhanh.Count > 0)
                 {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        tainghe_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
-                        tainghe_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                    for (int i = 0; i < hinhanh.Count; i++)
+                     {
+                        HinhAnhSp ha = new HinhAnhSp();
+                        if (hinhanh[i].Length > 0)
+                        {
+                            using (var memoryStream = new MemoryStream())
+                            {
+                                hinhanh[i].CopyTo(memoryStream);
+                                ha.HinhAnh = memoryStream.ToArray();
+                            }
+                        }
+                        else
+                        {
+                            string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                            ha.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                        }
+                        var hanh = _db.HinhAnhSps.ToList();
+                        ha.IdHinhanh = "HA" + (hanh.Count + 1).ToString("000");
+                        ha.IdSp = tainghe_SanPhamViewModel.SanPham.IdSp;
+                        _db.HinhAnhSps.Add(ha);
+                        _db.SaveChanges();
                     }
-                }
-                else
-                {
-                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
-                    tainghe_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
                 }
                 tainghe_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(tainghe_SanPhamViewModel.SanPham);
@@ -237,23 +303,35 @@ namespace CloudComputing.Areas.Admin.Controllers
             return View("TAINGHE", tainghe_SanPhamViewModel);
         }
         [HttpPost]
-        public IActionResult ThemSP_LAPTOP(Laptop_SanPhamViewModel latop_SanPhamViewModel)
+        public IActionResult ThemSP_LAPTOP([FromForm] List<IFormFile> hinhanh, Laptop_SanPhamViewModel latop_SanPhamViewModel)
         {
-            ModelState.Remove("uploadfile");
+            ModelState.Remove("Sanpham.uploadfile");
             if (ModelState.IsValid)
             {
-                if (latop_SanPhamViewModel.SanPham.uploadfile != null)
+                if (hinhanh.Count > 0)
                 {
-                    using (var memoryStream = new MemoryStream())
+                    for (int i = 0; i < hinhanh.Count; i++)
                     {
-                        latop_SanPhamViewModel.SanPham.uploadfile.CopyTo(memoryStream);
-                        latop_SanPhamViewModel.SanPham.HinhAnh = memoryStream.ToArray();
+                        HinhAnhSp ha = new HinhAnhSp();
+                        if (hinhanh[i].Length > 0)
+                        {
+                            using (var memoryStream = new MemoryStream())
+                            {
+                                hinhanh[i].CopyTo(memoryStream);
+                                ha.HinhAnh = memoryStream.ToArray();
+                            }
+                        }
+                        else
+                        {
+                            string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                            ha.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                        }
+                        var hanh = _db.HinhAnhSps.ToList();
+                        ha.IdHinhanh = "HA" + (hanh.Count + 1).ToString("000");
+                        ha.IdSp = latop_SanPhamViewModel.SanPham.IdSp;
+                        _db.HinhAnhSps.Add(ha);
+                        _db.SaveChanges();
                     }
-                }
-                else
-                {
-                    string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
-                    latop_SanPhamViewModel.SanPham.HinhAnh = System.IO.File.ReadAllBytes(filepath);
                 }
                 latop_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(latop_SanPhamViewModel.SanPham);
@@ -286,7 +364,6 @@ namespace CloudComputing.Areas.Admin.Controllers
             ViewBag.danhmucID = danhmucne.Id;
             ViewBag.danhmuc = danhmuctoanbo;
             ViewBag.idsp = idsp;
-          
             switch (danhmucne.TenBang.Trim())
             {
                 case "PCMAYTINHBO": return View("PCMAYTINHBO"); 

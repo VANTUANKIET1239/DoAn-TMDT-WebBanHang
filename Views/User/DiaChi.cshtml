@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "DiaChi";
+    Layout = "~/Views/Shared/_LayoutChuaDN.cshtml";
+}
+
+<div class="container padding-large">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-row align-baseline">
+                        <div class="me-2">
+                            <img class="img-fluid" style="height:50px;width:50px;" />
+                        </div>
+                        <div>
+                            <p class="no-margin">Tài Khoản Của</p>
+                            <h5>Văn Tuấn Kiệt</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column align-baseline mt-2">
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="Details"><i class='bx bxs-user-account'></i> Thông Tin Tài Khoản</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="DonHang"> <i class='bx bx-receipt'></i> Quản Lý Đơn Hàng</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="DiaChi"><i class='bx bx-map'></i> Sổ Địa Chỉ</a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <h4 class="text-center">
+                Sổ Địa Chỉ
+            </h4>
+            <div class="row">
+                <div class="card" style="border-radius:18px;">
+                    <button type="button" id="btnthem" class="btn btn-rounded-none">
+                        <div class="themdiachi">
+
+                            <p class="no-margin" style="text-align: center;">
+                                <sup style="font-size:18px;"><i class='bx bx-plus-circle'></i></sup><br>
+                                Thêm Địa Chỉ
+                            </p>
+
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <hr />
+            <div class="row mb-3">
+                <div class="card" style="border-radius:18px;">
+                    <div class="row p-2">
+                        <div class="col-md-10 d-flex flex-column">
+                            <div class="ten">
+                                <h6>Văn Tuấn Kiệt</h6>
+                            </div>
+                            <div class="diachi">
+                                <p class="no-margin" style="font-size:13px;">61/19/1B Mã Lò, Bình Trị Đông A, Bình Tân, TP HCM</p>
+                            </div>
+                            <div class="dienthoai">
+                                <p class="no-margin" style="font-size:13px;">Điện thoại: 0906889483</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex flex-column justify-content-center">
+                            <button type="button" id="chinhsuadiachi" class="btn btn-outline-danger">Chỉnh Sửa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="card" style="border-radius:18px;">
+                    <div class="row p-2">
+                        <div class="col-md-10 d-flex flex-column">
+                            <div class="ten">
+                                <h6>Văn Tuấn Kiệt</h6>
+                            </div>
+                            <div class="diachi">
+                                <p class="no-margin" style="font-size:13px;">61/19/1B Mã Lò, Bình Trị Đông A, Bình Tân, TP HCM</p>
+                            </div>
+                            <div class="dienthoai">
+                                <p class="no-margin" style="font-size:13px;">Điện thoại: 0906889483</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex flex-column justify-content-center">
+                            <button type="button" id="chinhsuadiachi" class="btn btn-outline-danger">Chỉnh Sửa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

@@ -22,4 +22,6 @@ public partial class HoaDon
     public int Total { get; set; }
 
     public bool? State { get; set; }
+
+    public string? Ghichu { get; set; }
 }
