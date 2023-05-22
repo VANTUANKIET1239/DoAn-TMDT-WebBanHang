@@ -11,8 +11,11 @@ public partial class SanPham
     public string IdSp { get; set; } = null!;
 
     public string IdDm { get; set; } = null!;
+
     [Required]
     public string? TenSanPham { get; set; }
+    [NotMapped]
+    public byte[]? HinhAnh { get; set; }
     [Required]
     public string? ThuongHieu { get; set; }
     [Required]
@@ -25,6 +28,7 @@ public partial class SanPham
     public bool? TrangThai { get; set; }
     [Required]
     public string? MoTa { get; set; }
+
     [NotMapped]
-    public IFormFile uploadfile { get; set; }
+    public List<IFormFile> uploadfile { get; set; }
 }

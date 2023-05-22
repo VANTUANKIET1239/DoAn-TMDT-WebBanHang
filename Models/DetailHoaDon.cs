@@ -9,7 +9,7 @@ public partial class DetailHoaDon
 
     public string? IdSp { get; set; }
 
-    public string TenSp { get; set; } = null!;
+    public string? TenSp { get; set; }
 
     public byte SoLuong { get; set; }
 

@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    string? namenguoidung = HttpContextAccessor.HttpContext.Session.GetString("username");
+    string? idnguoidung = HttpContextAccessor.HttpContext.Session.GetString("id");
+    var jsondanhmuc = HttpContextAccessor.HttpContext.Session.GetString("danhmuc");
+    List<DanhMuc> dm = new List<DanhMuc>();
+    if(jsondanhmuc != null)
+    {
+        dm = JsonSerializer.Deserialize<List<DanhMuc>>(jsondanhmuc); 
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +36,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link href="~/boxicons-2.1.4/css/boxicons.css" rel="stylesheet" />
     <link href="~/boxicons-2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="~/js/modernizr.js"></script>
@@ -112,27 +124,27 @@
             <h5 class="cat-list-title">Browse Categories</h5>
 
             <ul class="cat-list">
-                <li class="cat-list-item">
-                    <a href="#" title="Mobile Phones">Mobile Phones</a>
+                @foreach (DanhMuc d in dm)
+                {
+                    <li class="cat-list-item">
+                        <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-iddm="@d.Id" title="Headphones">@d.TenDm</a>
+                    </li>
+                }
+                @*<li class="cat-list-item">
+                    <a  title="Smart Watches">Chuột</a>
                 </li>
                 <li class="cat-list-item">
-                    <a href="#" title="Smart Watches">Smart Watches</a>
+                    <a  title="Headphones">Máy Tính Bộ</a>
                 </li>
                 <li class="cat-list-item">
-                    <a href="#" title="Headphones">Headphones</a>
+                    <a  title="Accessories">Màn Hình Máy Tính</a>
                 </li>
                 <li class="cat-list-item">
-                    <a href="#" title="Accessories">Accessories</a>
+                    <a  title="Monitors">Tai Nghe</a>
                 </li>
                 <li class="cat-list-item">
-                    <a href="#" title="Monitors">Monitors</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Speakers">Speakers</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Memory Cards">Memory Cards</a>
-                </li>
+                    <a  title="Speakers">LapTop</a>
+                </li>*@
             </ul>
 
         </div>
@@ -161,43 +173,22 @@
                             <li class="nav-item">
                                 <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="nav-link me-4 active">Trang Chủ</a>
                             </li>
-                            <!-- <li class="nav-item">
-                              <a class="nav-link me-4" href="#company-services">Services</a>
-                            </li> -->
+                          
                             <li class="nav-item">
                                 <a asp-controller="SanPham" asp-action="Details" class="nav-link me-4">Sản Phẩm</a>
                             </li>
-                            <!-- <li class="nav-item">
-                              <a class="nav-link me-4" href="#smart-watches">Watches</a>
-                            </li> -->
-                            <!-- <li class="nav-item">
-                              <a class="nav-link me-4" href="#yearly-sale">Sale</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link me-4" href="#latest-blog">Blog</a>
-                            </li> -->
+                          
                             <li class="nav-item dropdown">
                                 <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Danh Mục</a>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="about.html" class="dropdown-item">Máy Tính Bộ</a>
-                                    </li>
-                                    <li>
-                                        <a href="blog.html" class="dropdown-item">LAPTOP </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html" class="dropdown-item">MÀN HÌNH MÁY TÍNH</a>
-                                    </li>
-                                    <li>
-                                        <a href="cart.html" class="dropdown-item">CHUỘT</a>
-                                    </li>
-                                    <li>
-                                        <a href="checkout.html" class="dropdown-item">BÀN PHÍM</a>
-                                    </li>
-                                    <li>
-                                        <a href="single-post.html" class="dropdown-item">TAI NGHE</a>
-                                    </li>
-
+                                    
+                                    @foreach (DanhMuc d in dm)
+                                    {
+                                       
+                                        <li>
+                                            <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-iddm="@d.Id" class="dropdown-item">@d.TenDm</a>
+                                        </li>
+                                    }
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -211,15 +202,47 @@
                                                 </svg>
                                             </a>
                                         </li>
-                                        <li class="pe-3 align-items-baseline">
-                                            <svg class="user">
-                                                <use xlink:href="#user"> </use>
-                                            </svg>
-                                            <span>
-                                                <a class=" me-4  text-decoration-none text-dark" asp-controller="User" asp-action="DangNhap" role="button" aria-expanded="false">ĐĂNG NHẬP</a>
-                                               
-                                            </span>
-                                        </li>
+                                        @if (!(namenguoidung == null))
+                                        {
+                                            <li class="pe-3">
+                                                <svg class="user">
+                                                    <use xlink:href="#user"> </use>
+                                                </svg>
+                                                <span class="dropdown">
+                                                    <a class=" me-4 dropdown-toggle text-decoration-none text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">@namenguoidung</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="about.html" class="dropdown-item">THÔNG TIN TÀI KHOẢN</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="blog.html" class="dropdown-item">QUẢN LÝ ĐƠN HÀNG </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="shop.html" class="dropdown-item">SỔ ĐỊA CHỈ</a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a asp-controller="User" asp-action="DangXuat" style="background-color:cadetblue" class="btn w-100 m-0">ĐĂNG XUẤT</a>
+                                                        </li>
+
+
+                                                    </ul>
+                                                </span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="pe-3 align-items-baseline">
+                                                <svg class="user">
+                                                    <use xlink:href="#user"> </use>
+                                                </svg>
+                                                <span>
+                                                    <a class=" me-4  text-decoration-none text-dark" asp-controller="User" asp-action="DangNhap" role="button" aria-expanded="false">ĐĂNG NHẬP</a>
+
+                                                </span>
+                                            </li>
+                                        }
+
                                         <li>
                                             <a asp-controller="GioHang" asp-action="Cart" class="text-decoration-none text-dark">
 
@@ -240,6 +263,7 @@
     </header>
     @*<div class="container">*@
     <main role="main" class="pb-3">
+        <partial name="Nofitication"/>
         @RenderBody()
     </main>
     @* </div>*@

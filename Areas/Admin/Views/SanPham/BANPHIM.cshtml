@@ -43,8 +43,8 @@
             <h5 class="card-header">Thêm Sản Phẩm Bàn Phím</h5>
             <div class="card-body">
                 <form method="post" asp-action="ThemSP_BANPHIM" enctype="multipart/form-data">
-                    <input asp-for="banPhim.Id" value="@idsanpham" type="hidden" />
-                    <input asp-for="banPhim.IdDanhmuc" value="@danhmucid" type="hidden" />
+                    <input asp-for="ChiTiet.Id" value="@idsanpham" type="hidden" />
+                    <input asp-for="ChiTiet.IdDanhmuc" value="@danhmucid" type="hidden" />
                     <input asp-for="SanPham.IdDm" value="@danhmucid" type="hidden" />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group mb-3">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label asp-for="SanPham.MoTa" class="control-label"></label>
-                        <textarea asp-for="SanPham.MoTa"  name="ghichudonhang" class="form-control"></textarea>
+                        <textarea asp-for="SanPham.MoTa"  class="form-control"></textarea>
                         <span asp-validation-for="SanPham.MoTa" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3">
@@ -96,34 +96,34 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label asp-for="banPhim.Mau" class="control-label"></label>
-                                <input asp-for="banPhim.Mau" class="form-control" />
-                                <span asp-validation-for="banPhim.Mau" class="text-danger"></span>
+                                <label asp-for="ChiTiet.Mau" class="control-label"></label>
+                                <input asp-for="ChiTiet.Mau" class="form-control" />
+                                <span asp-validation-for="ChiTiet.Mau" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label asp-for="banPhim.Den" class="control-label"></label>
-                                <input asp-for="banPhim.Den" class="form-control" />
-                                <span asp-validation-for="banPhim.Den" class="text-danger"></span>
+                                <label asp-for="ChiTiet.Den" class="control-label"></label>
+                                <input asp-for="ChiTiet.Den" class="form-control" />
+                                <span asp-validation-for="ChiTiet.Den" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="banPhim.LoaiBanPhim" class="control-label"></label>
-                        <input asp-for="banPhim.LoaiBanPhim" class="form-control" />
-                        <span asp-validation-for="banPhim.LoaiBanPhim" class="text-danger"></span>
+                        <label asp-for="ChiTiet.LoaiBanPhim" class="control-label"></label>
+                        <input asp-for="ChiTiet.LoaiBanPhim" class="form-control" />
+                        <span asp-validation-for="ChiTiet.LoaiBanPhim" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="banPhim.KichThuoc" class="control-label"></label>
-                        <input asp-for="banPhim.KichThuoc" class="form-control" />
-                        <span asp-validation-for="banPhim.KichThuoc" class="text-danger"></span>
+                        <label asp-for="ChiTiet.KichThuoc" class="control-label"></label>
+                        <input asp-for="ChiTiet.KichThuoc" class="form-control" />
+                        <span asp-validation-for="ChiTiet.KichThuoc" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label asp-for="banPhim.KetNoi" class="control-label"></label>
-                        <input asp-for="banPhim.KetNoi" class="form-control" />
-                        <span asp-validation-for="banPhim.KetNoi" class="text-danger"></span>
+                        <label asp-for="ChiTiet.KetNoi" class="control-label"></label>
+                        <input asp-for="ChiTiet.KetNoi" class="form-control" />
+                        <span asp-validation-for="ChiTiet.KetNoi" class="text-danger"></span>
                     </div>
 
 

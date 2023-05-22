@@ -1,6 +1,6 @@
 ﻿@model PCManhinh_SanPhamViewModel
 @{
-    ViewData["Title"] = "PCMANHINH";
+    ViewData["Title"] = "ChiTiet";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     List<DanhMuc> danhmuctoanbo = ViewBag.danhmuc;
     string danhmucid = ViewBag.danhmucID;
@@ -42,9 +42,9 @@
         <div class="card mb-4">
             <h5 class="card-header">Thêm Sản Phẩm Màn Hình Máy Tính</h5>
             <div class="card-body">
-                <form method="post" asp-action="ThemSP_PCMANHINH" enctype="multipart/form-data">
-                    <input asp-for="pcManHinh.Id" value="@idsanpham" type="hidden" />
-                    <input asp-for="pcManHinh.IdDanhmuc" value="@danhmucid" type="hidden" />
+                <form method="post" asp-action="ThemSP_ChiTiet" enctype="multipart/form-data">
+                    <input asp-for="ChiTiet.Id" value="@idsanpham" type="hidden" />
+                    <input asp-for="ChiTiet.IdDanhmuc" value="@danhmucid" type="hidden" />
                     <input asp-for="SanPham.IdDm" value="@danhmucid" type="hidden" />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group mb-3">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label asp-for="SanPham.MoTa" class="control-label"></label>
-                        <textarea asp-for="SanPham.MoTa" name="ghichudonhang" class="form-control"></textarea>
+                        <textarea asp-for="SanPham.MoTa"  class="form-control"></textarea>
                         <span asp-validation-for="SanPham.MoTa" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3">
@@ -96,30 +96,30 @@
 
 
                     <div class="form-group mb-3">
-                        <label asp-for="pcManHinh.KichThuoc" class="control-label"></label>
-                        <input asp-for="pcManHinh.KichThuoc" class="form-control" />
-                        <span asp-validation-for="pcManHinh.KichThuoc" class="text-danger"></span>
+                        <label asp-for="ChiTiet.KichThuoc" class="control-label"></label>
+                        <input asp-for="ChiTiet.KichThuoc" class="form-control" />
+                        <span asp-validation-for="ChiTiet.KichThuoc" class="text-danger"></span>
                     </div>
 
 
                     <div class="form-group mb-3">
-                        <label asp-for="pcManHinh.DoPhanGiai" class="control-label"></label>
-                        <input asp-for="pcManHinh.DoPhanGiai" class="form-control" />
-                        <span asp-validation-for="pcManHinh.DoPhanGiai" class="text-danger"></span>
+                        <label asp-for="ChiTiet.DoPhanGiai" class="control-label"></label>
+                        <input asp-for="ChiTiet.DoPhanGiai" class="form-control" />
+                        <span asp-validation-for="ChiTiet.DoPhanGiai" class="text-danger"></span>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label asp-for="pcManHinh.TamNen" class="control-label"></label>
-                                <input asp-for="pcManHinh.TamNen" class="form-control" />
-                                <span asp-validation-for="pcManHinh.TamNen" class="text-danger"></span>
+                                <label asp-for="ChiTiet.TamNen" class="control-label"></label>
+                                <input asp-for="ChiTiet.TamNen" class="form-control" />
+                                <span asp-validation-for="ChiTiet.TamNen" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label asp-for="pcManHinh.KieuManHinh" class="control-label"></label>
-                                <input asp-for="pcManHinh.KieuManHinh" class="form-control" />
-                                <span asp-validation-for="pcManHinh.KieuManHinh" class="text-danger"></span>
+                                <label asp-for="ChiTiet.KieuManHinh" class="control-label"></label>
+                                <input asp-for="ChiTiet.KieuManHinh" class="form-control" />
+                                <span asp-validation-for="ChiTiet.KieuManHinh" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -127,30 +127,30 @@
 
 
                     <div class="form-group mb-3">
-                        <label asp-for="pcManHinh.CongXuatHinh" class="control-label"></label>
-                        <input asp-for="pcManHinh.CongXuatHinh" class="form-control" />
-                        <span asp-validation-for="pcManHinh.CongXuatHinh" class="text-danger"></span>
+                        <label asp-for="ChiTiet.CongXuatHinh" class="control-label"></label>
+                        <input asp-for="ChiTiet.CongXuatHinh" class="form-control" />
+                        <span asp-validation-for="ChiTiet.CongXuatHinh" class="text-danger"></span>
                     </div>
                     <div class="row">
                         <div class="col-5">
                             <div class="form-group mb-3">
-                                <label asp-for="pcManHinh.TanSoQuet" class="control-label"></label>
-                                <input asp-for="pcManHinh.TanSoQuet" class="form-control" />
-                                <span asp-validation-for="pcManHinh.TanSoQuet" class="text-danger"></span>
+                                <label asp-for="ChiTiet.TanSoQuet" class="control-label"></label>
+                                <input asp-for="ChiTiet.TanSoQuet" class="form-control" />
+                                <span asp-validation-for="ChiTiet.TanSoQuet" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-7">
                             <div class="form-group mb-3">
-                                <label asp-for="pcManHinh.GocNhin" class="control-label"></label>
-                                <input asp-for="pcManHinh.GocNhin" class="form-control" />
-                                <span asp-validation-for="pcManHinh.GocNhin" class="text-danger"></span>
+                                <label asp-for="ChiTiet.GocNhin" class="control-label"></label>
+                                <input asp-for="ChiTiet.GocNhin" class="form-control" />
+                                <span asp-validation-for="ChiTiet.GocNhin" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="pcManHinh.BeMat" class="control-label"></label>
-                        <input asp-for="pcManHinh.BeMat" class="form-control" />
-                        <span asp-validation-for="pcManHinh.BeMat" class="text-danger"></span>
+                        <label asp-for="ChiTiet.BeMat" class="control-label"></label>
+                        <input asp-for="ChiTiet.BeMat" class="form-control" />
+                        <span asp-validation-for="ChiTiet.BeMat" class="text-danger"></span>
                     </div>
                    
                     <div class="form-group text-end">

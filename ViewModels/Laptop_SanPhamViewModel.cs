@@ -4,7 +4,7 @@ namespace CloudComputing.ViewModels
 {
     public class Laptop_SanPhamViewModel
     {
-        public Laptop laptop { get; set; }
+        public Laptop ChiTiet { get; set; }
         public SanPham SanPham { get; set; }
     }
 }

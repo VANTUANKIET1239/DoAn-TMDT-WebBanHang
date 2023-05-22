@@ -1,4 +1,4 @@
-﻿
+﻿@model NguoiDung
 @{
     ViewData["Title"] = "DangKy";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,31 +10,42 @@
             <h3>Đăng Ký</h3>
         </div>
         <div class="card-body">
-            <form asp-controller="DiaChi" asp-action="ThemDiaChi">
+            <form method="post" asp-controller="User" asp-action="DangKy">
+                <input  type="hidden" asp-for="Id" value="@ViewBag.ID"/>
                 <div class="form-group mb-3">
-                    <label class="control-label">Email</label>
-                    <input class="form-control" placeholder="Vui lòng nhập email" />
-                </div>
-               
-                 <div class="form-group mb-3">
-                    <label class="control-label">Số Điện Thoại</label>
-                    <input class="form-control" placeholder="Vui lòng nhập SDT" />
+                    <label asp-for="Email" class="control-label">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="Vui lòng nhập email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
-                    <label class="control-label">Địa Chỉ</label>
-                    <input class="form-control" placeholder="Vui lòng nhập Địa Chỉ" />
+                    <label asp-for="Ten" class="control-label"></label>
+                    <input asp-for="Ten" class="form-control" placeholder="Vui lòng nhập SDT" />
+                    <span asp-validation-for="Ten" class="text-danger"></span>
                 </div>
                  <div class="form-group mb-3">
-                    <label class="control-label">Ngày Sinh</label>
-                    <input type="date" class="form-control"  />
+                    <label asp-for="Sdt" class="control-label"></label>
+                    <input asp-for="Sdt" class="form-control" placeholder="Vui lòng nhập SDT" />
+                    <span asp-validation-for="Sdt" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
-                   <label class="control-label">Mật Khẩu</label>
-                    <input type="password" class="form-control" placeholder="Vui lòng nhập mật khẩu" />
+                    <label asp-for="DiaChi" class="control-label"></label>
+                    <input asp-for="DiaChi" class="form-control" placeholder="Vui lòng nhập Địa Chỉ" />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+                 <div class="form-group mb-3">
+                    <label asp-for="NgaySinh" class="control-label"></label>
+                    <input asp-for="NgaySinh" type="date" class="form-control" />
+                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
-                   <label class="control-label">Xác Nhận Mật Khẩu</label>
-                    <input type="password" class="form-control" placeholder="Vui lòng xác nhận lại mật khẩu" />
+                    <label asp-for="PassWord" class="control-label"></label>
+                    <input asp-for="PassWord" type="password" class="form-control" placeholder="Vui lòng nhập mật khẩu" />
+                    <span asp-validation-for="PassWord" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                   <label asp-for="PassWordXN" class="control-label"></label>
+                    <input asp-for="PassWordXN" type="password" class="form-control" placeholder="Vui lòng xác nhận lại mật khẩu" />
+                    <span asp-validation-for="PassWordXN" class="text-danger"></span>
                 </div>
                 <div class="row d-flex justify-content-end">
                     <div class="col-md-6 text-end">

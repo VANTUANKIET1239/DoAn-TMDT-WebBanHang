@@ -123,17 +123,18 @@ public partial class DbbhContext : DbContext
 
         modelBuilder.Entity<DetailCart>(entity =>
         {
-            entity.HasKey(e => new { e.IdUser, e.IdSp }).HasName("PK_Detail_cart");
+            entity.HasKey(e => new { e.IdSp, e.IdUser });
 
             entity.ToTable("Detail_Cart");
 
-            entity.Property(e => e.IdUser)
-                .HasMaxLength(10)
-                .HasColumnName("ID_User");
             entity.Property(e => e.IdSp)
-                .HasMaxLength(10)
+                .HasMaxLength(5)
                 .IsFixedLength()
                 .HasColumnName("ID_SP");
+            entity.Property(e => e.IdUser)
+                .HasMaxLength(5)
+                .IsFixedLength()
+                .HasColumnName("ID_User");
             entity.Property(e => e.SoLuong).HasColumnName("So_luong");
         });
 
@@ -154,7 +155,7 @@ public partial class DbbhContext : DbContext
                 .HasColumnName("ID_SP");
             entity.Property(e => e.SoLuong).HasColumnName("So_luong");
             entity.Property(e => e.TenSp)
-                .HasMaxLength(50)
+                .HasMaxLength(150)
                 .HasColumnName("Ten_SP");
         });
 
@@ -172,7 +173,7 @@ public partial class DbbhContext : DbContext
                 .HasMaxLength(60)
                 .HasColumnName("Dia_Chi_Cu_The");
             entity.Property(e => e.Email)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsFixedLength();
             entity.Property(e => e.HoTen).HasMaxLength(50);
             entity.Property(e => e.IdNguoiDung)
@@ -292,7 +293,7 @@ public partial class DbbhContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("Dia_chi");
             entity.Property(e => e.Email)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsFixedLength();
             entity.Property(e => e.NgaySinh).HasColumnType("datetime");
             entity.Property(e => e.PassWord)
@@ -386,7 +387,7 @@ public partial class DbbhContext : DbContext
             entity.ToTable("San_pham");
 
             entity.Property(e => e.IdSp)
-                .HasMaxLength(10)
+                .HasMaxLength(5)
                 .IsFixedLength()
                 .HasColumnName("ID_SP");
             entity.Property(e => e.BaoHanh)
@@ -394,7 +395,7 @@ public partial class DbbhContext : DbContext
                 .HasColumnName("BAO_HANH");
             entity.Property(e => e.Gia).HasColumnName("GIA");
             entity.Property(e => e.IdDm)
-                .HasMaxLength(10)
+                .HasMaxLength(5)
                 .IsFixedLength()
                 .HasColumnName("ID_DM");
             entity.Property(e => e.KhoiLuong)

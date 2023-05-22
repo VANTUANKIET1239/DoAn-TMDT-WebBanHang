@@ -4,7 +4,7 @@ namespace CloudComputing.ViewModels
 {
     public class Tainghe_SanPhamViewModel
     {
-        public TaiNghe taiNghe { get; set; }
+        public TaiNghe ChiTiet { get; set; }
         public SanPham SanPham { get; set; }
     }
 }

@@ -14,6 +14,7 @@ public partial class PcMayTinhBo
     [Required]
     public string? Ram { get; set; }
     [Required]
+
     public string? LuuTru { get; set; }
     [Required]
     public string? HeDieuHanh { get; set; }

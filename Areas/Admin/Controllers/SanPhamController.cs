@@ -83,7 +83,7 @@ namespace CloudComputing.Areas.Admin.Controllers
                 chuot_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(chuot_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
-                _db.ChuotMayTinhs.Add(chuot_SanPhamViewModel.chuotMayTinh);
+                _db.ChuotMayTinhs.Add(chuot_SanPhamViewModel.ChiTiet);
                 _db.SaveChanges();
                 TempData["success"] = "Thêm sản phẩm thành công!";
                 return RedirectToAction("Index");
@@ -136,7 +136,7 @@ namespace CloudComputing.Areas.Admin.Controllers
                 banphim_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(banphim_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
-                _db.BanPhims.Add(banphim_SanPhamViewModel.banPhim);
+                _db.BanPhims.Add(banphim_SanPhamViewModel.ChiTiet);
                 _db.SaveChanges();
                 TempData["success"] = "Thêm sản phẩm thành công!";
                 return RedirectToAction("Index");
@@ -186,7 +186,7 @@ namespace CloudComputing.Areas.Admin.Controllers
                 pCManhinh_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(pCManhinh_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
-                _db.PcManHinhs.Add(pCManhinh_SanPhamViewModel.pcManHinh);
+                _db.PcManHinhs.Add(pCManhinh_SanPhamViewModel.ChiTiet);
                 _db.SaveChanges();
                 TempData["success"] = "Thêm sản phẩm thành công!";
                 return RedirectToAction("Index");
@@ -236,7 +236,7 @@ namespace CloudComputing.Areas.Admin.Controllers
                 pCMaytinhbo_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(pCMaytinhbo_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
-                _db.PcMayTinhBos.Add(pCMaytinhbo_SanPhamViewModel.pcMayTinhBo);
+                _db.PcMayTinhBos.Add(pCMaytinhbo_SanPhamViewModel.ChiTiet);
                 _db.SaveChanges();
                 TempData["success"] = "Thêm sản phẩm thành công!";
                 return RedirectToAction("Index");
@@ -286,7 +286,7 @@ namespace CloudComputing.Areas.Admin.Controllers
                 tainghe_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(tainghe_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
-                _db.TaiNghes.Add(tainghe_SanPhamViewModel.taiNghe);
+                _db.TaiNghes.Add(tainghe_SanPhamViewModel.ChiTiet);
                 _db.SaveChanges();
                 TempData["success"] = "Thêm sản phẩm thành công!";
                 return RedirectToAction("Index");
@@ -336,7 +336,7 @@ namespace CloudComputing.Areas.Admin.Controllers
                 latop_SanPhamViewModel.SanPham.TrangThai = true;
                 _db.SanPhams.Add(latop_SanPhamViewModel.SanPham);
                 _db.SaveChanges();
-                _db.Laptops.Add(latop_SanPhamViewModel.laptop);
+                _db.Laptops.Add(latop_SanPhamViewModel.ChiTiet);
                 _db.SaveChanges();
                 TempData["success"] = "Thêm sản phẩm thành công!";
                 return RedirectToAction("Index");
@@ -359,7 +359,7 @@ namespace CloudComputing.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");             
+            string idsp = "SP" + (_db.SanPhams.Count() + 1).ToString("000");             
             var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(danhmuc.Trim()));
             ViewBag.danhmucID = danhmucne.Id;
             ViewBag.danhmuc = danhmuctoanbo;

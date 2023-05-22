@@ -1,5 +1,8 @@
-﻿@{
+﻿@model ToanBoSP_DanhMuc
+@{
+  
     ViewData["Title"] = "Trang chủ";
+    
 }
 
 
@@ -68,526 +71,209 @@
             <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
                     <!-- -- 1 san pham -->
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item1.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    @foreach(SanPham sp in Model.banphim)
+                    {
+                        <div class="swiper-slide">
+                            <div class="product-card position-relative">
+                                <div style="height:270px; width:270px;" class="image-holder">
+                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                </div>
+                                <div class="cart-concern position-absolute">
+                                    <div class="cart-button d-flex">
+                                        <a class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                    </div>
+                                </div>
+                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
+                                    <h6 class="card-title text-uppercase">
+                                        @sp.ThuongHieu
+                                    </h6>
+                                    <h5 class="card-title text-uppercase">
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark" >@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                    </h5>
+                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>  
                                 </div>
                             </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Iphone 10</a>
-                                </h3>
-                                <span class="item-price  text-dark">$980</span>
-                            </div>
                         </div>
-                    </div>
+                    }
                     <!-- --/1 san pham -->
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item2.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Iphone 11</a>
-                                </h3>
-                                <span class="item-price  text-dark">$1100</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item3.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Iphone 8</a>
-                                </h3>
-                                <span class="item-price  text-dark">$780</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item4.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Iphone 13</a>
-                                </h3>
-                                <span class="item-price  text-dark">$1500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item5.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Iphone 12</a>
-                                </h3>
-                                <span class="item-price  text-dark">$1300</span>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
             </div>
         </div>
     </div>
     <div class="swiper-pagination position-absolute text-center"></div>
 </section>
-<section id="smart-watches" class="product-store padding-medium position-relative">
+<section id="mobile-products" class="product-store position-relative padding-medium">
     <div class="container">
         <div class="row">
             <div class="display-header d-flex justify-content-between pb-3">
-                <h2 class="display-7 text-dark text-uppercase">CHUỘT MÁY TÍNH</h2>
+                <h2 class="display-7 text-dark text-uppercase">CHUỘT</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">XEM TẤT CẢ</a>
+                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
-            <div class="swiper product-watch-swiper">
+            <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item6.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    <!-- -- 1 san pham -->
+                    @foreach (SanPham sp in Model.chuot)
+                    {
+                        <div class="swiper-slide">
+                            <div class="product-card position-relative">
+                                <div style="height:270px; width:270px;" class="image-holder">
+                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                </div>
+                                <div class="cart-concern position-absolute">
+                                    <div class="cart-button d-flex">
+                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                    </div>
+                                </div>
+                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
+                                    <h6 class="card-title text-uppercase">
+                                        @sp.ThuongHieu
+                                    </h6>
+                                    <h5 class="card-title text-uppercase">
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                    </h5>
+                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
                             </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Pink watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$870</span>
-                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item7.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Heavy watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$680</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item8.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">spotted watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item9.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$650</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-      <div class="swiper-pagination position-absolute text-center"></div>
+                    }
+                    <!-- --/1 san pham -->
 
-</section>
-<section id="smart-watches" class="product-store padding-medium position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="display-header d-flex justify-content-between pb-3">
-                <h2 class="display-7 text-dark text-uppercase">LAPTOP</h2>
-                <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">XEM TẤT CẢ</a>
-                </div>
-            </div>
-            <div class="swiper product-watch-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item6.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Pink watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$870</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item7.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Heavy watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$680</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item8.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">spotted watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item9.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$650</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="swiper-pagination position-absolute text-center"></div>
 </section>
-<section id="smart-watches" class="product-store padding-medium position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="display-header d-flex justify-content-between pb-3">
-                <h2 class="display-7 text-dark text-uppercase">MÁY TÍNH BỘ</h2>
-                <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">XEM TẤT CẢ</a>
-                </div>
-            </div>
-            <div class="swiper product-watch-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item6.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Pink watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$870</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item7.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Heavy watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$680</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item8.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">spotted watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item9.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a  href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$650</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="swiper-pagination position-absolute text-center"></div>
-</section>
-<section id="smart-watches" class="product-store padding-medium position-relative">
+<section id="mobile-products" class="product-store position-relative padding-medium">
     <div class="container">
         <div class="row">
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">TAI NGHE</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">XEM TẤT CẢ</a>
+                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
-            <div class="swiper product-watch-swiper">
+            <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item6.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    <!-- -- 1 san pham -->
+                    @foreach (SanPham sp in Model.tainghe)
+                    {
+                        <div class="swiper-slide">
+                            <div class="product-card position-relative">
+                                <div style="height:270px; width:270px;" class="image-holder">
+                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                </div>
+                                <div class="cart-concern position-absolute">
+                                    <div class="cart-button d-flex">
+                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                    </div>
+                                </div>
+                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
+                                    <h6 class="card-title text-uppercase">
+                                        @sp.ThuongHieu
+                                    </h6>
+                                    <h5 class="card-title text-uppercase">
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark" >@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                    </h5>
+                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
                             </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Pink watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$870</span>
-                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item7.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    }
+                    <!-- --/1 san pham -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-pagination position-absolute text-center"></div>
+</section>
+<section id="mobile-products" class="product-store position-relative padding-medium">
+    <div class="container">
+        <div class="row">
+            <div class="display-header d-flex justify-content-between pb-3">
+                <h2 class="display-7 text-dark text-uppercase">PC MÁY TÍNH BỘ</h2>
+                <div class="btn-right">
+                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                </div>
+            </div>
+            <div class="swiper product-swiper">
+                <div class="swiper-wrapper">
+                    <!-- -- 1 san pham -->
+                    @foreach (SanPham sp in Model.pc)
+                    {
+                        <div class="swiper-slide">
+                            <div class="product-card position-relative">
+                                <div style="height:270px; width:270px;" class="image-holder">
+                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                </div>
+                                <div class="cart-concern position-absolute">
+                                    <div class="cart-button d-flex">
+                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                    </div>
+                                </div>
+                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
+                                    <h6 class="card-title text-uppercase">
+                                        @sp.ThuongHieu
+                                    </h6>
+                                    <h5 class="card-title text-uppercase">
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                    </h5>
+                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
                             </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Heavy watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$680</span>
-                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item8.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    }
+                    <!-- --/1 san pham -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-pagination position-absolute text-center"></div>
+</section>
+<section id="mobile-products" class="product-store position-relative padding-medium">
+    <div class="container">
+        <div class="row">
+            <div class="display-header d-flex justify-content-between pb-3">
+                <h2 class="display-7 text-dark text-uppercase">LAPTOP</h2>
+                <div class="btn-right">
+                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                </div>
+            </div>
+            <div class="swiper product-swiper">
+                <div class="swiper-wrapper">
+                    <!-- -- 1 san pham -->
+                    @foreach (SanPham sp in Model.laptop)
+                    {
+                        
+                        <div class="swiper-slide">
+                            <div class="product-card position-relative">
+                                <div style="height:270px; width:270px;" class="image-holder">
+                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                </div>
+                                <div class="cart-concern position-absolute">
+                                    <div class="cart-button d-flex">
+                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                    </div>
+                                </div>
+                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
+                                    <h6 class="card-title text-uppercase">
+                                        @sp.ThuongHieu
+                                    </h6>
+                                    <h5 class="card-title text-uppercase">
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                    </h5>
+                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
                             </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">spotted watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item9.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$650</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
+                    }
+                    <!-- --/1 san pham -->
+
                 </div>
             </div>
         </div>
@@ -609,113 +295,50 @@
         </div>
     </div>
 </section>
-
-<section id="smart-watches" class="product-store padding-large position-relative">
+<section id="mobile-products" class="product-store position-relative padding-medium">
     <div class="container">
         <div class="row">
             <div class="display-header d-flex justify-content-between pb-3">
-                <h2 class="display-7 text-dark text-uppercase">MÀN HÌNH MÁY TÍNH</h2>
+                <h2 class="display-7 text-dark text-uppercase">MÀN HÌNH</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">XEM TẤT CẢ</a>
+                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
-            <div class="swiper product-watch-swiper">
+            <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item6.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    <!-- -- 1 san pham -->
+                    @foreach (SanPham sp in Model.manhinh)
+                    {
+                        <div class="swiper-slide">
+                            <div class="product-card position-relative d-flex flex-column">
+                                <div style="height:270px; width:270px;" class="image-holder">
+                                    <img  src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                </div>
+                                <div class="cart-concern position-absolute">
+                                    <div class="cart-button d-flex">
+                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                    </div>
+                                </div>
+                                <div class="card-detail d-flex flex-column justify-content-end align-items-baseline">
+                                    <h6 class="card-title text-uppercase">
+                                        @sp.ThuongHieu
+                                    </h6>
+                                    <h5 class="card-title text-uppercase">
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark" >@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                    </h5>
+                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
                             </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Pink watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$870</span>
-                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item7.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">Heavy watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$680</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item8.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">spotted watch</a>
-                                </h3>
-                                <span class="item-price  text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item9.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price text-dark">$650</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card position-relative">
-                            <div class="image-holder">
-                                <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
-                            </div>
-                            <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                </div>
-                            </div>
-                            <div class="card-detail d-flex justify-content-between pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a class="text-decoration-none text-dark" href="#">black watch</a>
-                                </h3>
-                                <span class="item-price text-dark">$750</span>
-                            </div>
-                        </div>
-                    </div>
+                    }
+                    <!-- --/1 san pham -->
+
                 </div>
             </div>
         </div>
     </div>
     <div class="swiper-pagination position-absolute text-center"></div>
 </section>
+
 
 
