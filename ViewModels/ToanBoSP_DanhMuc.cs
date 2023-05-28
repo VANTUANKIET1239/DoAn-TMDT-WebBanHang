@@ -11,6 +11,6 @@ namespace CloudComputing.ViewModels
         public List<SanPham> manhinh { get; set; }
         public List<SanPham> laptop { get; set; }
 
-
+       
     }
 }

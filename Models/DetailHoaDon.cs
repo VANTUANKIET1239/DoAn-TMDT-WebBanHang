@@ -7,7 +7,7 @@ public partial class DetailHoaDon
 {
     public string IdHoaDon { get; set; } = null!;
 
-    public string? IdSp { get; set; }
+    public string IdSp { get; set; } = null!;
 
     public string? TenSp { get; set; }
 

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    List<DanhMuc>? dm = ViewData["dm"] as List<DanhMuc>;
+    List<DanhMuc>? dm = ViewData["dm"] as List<DanhMuc> ?? new List<DanhMuc>();
     string? id = ViewData["iddmht"] as string;
     
 }

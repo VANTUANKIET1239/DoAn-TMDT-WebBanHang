@@ -1,4 +1,4 @@
-﻿
+﻿@model List<SanPham>
 
 @{
     ViewData["Title"] = "ToanBoSP";
@@ -6,112 +6,133 @@
 }
 
 <div class="container padding-large">
-    <div class="row bg-light-blue">
-        <div class="card pt-3">
-            <form method="get" asp-action="ThemChonTrangThemSP">
-                <div style="float:left" class="form-group mb-3 w-25">
-                    <select name="danhmuc" class="form-select" aria-label="Default select example">
+    <form method="get" asp-action="ToanBoSP">
+        <div class="row bg-light-blue d-flex ">
+
+
+
+            <div class="col-12 m-1">
+
+                <div class="form-group mb-3">
+
+                    <label class="form-label"><h5>Thương Hiệu</h5></label>
+                    <select name="ThuongHieu" class="form-select" id="selectTH" aria-label="Default select example" onchange="this.form.submit()">
+
+                        <option value="" disabled selected>Chọn thương hiệu</option>
+                       
+                        @foreach (var th in ViewBag.TH)
+                        {
+                            @if (ViewBag.thuonghieu != null)
+                            {
+                                @if (ViewBag.thuonghieu.Trim() == th.Trim())
+                                {
+                                    <option value="@th" selected>@th</option>
+                                }
+                                else
+                                {
+                                    <option value="@th">@th</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="@th">@th</option>
+                            }
+                        }
                     </select>
-                </div>
-                <input style="margin-left:20px" class="btn btn-primary" type="submit" value="Xác Nhận" />
-            </form>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-4 col-5">
-            <div class="card position-relative mb-4 m-3">
-                <div class="image-holder">
-                    <img  src="~/images/SALE.png" alt="product-item" class="img-fluid">
-                </div>
 
-                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                    <h6 class="card-title text-uppercase">
-                        ACER
-                    </h6>   
-                    <h5 class="card-title text-uppercase">
-                        <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@("Laptop ACER Nitro 16 Phoenix AN16-41-R5M4 (NH.QKBSV.003) (Ryzen 5 7535HS/RAM 8GB/512GB SSD/ Windows 11".Substring(0,50)+ "...")</a>
-                    </h5>                 
-                    <h4 style="font-size:15px;color:cadetblue" class="item-price">10.000.000đ</h4>
                 </div>
+                <h5>Sắp Xếp Theo</h5>
+                <div class=" mb-3">
 
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-4 col-5">
-            <div class="card position-relative mb-4 m-3">
-                <div class="image-holder">
-                    <img src="~/images/SALE.png" alt="product-item" class="img-fluid">
-                </div>
+                    <select name="filter" class="form-select" id="selectTH" aria-label="Default select example" onchange="this.form.submit()">
 
-                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                    <h6 class="card-title text-uppercase">
-                        ACER
-                    </h6>
-                    <h5 class="card-title text-uppercase">
-                        <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@("Laptop ACER Nitro 16 Phoenix AN16-41-R5M4 (NH.QKBSV.003) (Ryzen 5 7535HS/RAM 8GB/512GB SSD/ Windows 11".Substring(0, 50) + "...")</a>
-                    </h5>
-                    <h4 style="font-size:15px;color:cadetblue" class="item-price">10.000.000đ</h4>
+                        <option value="" disabled selected>Chọn thứ tự giá</option>
+                       
+                        @if (ViewBag.thutugia != null)
+                        {
+                            @if (ViewBag.thutugia.Trim() == "tangdan")
+                            {
+                                <option value="tangdan" selected>Gía Tăng Dần</option>
+                                <option value="giamdan">Gía giảm dần</option>
+                            }
+                            else
+                            {
+                                <option value="giamdan" selected>Gía giảm dần</option>
+                                <option value="tangdan">Gía Tăng Dần</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="tangdan">Gía Tăng Dần</option>
+                            <option value="giamdan">Gía giảm dần</option>
+                        }
+
+                    </select>
+
+
                 </div>
 
             </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-4 col-5">
-            <div class="card position-relative mb-4 m-3">
-                <div class="image-holder">
-                    <img src="~/images/SALE.png" alt="product-item" class="img-fluid">
-                </div>
 
-                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                    <h6 class="card-title text-uppercase">
-                        ACER
-                    </h6>
-                    <h5 class="card-title text-uppercase">
-                        <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@("Laptop ACER Nitro 16 Phoenix AN16-41-R5M4 (NH.QKBSV.003) (Ryzen 5 7535HS/RAM 8GB/512GB SSD/ Windows 11".Substring(0, 50) + "...")</a>
-                    </h5>
-                    <h4 style="font-size:15px;color:cadetblue" class="item-price">10.000.000đ</h4>
-                </div>
+            @*<input style="margin-left:20px" class="btn btn-primary" type="submit" value="Xác Nhận" />*@
 
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-4 col-5">
-            <div class="card position-relative mb-4  m-3">
-                <div class="image-holder">
-                    <img src="~/images/SALE.png" alt="product-item" class="img-fluid">
-                </div>
 
-                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                    <h6 class="card-title text-uppercase">
-                        ACER
-                    </h6>
-                    <h5 class="card-title text-uppercase">
-                        <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@("Laptop ACER Nitro 16 Phoenix AN16-41-R5M4 (NH.QKBSV.003) (Ryzen 5 7535HS/RAM 8GB/512GB SSD/ Windows 11".Substring(0, 50) + "...")</a>
-                    </h5>
-                    <h4 style="font-size:15px;color:cadetblue" class="item-price">10.000.000đ</h4>
-                </div>
 
-            </div>
-        </div>
-       
-       
-    </div>
 
-    <div class="col-lg-3 col-md-3 col-sm-4 col-5">
-        <div class="card position-relative mb-4 m-3">
-            <div class="image-holder">
-                <img src="~/images/SALE.png" alt="product-item" class="img-fluid">
-            </div>
-
-            <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                <h6 class="card-title text-uppercase">
-                    ACER
-                </h6>
-                <h5 class="card-title text-uppercase">
-                    <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@("Laptop ACER Nitro 16 Phoenix AN16-41-R5M4 (NH.QKBSV.003) (Ryzen 5 7535HS/RAM 8GB/512GB SSD/ Windows 11".Substring(0, 50) + "...")</a>
-                </h5>
-                <h4 style="font-size:15px;color:cadetblue" class="item-price">10.000.000đ</h4>
-            </div>
 
         </div>
-    </div>
-   
+
+        <div class="row">
+            @foreach (SanPham a in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-5 col-6">
+                    <div class="card position-relative mb-4 m-3">
+                        <a asp-controller="SanPham" asp-action="Details" asp-route-id="@a.IdSp" class="text-decoration-none">
+                            <div style="height:238px; width:238px;" class="image-holder">
+                                <img src="data:image /png;base64,@(Convert.ToBase64String(a.HinhAnh))" alt="product-item" class="img-fluid">
+                            </div>
+
+                            <div class="card-detail d-flex flex-column justify-content-between align-items-baseline m-1">
+                                <h6 class="thuonghieu card-title text-uppercase">
+                                    @a.ThuongHieu
+                                </h6>
+                                <h5 class="card-title text-uppercase">
+                                    <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@(a.TenSanPham.Substring(0, a.TenSanPham.Length < 50 ? a.TenSanPham.Length : 50) + "...")</a>
+                                </h5>
+                                <h4 style="font-size:15px;color:cadetblue" class="item-price">@(a.Gia?.ToString("#,##0") + "đ")</h4>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="d-flex flex-row justify-content-center ">
+            <ul class="pagination">
+
+                <li class="page-item prev">
+                    <a class="page-link" style="@(ViewBag.ViewModel.PageIndex != 1  ? "" : "pointer-events: none;")color:black;" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@(ViewBag.ViewModel.PageIndex - 1)"><i class="tf-icon bx bx-chevron-left"></i></a>
+                </li>
+                @for (var i = 1; i <= ViewBag.ViewModel.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.ViewModel.PageIndex ? "active" : "") text-black">
+                        <a class="page-link" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@i">@i</a>
+                    </li>
+                }
+
+                <li class="page-item next">
+                    <a style="@(ViewBag.ViewModel.PageIndex != ViewBag.ViewModel.TotalPages ? "" : "pointer-events: none;")color:black;" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@(ViewBag.ViewModel.PageIndex + 1)" class="page-link"><i class="tf-icon bx bx-chevron-right"></i></a>
+                </li>
+
+            </ul>
+
+
+        </div>
+    </form>
 </div>
+
+<script>
+
+
+</script>

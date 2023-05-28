@@ -6,5 +6,7 @@ namespace CloudComputing.ViewModels
     {
         public PcManHinh ChiTiet { get; set; }
         public SanPham SanPham { get; set; }
+
+
     }
 }

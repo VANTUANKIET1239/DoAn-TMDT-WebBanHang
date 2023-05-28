@@ -1,7 +1,8 @@
-﻿
+﻿@model List<SP_GioHangViewModel>
 @{
     ViewData["Title"] = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <div class="row d-flex flex-column text-center padding-large no-padding-bottom bg-light-blue">
@@ -9,8 +10,12 @@
 </div>
 <div class="container ps-5 pe-5">
 
-
-    <div class="row title padding-medium no-padding-bottom">
+    <div class="row d-flex justify-content-end p-2">
+        <div class="col-4 d-flex justify-content-end">
+            <a asp-controller="GioHang" asp-action="XoaAllCart" class="btn btn-danger">Xóa Toàn Bộ</a>
+        </div>
+    </div>
+    <div class="row title  no-padding-bottom">
         <div class="col-md-1">
             <h5 class="text-black"></h5>
         </div>
@@ -28,249 +33,108 @@
         </div>
     </div>
     <hr />
-    <form method="get" asp-controller="GioHang" asp-action="ThanhToan">
-        <div class="thanhtoan">
-            <div class="cartview">
 
+    <div class="thanhtoan">
+        <div class="cartview">
+            
+            @foreach (SP_GioHangViewModel gio in Model)
+            {
+               
                 <div class="row title">
-
+                   
                     <div class="col-md-1 d-flex justify-content-center">
-                        <input style="accent-color:black;width:20px;" type="checkbox" />
+                        <form method="get" asp-controller="GioHang" asp-action="Cart">
+                            <input  type="hidden" name="idsanpham" value="@gio.sanPham.IdSp"/>
+                            <input name="soluongmua" type="hidden"  value="@gio.soluong" >
+                            <input type="checkbox" name="checkmua" style="accent-color:black;width:20px;" value="@((!gio.check).ToString())" checked="@(gio.check)" onchange="this.form.submit()" />
+                            <input type="hidden" name="checkmua" value="false" />
+                        </form>
                     </div>
+                     
                     <div class="col-md-5">
 
                         <div style="float:left" class="me-2">
-                            <img style="width:100px;height:100px;" class="img-fluid bg-light-blue" src="~/images/hehe.png" />
+                            <img style="width:100px;height:100px;" class="img-fluid bg-light-blue" src="data:image /png;base64,@(Convert.ToBase64String(@gio.sanPham.HinhAnh))" />
                         </div>
                         <div>
-                            <h4 class="text-black">Laptop Asus</h4>
-                            <p style="font-size:18px;"><span>Logitech</span></p>
+                            <h6 class="text-black">@gio.sanPham.TenSanPham</h6>
+                            <p style="font-size:15px;"><span>@gio.sanPham.ThuongHieu</span></p>
                         </div>
-
-
                     </div>
                     <div class="col-md-2 align-items-center d-flex flex-row">
-
+                        <form method="get" asp-controller="GioHang" asp-action="Cart">
+                            
                         <div class="input-group mb-3">
-
+                            <input type="hidden" name="idsanpham" value="@gio.sanPham.IdSp" />
                             <button class="tru btn btn-outline-secondary" type="button">-</button>
-                            <input name="" type="number" class="soluong form-control text-center" value="1" readonly>
+                            <input name="soluongmua" type="number" class="soluong form-control text-center" value="@gio.soluong" readonly>
                             <button class="cong btn btn-outline-secondary" type="button">+</button>
-                                
+                            
                         </div>
 
+                        </form>
                     </div>
                     <div class="col-md-3 text-center align-items-center d-flex justify-content-sm-center">
-                        <p><span style="font-size:24px;color:cadetblue"><strong>30000</strong></span></p>
+                        <p><span style="font-size:18px;color:cadetblue">@((gio.sanPham.Gia * gio.soluong)?.ToString("#,##0") + "đ")</span></p>
                     </div>
 
                     <div class="col-md-1 align-items-center d-flex flex-row">
-
-                        <button class="btn btn-light  border-none justify-content-center" type="submit" id="xoa">X</button>
-
+                        <a class="btn btn-light border-none justify-content-center" asp-asp-controller="GioHang" asp-action="XoaCart" asp-route-idsanpham="@gio.sanPham.IdSp" id="xoa">X</a>
                     </div>
-
                 </div>
                 <hr />
-                <div class="row title">
+               
+            }
+           
+           
+        </div>
 
-                    <div class="col-md-1 d-flex justify-content-center">
-                        <input style="accent-color:black;width:20px;" type="checkbox" />
+        <div class="row d-flex justify-content-end padding-small">
+            <div class="col-md-6">
+
+                <div class="shadow-none p-3 mb-5 bg-light rounded">
+                    <div class="d-flex justify-content-center">
+                        <h3>Thanh Toán</h3>
                     </div>
-                    <div class="col-md-5">
-
-                        <div style="float:left" class="me-2">
-                            <img style="width:100px;height:100px;" class="img-fluid bg-light-blue" src="~/images/hehe.png" />
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Tổng Tiền</h5>
                         </div>
-                        <div>
-                            <h4 class="text-black">Laptop Asus</h4>
-                            <p style="font-size:18px;"><span>Logitech</span></p>
+                        <div class="col-md-4">
+                            <p id="tongtien"><span style="font-size:24px;color:cadetblue"><strong>@((ViewBag.TongTien)?.ToString("#,##0") + "đ")</strong></span></p>
                         </div>
-
-
                     </div>
-                    <div class="col-md-2 align-items-center d-flex flex-row">
-
-                        <div class="input-group mb-3">
-
-                            <button class="tru btn btn-outline-secondary" type="button">-</button>
-                            <input type="number" class="soluong form-control text-center" value="1" readonly>
-                            <button class="cong btn btn-outline-secondary" type="button">+</button>
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3 text-center align-items-center d-flex justify-content-sm-center">
-                        <p><span style="font-size:24px;color:cadetblue"><strong>30000</strong></span></p>
-                    </div>
-
-                    <div class="col-md-1 align-items-center d-flex flex-row">
-
-                        <button class="btn btn-light  border-none justify-content-center" type="submit" id="xoa">X</button>
-
-                    </div>
-
+                    <a asp-controller="ThanhToan" asp-action="Index" style="font-size:18px;"  class="btn btn-dark w-100 padding-large">Tiếp Tục</a>
                 </div>
-                <hr />
-                <div class="row title">
 
-                    <div class="col-md-1 d-flex justify-content-center">
-                        <input style="accent-color:black;width:20px;" type="checkbox" />
-                    </div>
-                    <div class="col-md-5">
-
-                        <div style="float:left" class="me-2">
-                            <img style="width:100px;height:100px;" class="img-fluid bg-light-blue" src="~/images/hehe.png" />
-                        </div>
-                        <div>
-                            <h4 class="text-black">Laptop Asus</h4>
-                            <p style="font-size:18px;"><span>Logitech</span></p>
-                        </div>
-
-
-                    </div>
-                    <div class="col-md-2 align-items-center d-flex flex-row">
-
-                        <div class="input-group mb-3">
-
-                            <button class="tru btn btn-outline-secondary" type="button">-</button>
-                            <input type="number" class="soluong form-control text-center" value="1" readonly>
-                            <button class="cong btn btn-outline-secondary" type="button">+</button>
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3 text-center align-items-center d-flex justify-content-sm-center">
-                        <p><span style="font-size:24px;color:cadetblue"><strong>30000</strong></span></p>
-                    </div>
-
-                    <div class="col-md-1 align-items-center d-flex flex-row">
-
-                        <button class="btn btn-light  border-none justify-content-center" type="submit" id="xoa">X</button>
-
-                    </div>
-
-                </div>
-                <hr />
-                <div class="row title">
-
-                    <div class="col-md-1 d-flex justify-content-center">
-                        <input style="accent-color:black;width:20px;" type="checkbox" />
-                    </div>
-                    <div class="col-md-5">
-
-                        <div style="float:left" class="me-2">
-                            <img style="width:100px;height:100px;" class="img-fluid bg-light-blue" src="~/images/hehe.png" />
-                        </div>
-                        <div>
-                            <h4 class="text-black">Laptop Asus</h4>
-                            <p style="font-size:18px;"><span>Logitech</span></p>
-                        </div>
-
-
-                    </div>
-                    <div class="col-md-2 align-items-center d-flex flex-row">
-
-                        <div class="input-group mb-3">
-
-                            <button class="tru btn btn-outline-secondary" type="button">-</button>
-                            <input type="number" class="soluong form-control text-center" value="1" readonly>
-                            <button class="cong btn btn-outline-secondary" type="button">+</button>
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3 text-center align-items-center d-flex justify-content-sm-center">
-                        <p><span style="font-size:24px;color:cadetblue"><strong>30000</strong></span></p>
-                    </div>
-
-                    <div class="col-md-1 align-items-center d-flex flex-row">
-
-                        <button class="btn btn-light  border-none justify-content-center" type="submit" id="xoa">X</button>
-
-                    </div>
-
-                </div>
-                <hr />
-
-            </div>
-
-            <div class="row d-flex justify-content-end padding-small">
-                <div class="col-md-6">
-
-                    <div class="shadow-none p-3 mb-5 bg-light rounded">
-                        <div class="d-flex justify-content-center">
-                            <h3>Thanh Toán</h3>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h5>Tổng Tiền</h5>
-                            </div>
-                            <div class="col-md-4">
-                                <p id="tongtien"><span style="font-size:24px;color:cadetblue"><strong>60000</strong></span></p>
-                            </div>
-                        </div>
-                        <button style="font-size:18px;" type="submit" class="btn btn-dark w-100 padding-large">Tiếp Tục</button>
-                    </div>
-
-                </div>
             </div>
         </div>
-    </form>
+    </div>
+
 </div>
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        
-    });
-
-    var btntru = document.getElementsByClassName('tru');
-    var btncong = document.getElementsByClassName('cong');
-    var tien = document.getElementById('tongtien');
-    var tongtien = tien.children[0].children[0];
-    for (let i = 0; i < btntru.length; i++) {
-        var btnt = btntru[i];
-        btnt.addEventListener("click", function (event) {
-            var btnclick = event.target;
-            var inputgia = btnclick.parentElement.parentElement.parentElement.children[3].children[0].children[0].children[0];
-            var input = btnclick.parentElement.children[1];
-            var sl = input.value;
-            var giatricu = (parseInt(inputgia.textContent) / sl) * input.value;
-            if (parseInt(input.value) > 1) {
+    var btntrus = document.getElementsByClassName('tru');
+    for(let i =0; i< btntrus.length; i++){
+        btntrus[i].addEventListener("click", function(event){
+            var btn = event.target;
+            var input = btn.parentElement.children[2];
+            if(parseInt(input.value) > 1){
                 input.value = parseInt(input.value) - 1;
             }
-
-
-            var ketQua = (parseInt(inputgia.textContent) / sl) * input.value;
-            tongtien.innerText = (parseInt(tongtien.textContent) - giatricu) + ketQua;
-            inputgia.innerText = ketQua;
-            //  console.log(inputgia);
-            console.log(tongtien);
+            btn.parentElement.parentElement.submit();
         });
     }
-    for (let i = 0; i < btncong.length; i++) {
-        var btnt = btncong[i];
-        btnt.addEventListener("click", function (event) {
-            var btnclick = event.target;
-            var inputgia = btnclick.parentElement.parentElement.parentElement.children[3].children[0].children[0].children[0];
-            var input = btnclick.parentElement.children[1];
-            var sl = input.value;
-            var giatricu = (parseInt(inputgia.textContent) / sl) * input.value;
+
+    var btncongs = document.getElementsByClassName('cong');
+    for (let i = 0; i < btncongs.length; i++) {
+        btncongs[i].addEventListener("click", function (event) {
+            var btn = event.target;
+            var input = btn.parentElement.children[2];
             input.value = parseInt(input.value) + 1;
-
-
-            var ketQua = (parseInt(inputgia.textContent) / sl) * input.value;
-            tongtien.innerText = (parseInt(tongtien.textContent) - giatricu) + ketQua;
-
-            //var giaTriChuoiMoi = ketQua.toLocaleString() + "Đ";
-
-
-            inputgia.innerText = ketQua;
-            //  console.log(inputgia);
-            console.log(tongtien);
-
+            btn.parentElement.parentElement.submit();
         });
     }
 

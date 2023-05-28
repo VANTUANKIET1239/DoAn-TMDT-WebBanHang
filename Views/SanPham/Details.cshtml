@@ -5,53 +5,57 @@
 }
 
 <div class="container">
+      <form method="get" asp-controller="GioHang" asp-action="ThemCart">
     <div class="row padding-large no-padding-bottom">
         <div class="col-md-6 border-dark" style="position:relative">
 
 
             <img style="height:500px;" id="hinhchinh" class="img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ViewBag.HA[0].HinhAnh))" />
-
+            <div class="row">
+                <div class="col-md-12 p-0">
+                    <div class="swiper product-watch-swiper">
+                        <div class="swiper-wrapper">
+                            @foreach (var ha in ViewBag.HA)
+                            {
+                                <div class="kiet swiper-slide">
+                                    <div style="width:100px;height:100px;">
+                                        <img class="hinhphu img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ha.HinhAnh))" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-6 d-flex flex-column">
+          
+                <input type="hidden" name="idsp" value="@ViewBag.SP.SanPham.IdSp" />
             <h3 class="text-uppercase">@ViewBag.SP.SanPham.TenSanPham</h3>
             <p><span>@ViewBag.SP.SanPham.ThuongHieu</span></p>
             <p><span style="font-size:32px;color:cadetblue"><strong>@(ViewBag.SP.SanPham.Gia?.ToString("#,##0") + "đ")</strong></span></p>
-            <form>
+            
                 <div class="input-group mb-3 w-25">
 
                     <button id="tru" class="btn btn-outline-secondary" type="button">-</button>
-                    <input id="soluong" type="number" class="form-control text-center" value="1" readonly>
+                    <input id="soluong" name="soluong" type="number" class="form-control text-center" value="1" readonly>
                     <button id="cong" class="btn btn-outline-secondary" type="button">+</button>
 
                 </div>
-            </form>
+            
             <div class="van mt-auto justify-content-end">
 
 
                 <div class=" align-content-center">
-                    <button style="width:45%;height:50px" class="btn btn-light" type="button"><i class='bx bx-cart-download'></i> Thêm vào giỏ hàng</button>
+                    <button style="width:45%;height:50px" class="btn btn-light" type="submit"><i class='bx bx-cart-download'></i> Thêm vào giỏ hàng</button>
                     <button style="width:45%;height:50px;text-align:center" class="btn btn-dark" type="button">Mua ngay</button>
                 </div>
 
             </div>
+          
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 p-0">
-            <div class="swiper product-watch-swiper">
-                <div class="swiper-wrapper">
-                    @foreach (var ha in ViewBag.HA)
-                    {
-                        <div class="kiet swiper-slide">
-                            <div style="width:100px;height:100px;">
-                                <img class="hinhphu img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ha.HinhAnh))" />
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+  
     <div class="nav-align-top mb-4 padding-medium">
         <ul class="nav nav-tabs nav-fill" role="tablist">
             <li class="nav-item">
@@ -128,30 +132,28 @@
                 <!-- -- 1 san pham -->
                 @foreach (SanPham sp in Model)
                 {
-                    if (sp.IdSp.Trim().Equals(ViewBag.SP.SanPham.IdSp)) continue;
-                    <div class="swiper-slide">
-                        <a asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none">
-                        <div class="product-card position-relative d-flex flex-column">
-                            <div style="height:270px; width:270px;" class="image-holder">
-                                <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
-                            </div>
-                            @*<div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                    if(sp != null)
+                    {
+                        if (sp.IdSp.Trim().Equals(ViewBag.SP.SanPham.IdSp)) continue;
+                        <div class="swiper-slide">
+                            <a asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none">
+                                <div class="product-card position-relative d-flex flex-column">
+                                    <div style="height:270px; width:270px;" class="image-holder">
+                                        <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                    </div>
+                                    <div class="card-detail d-flex flex-column justify-content-end align-items-baseline">
+                                        <h6 class="card-title text-uppercase">
+                                            @sp.ThuongHieu
+                                        </h6>
+                                        <h6 class="card-title text-uppercase text-dark">
+                                            @(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")
+                                        </h6>
+                                        <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
+                                    </div>
                                 </div>
-                            </div>*@
-                            <div class="card-detail d-flex flex-column justify-content-end align-items-baseline">
-                                <h6 class="card-title text-uppercase">
-                                    @sp.ThuongHieu
-                                </h6>
-                                <h6 class="card-title text-uppercase text-dark">
-                                    @(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")
-                                </h6>
-                                <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                            </div>
+                            </a>
                         </div>
-                        </a>
-                    </div>
+                    }
                 }
                 <!-- --/1 san pham -->
 
@@ -159,6 +161,7 @@
         </div>
         <div class="swiper-pagination position-absolute text-center"></div>
     </div>
+    </form>
 </div>
 <script>
     const btncong = document.getElementById('cong');

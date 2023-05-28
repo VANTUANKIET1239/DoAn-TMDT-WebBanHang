@@ -31,4 +31,19 @@ public partial class SanPham
 
     [NotMapped]
     public List<IFormFile> uploadfile { get; set; }
+
+    public SanPham()
+    {
+        IdSp = "";
+        IdDm = "";
+        TenSanPham = "";
+        HinhAnh = null;
+        ThuongHieu = "";
+        BaoHanh = "";
+        KhoiLuong = "";
+        Gia = 0;
+        TrangThai = true;
+        MoTa = "";
+        this.uploadfile = null;
+    }
 }

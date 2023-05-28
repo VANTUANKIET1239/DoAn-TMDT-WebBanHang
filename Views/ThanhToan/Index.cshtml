@@ -1,0 +1,346 @@
+﻿@model ThanhToanViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-controller="ThanhToan" asp-action="TruocThanhToan" >
+    <input type="hidden" asp-for="HoaDon.Id" />
+    <input type="hidden" asp-for="HoaDon.IdUser"/>
+    <input type="hidden" asp-for="HoaDon.ShipFee"/>
+    <input type="hidden" asp-for="HoaDon.Total"/>
+    <input type="hidden" asp-for="HoaDon.State"/>
+    <input type="hidden" asp-for="HoaDon.TimeStamp" value="@(DateTime.Now)"/>
+   
+
+    <div class="row d-flex flex-column text-center padding-large no-padding-bottom bg-light-blue">
+        <h1 s class="justify-content-center">THANH TOÁN</h1>
+
+    </div>
+
+    <div class="container padding-small no-padding-left no-padding-right">
+        <div class="row ">
+            <div style="height:100%" class="thanhtoansp col-md-6 bg-white">
+                <div class="card" style="height:100%;width:100%;background-color:#EDF1F3">
+                    <div class="row" style="padding:5px;">
+                        <div class="col-md-9 mt-2">
+                            <h5>Thông Tin Đơn Hàng</h5>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center mt-2">
+                            <a asp-controller="GioHang" asp-action="Cart" class="btn btn-light">Chỉnh Sửa</a>
+                        </div>
+                    </div>
+
+
+                    <div class="cardspthanhtoan card no-padding-bottom ms-0 mt-2 w-100">
+
+                        @for (int i = 0; i < Model.detailHoaDons.Count; i++)
+                        {
+                            <input type="hidden" asp-for="detailHoaDons[i].IdHoaDon" />
+                            <input type="hidden" asp-for="detailHoaDons[i].IdSp" />
+                             <input type="hidden" asp-for="detailHoaDons[i].TenSp" />
+                             <input type="hidden" asp-for="detailHoaDons[i].SoLuong"  />
+                            <input type="hidden" asp-for="detailHoaDons[i].DonGia" />
+                            <input type="hidden" asp-for="detailHoaDons[i].State"  />
+                            <div class="sanpham row">
+                                
+                                <div style="height:100px;" class="col-12">
+                                    <div style="float:left;">
+                                        <img style="width:100px;height:100px;" class="img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ViewBag.HA[i]))" />
+                                    </div>
+
+                                    <div>
+                                        <h6 class="text-black">@Model.detailHoaDons[i].TenSp</h6>
+                                        <p style="font-size:18px;"><span>số lượng: @Model.detailHoaDons[i].SoLuong</span></p>
+                                        <p style="font-size:18px;"><span>@((Model.detailHoaDons[i].DonGia * Model.detailHoaDons[i].SoLuong).ToString("#,##0") + "đ")</span></p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <hr />
+                        }
+
+
+                    </div>
+                    <div class="row padding-small m-2 no-padding-bottom">
+                        <h5>Nhận Mã online, hóa đơn qua email</h5>
+                        <input asp-for="IDNguoiDung" type="email" class="form-control" placeholder="Nhập Email để nhận thông tin đơn hàng..." />
+                        <p style="font-style:italic;font-size:13px;">Lưu ý: Email phải đúng cấu trúc và vẫn đang sử dụng để thông tin có thể được gửi tới quý khách hàng</p>
+                    </div>
+                    <div class="row m-2">
+                        <h5>Ghi chú cho đơn hàng</h5>
+                        <textarea asp-for="HoaDon.Ghichu" style="height:120px;resize: none;" class="form-control resize-none" placeholder="viết ghi chú cần thiết cho đơn hàng..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 bg-white">
+                <div class="card" style="height:100%;width:100%;background-color:#EDF1F3">
+
+                    <div class="row no-padding-bottom" style="padding:5px;">
+                        <div class="col-md-9 mt-2">
+                            <h5>Thông Tin Nhận Hàng</h5>
+                        </div>
+                    </div>
+                    <div class="row m-3">
+                       
+                            @for (int i = 0; i < ViewBag.DC.Count; i++)
+                            {
+                                <div class="col-6 mb-0 p-1">
+                                <div class="card w-100 diachi @(ViewBag.DC[i].MacDinh ? "hovered" : "")" style="border-radius:18px;height:130px;">
+
+                                    <input type="hidden" asp-for="HoaDon.DiaChi" value="@($"{ViewBag.DC[i].DiaChiCuThe}, {ViewBag.DC[i].Phuong}, {ViewBag.DC[i].Quan}, {ViewBag.DC[i].ThanhPho}")" />
+                                    <input type="hidden" asp-for="HoaDon.Sdt" value="@ViewBag.DC[i].Sdt" />
+                                        <div class="p-2">
+                                            <div class="d-flex flex-row align-items-baseline">
+                                            <h6 class="text-black me-2">@ViewBag.DC[i].HoTen</h6>
+                                            @if (ViewBag.DC[i].MacDinh)
+                                                {
+                                                    <span class="badge" style="background-color:cadetblue">Mặc Định</span>
+                                                }
+                                            </div>
+                                        <p class="m-0" style="font-size:15px;color:black"><span>@ViewBag.DC[i].Sdt</span></p>
+                                        <p class="m-0" style="font-size:15px;color:black"><span>@($"{ViewBag.DC[i].DiaChiCuThe}, {ViewBag.DC[i].Phuong}, {ViewBag.DC[i].Quan}, {ViewBag.DC[i].ThanhPho}")</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        
+                        <div class="col-6 mb-0 p-1">
+                            <div class="card w-100" style="border-radius:18px;height:130px;display:flex;justify-content:center; align-items:center;">
+                                <button type="button" id="btnthem" class="btn btn-rounded-none">
+                                    <div class="p-2 themdiachi">
+
+                                        <p style="text-align: center;">
+                                            <sup style="font-size:18px;"><i class='bx bx-plus-circle'></i></sup><br>
+                                            Thêm Địa Chỉ
+                                        </p>
+
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding:5px;">
+                        <div class="col-md-9 mt-2">
+                            <h5>Phương Thức Thanh Toán</h5>
+
+                        </div>
+                    </div>
+                    <div class="row m-1 mb-2">
+                        <div class="col-md-6 p-2">
+                            <div class="thanhtoan card p-2 text-center" style="height:100px;width:250px;">
+                                <input type="hidden" asp-for="HoaDon.Payment" value="MOMO" />
+                                <h6>Thanh toán qua Momo</h6>
+                                <div class="d-flex justify-content-center">
+                                    <img src="~/momo.png" class="img-fluid" style="height:50px;width:50px" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <div class="thanhtoan card p-2 text-center" style="height:100px;width:250px;">
+                                <input type="hidden" asp-for="HoaDon.Payment" value="TIENMAT" />
+                                <h6>Thanh toán khi nhận hàng</h6>
+                                <i class='bx bx-money bx-md'></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @* <div class="col-md-9 mt-2">
+
+
+                    </div>*@
+                    <div class="row m-3">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-6 p-2">
+                                    <h6>Tổng tạm tính</h6>
+                                    <h6>Phí vận chuyển</h6>
+                                    <h6>Thành tiền</h6>
+                                </div>
+                                <div class="col-md-6 p-2 text-end">
+                                    <p class="no-margin" style="font-size:16px;color:black;">@((Model.HoaDon.Total.ToString("#,##0") + "đ"))</p>
+                                    <p class="no-margin" style="font-size:16px;color:black;">@(Model.HoaDon.ShipFee == 0 ? "Miễn Phí" : (Model.HoaDon.ShipFee.ToString("#,##0") + "đ"))</p>
+                                    <p class="no-margin" style="font-size:20px;color:red;">@((Model.HoaDon.Total - Model.HoaDon.ShipFee).ToString("#,##0") + "đ")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-3">
+                        <button class="btn" type="submit" style="background-color:cadetblue;font-size:24px;">Thanh Toán</button>
+                    </div>
+
+
+                </div>
+                @* hiện khung thêm địa chỉ*@
+
+            </div>
+        </div>
+    </div>
+</form>
+<div id="bg-modal">
+    <div id="modalcontent">
+
+        <div class="p-3">
+            <h4 class="p-2 no-padding-bottom"> Thông Tin Nhận Hàng</h4>
+            <form method="post" asp-controller="DiaChi" asp-action="ThemDiaChi" asp-route-thanhtoan="OK">
+                <input type="hidden" asp-for="diaChi.IdNguoiDung" value="@Model.HoaDon.IdUser"/>
+                <input type="hidden" asp-for="diaChi.IdDiachi" value="@ViewBag.iddiachi" />
+                <div class="form-group mb-3">
+                    <label asp-for="diaChi.HoTen" class="control-label"></label>
+                    <input asp-for="diaChi.HoTen" class="form-control" placeholder="Vui lòng nhập tên của bạn" />
+                    <span class="text-danger" asp-validation-for="diaChi.HoTen"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Sdt" class="control-label">Số Điện Thoại</label>
+                            <input asp-for="diaChi.Sdt" class="form-control" placeholder="Nhập địa chỉ" />
+                            <span class="text-danger" asp-validation-for="diaChi.Sdt"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Email" class="control-label">Email</label>
+                            <input asp-for="diaChi.Email" class="form-control" placeholder="Nhập số điện thoại" />
+                            <span class="text-danger" asp-validation-for="diaChi.Email"></span>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <h4 class="p-2 no-padding-bottom"> Địa Chỉ Nhận Hàng</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.ThanhPho" class="control-label">Tỉnh/Thành phố</label>
+                            <input asp-for="diaChi.ThanhPho" class="form-control" placeholder="Nhập Tỉnh/Thành Phố" />
+                            <span class="text-danger" asp-validation-for="diaChi.ThanhPho"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Quan" class="control-label">Quận/Huyện</label>
+                            <input asp-for="diaChi.Quan" class="form-control" placeholder="Nhập Quận/Huyện" />
+                            <span class="text-danger" asp-validation-for="diaChi.Quan"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Phuong" class="control-label">Phường/Xã</label>
+                            <input asp-for="diaChi.Phuong" class="form-control" placeholder="Nhập Phường/Xã" />
+                            <span class="text-danger" asp-validation-for="diaChi.Phuong"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.DiaChiCuThe" class="control-label">Địa Chỉ Cụ Thể</label>
+                            <input asp-for="diaChi.DiaChiCuThe" class="form-control" placeholder="Nhập Địa Chỉ" />
+                            <span class="text-danger" asp-validation-for="diaChi.DiaChiCuThe"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end">
+                    <div class="col-md-6 text-end">
+                        <div class="form-group mb-3">
+                            <input asp-for="diaChi.MacDinh" type="checkbox"  style="accent-color:black;" />
+                            <label asp-for="diaChi.MacDinh" class="control-label">Đặt làm mặc định</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end">
+                    <div class="col-md-6 text-end">
+                        <button type="button" id="huybo" class="btn btn-outline-dark">Hủy Bỏ</button>
+                        <button type="submit" class="btn btn-dark">Lưu Địa Chỉ</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var thanhtoan = document.querySelectorAll('.thanhtoan');
+    var diachi = document.querySelectorAll('.diachi');
+
+    diachi.forEach(x => {
+        x.addEventListener("click", function (event) {
+            diachi.forEach(y => {
+                y.classList.remove('hovered');
+                console.log(y.children[0]);
+                console.log(y.children[1]);
+                console.log(y.children[2]);
+                y.children[0].disabled = true;
+                y.children[1].disabled = true;
+                y.children[2].disabled = true;
+            });
+            var card = event.target;
+            this.classList.add('hovered');
+            console.log(this.children[0]);
+             console.log(this.children[1]);
+              console.log(this.children[2]);
+            this.children[0].disabled = false;
+            this.children[1].disabled = false;
+            this.children[2].disabled = false;
+        });
+
+    });
+    thanhtoan.forEach(x => {
+        x.addEventListener("click", function (event) {
+            thanhtoan.forEach(y => {
+                y.classList.remove('hovered');
+                console.log(y.children[0]);
+                y.children[0].disabled = true;
+            });
+            var card = event.target;
+            this.classList.add('hovered');
+            console.log(this.children[0]);
+            this.children[0].disabled = false;
+        });
+
+    });
+    document.getElementById("btnthem").addEventListener("click", function () {
+        // Hiển thị modal
+        document.getElementById("bg-modal").style.display = "flex";
+        // Vô hiệu hóa cuộn trang
+        document.body.style.overflow = "hidden";
+        // Cuộn lên đầu trang
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+        // Tạo và thêm backdrop
+
+        // Định vị lại modal
+        var modal = document.getElementById("modalcontent");
+        var modalWidth = modal.offsetWidth;
+        var modalHeight = modal.offsetHeight;
+        modal.style.marginLeft = -(modalWidth / 7) + "px";
+        modal.style.marginTop = -(modalHeight + modalHeight / 2 + 100) + "px";
+    });
+
+    // Đóng modal khi bấm ra ngoài
+    document.getElementById("bg-modal").addEventListener("click", function (event) {
+        if (event.target === this) {
+            document.getElementById("bg-modal").style.display = "none";
+            document.body.style.overflow = "auto";
+            //  document.querySelector(".bg-modal").remove();
+        }
+    });
+    document.getElementById("huybo").addEventListener("click", function (event) {
+        if (event.target === this) {
+            document.getElementById("bg-modal").style.display = "none";
+            document.body.style.overflow = "auto";
+            //  document.querySelector(".bg-modal").remove();
+        }
+    });
+
+
+
+</script>
+
+

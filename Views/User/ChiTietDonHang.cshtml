@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "ChiTietDonHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<div class="container padding-large">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card position-fixed">
+                <div class="card-body">
+                    <div class="d-flex flex-row align-baseline">
+                        <div class="me-2">
+                            <img class="img-fluid" style="height:50px;width:50px;" />
+                        </div>
+                        <div>
+                            <p class="no-margin">Tài Khoản Của</p>
+                            <h5>Văn Tuấn Kiệt</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column align-baseline mt-2">
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="Details" asp-route-idnguoidung="@ViewBag.idnguoidung"><i class='bx bxs-user-account'></i> Thông Tin Tài Khoản</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="custom-a activec" asp-controller="User" asp-action="DonHang" asp-route-idnguoidung="@ViewBag.idnguoidung"> <i class='bx bx-receipt'></i> Quản Lý Đơn Hàng</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="custom-a" asp-controller="User" asp-action="DiaChi" asp-route-idnguoidung="@ViewBag.idnguoidung"><i class='bx bx-map'></i> Sổ Địa Chỉ</a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <h4 class="text-center">
+                    Chi Tiết Đơn Hàng
+                </h4>
+            </div>
+            <div>
+                <h5 class="text-start">
+                    Mã đơn hàng: @ViewBag.HOADON.Id - đã đặt hàng
+                </h5>
+            </div>
+
+            @for (int i = 0; i < ViewBag.CHITIET.Count; i++)
+            {
+                <div class="card d-flex flex-column shadow-sm w-100 mb-2">
+                    <div class="row d-flex flex-row p-2">
+                        <div class="col-md-2 d-flex justify-content-center">
+                            <img class="card-img-left" src="data:image /png;base64,@(Convert.ToBase64String(ViewBag.hinhanh[i]))" style="height:100px;width:100px;" />
+                        </div>
+                        <div class="col-md-10 d-flex flex-column">
+                            <div>
+                                <h5>@ViewBag.CHITIET[i].TenSp</h5>
+                            </div>
+                            <div>
+                                <p class="no-margin" style="font-size:13px;">Thương hiệu: @ViewBag.thuonghieu[i]</p>
+                            </div>
+                            <div>
+                                <p class="no-margin" style="font-size:13px;">Số lượng: @ViewBag.CHITIET[i].SoLuong</p>
+                            </div>
+                            <div>
+                                <h5 style="color:red" class="mt-2">@((ViewBag.CHITIET[i].SoLuong * ViewBag.CHITIET[i].DonGia)?.ToString("#,##0") + "đ")</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <hr />
+            <div class="card d-flex flex-column shadow-sm w-100 mb-3">
+                <div class="row d-flex flex-row p-2">
+                    <div class="d-flex flex-row mb-2">
+                        <img class="img-fluid" style="height:50px;width:50px" src="~/wallet.png" />
+                        <div style="align-items:center" class="d-flex flex-row justify-content-center">
+                            <h5> Thông Tin Đơn Hàng</h5>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-10">
+                        <p class="text-dark">Tổng tiền sản phẩm:</p>
+                        <p class="text-dark">Phí vận chuyển:</p>
+                        <p class="text-dark">Đã thanh toán:</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="text-dark">@(ViewBag.HOADON.Total?.ToString("#,##0") + "đ")</p>
+                        <p class="text-dark">@(ViewBag.HOADON.ShipFee == 0 ? "Miễn phí" : (ViewBag.HOADON.ShipFee?.ToString("#,##0") + "đ"))</p>
+                        <p class="text-dark">@((ViewBag.HOADON.Total - ViewBag.HOADON.ShipFee)?.ToString("#,##0") + "đ")</p>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="card d-flex flex-column shadow-sm w-100 mb-2">
+                <div class="d-flex flex-row">
+                    <img class="img-fluid" style="height:50px;width:50px" src="~/user (1).png">
+                    <div style="align-items:center" class="d-flex flex-row justify-content-center">
+                        <h5> Thông Tin Khách Hàng</h5>
+                    </div>
+                </div>
+                <div class="row d-flex flex-column p-2 mt-2">
+                    <p class="text-dark"><i class='bx bx-user bx-sm'></i> @ViewBag.tennguoidung</p>
+                    <p class="text-dark"><i class='bx bx-phone bx-sm'></i> @ViewBag.HOADON.Sdt</p>
+                    <p class="text-dark"><i class='bx bx-map bx-sm'></i> @ViewBag.HOADON.DiaChi</p>
+                </div>
+
+            </div>
+            <div class="card d-flex flex-column shadow-sm w-100 mb-2">
+                <div class="d-flex flex-row p-2">
+                    <img class="img-fluid me-2" style="height:40px;width:40px" src="~/note.png">
+                    <div style="align-items:center" class="d-flex flex-row justify-content-center">
+                        <h5> Ghi Chú Đơn Hàng</h5>
+                    </div>
+                </div>
+                <div class="row d-flex flex-column p-2 mt-2">
+                    <p class="text-dark">
+                        @ViewBag.HOADON.Ghichu
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+

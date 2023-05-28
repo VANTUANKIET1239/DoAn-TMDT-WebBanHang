@@ -140,7 +140,7 @@ public partial class DbbhContext : DbContext
 
         modelBuilder.Entity<DetailHoaDon>(entity =>
         {
-            entity.HasKey(e => e.IdHoaDon);
+            entity.HasKey(e => new { e.IdHoaDon, e.IdSp });
 
             entity.ToTable("Detail_Hoa_don");
 
@@ -148,11 +148,11 @@ public partial class DbbhContext : DbContext
                 .HasMaxLength(5)
                 .IsFixedLength()
                 .HasColumnName("ID_Hoa_don");
-            entity.Property(e => e.DonGia).HasColumnName("Don_gia");
             entity.Property(e => e.IdSp)
                 .HasMaxLength(5)
                 .IsFixedLength()
                 .HasColumnName("ID_SP");
+            entity.Property(e => e.DonGia).HasColumnName("Don_gia");
             entity.Property(e => e.SoLuong).HasColumnName("So_luong");
             entity.Property(e => e.TenSp)
                 .HasMaxLength(150)

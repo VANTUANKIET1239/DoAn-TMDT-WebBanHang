@@ -290,6 +290,7 @@ namespace CloudComputing.Areas.Admin.Controllers
                 _db.SaveChanges();
                 TempData["success"] = "Thêm sản phẩm thành công!";
                 return RedirectToAction("Index");
+                
             }
             else
             {

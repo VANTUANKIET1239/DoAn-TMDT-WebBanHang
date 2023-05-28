@@ -1,32 +1,32 @@
-﻿
+﻿@model NguoiDungDiaChi_ViewModel
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_LayoutChuaDN.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container padding-large">
     <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
+        <div class="col-md-3 ">
+            <div class="card position-fixed">
+                <div class="card-body ">
                     <div class="d-flex flex-row align-baseline">
                         <div class="me-2">
                             <img class="img-fluid" style="height:50px;width:50px;" />
                         </div>
                         <div>
                             <p class="no-margin">Tài Khoản Của</p>
-                            <h5>Văn Tuấn Kiệt</h5>
+                            <h5>@Model.nguoiDung.Ten</h5>
                         </div>
                     </div>
                     <div class="d-flex flex-column align-baseline mt-2">
                         <div class="mb-3">
-                            <a class="custom-a" asp-controller="User" asp-action="Details"><i class='bx bxs-user-account'></i> Thông Tin Tài Khoản</a>
+                            <a class="custom-a activec" asp-controller="User" asp-action="Details" asp-route-idnguoidung="@Model.nguoiDung.Id"><i class='bx bxs-user-account'></i> Thông Tin Tài Khoản</a>
                         </div>
                         <div class="mb-3">                           
-                            <a class="custom-a" asp-controller="User" asp-action="DonHang"> <i class='bx bx-receipt'></i> Quản Lý Đơn Hàng</a>
+                            <a class="custom-a" asp-controller="User" asp-action="DonHang" asp-route-idnguoidung="@Model.nguoiDung.Id"> <i class='bx bx-receipt'></i> Quản Lý Đơn Hàng</a>
                         </div>
                         <div class="mb-3">
-                            <a class="custom-a" asp-controller="User" asp-action="DiaChi"><i class='bx bx-map'></i> Sổ Địa Chỉ</a>
+                            <a class="custom-a" asp-controller="User" asp-action="DiaChi" asp-route-idnguoidung="@Model.nguoiDung.Id"><i class='bx bx-map'></i> Sổ Địa Chỉ</a>
                         </div>
                        
                        
@@ -40,26 +40,37 @@
                 <div class="col-md-8">
                     <div class="card w-100">
                         <div class="card-header text-center">
-                            <h4>Thông Tin Tài Khoản</h4>
+                            <h5>Thông Tin Tài Khoản</h5>
                         </div>
                         <div class="card-body">
-                            <form asp-controller="DiaChi" asp-action="ThemDiaChi">
+                            <form asp-controller="User" asp-action="Details">
+                                <input type="hidden" asp-for="nguoiDung.Id" value="@Model.nguoiDung.Id"/>
+                                <input type="hidden" asp-for="nguoiDung.PassWord" value="@Model.nguoiDung.PassWord" />
+                                <input type="hidden" asp-for="nguoiDung.PassWordXN" value="@Model.nguoiDung.PassWordXN" />                               
                                 <div class="form-group mb-3">
-                                    <label class="control-label">Email</label>
-                                    <input class="form-control" placeholder="Vui lòng nhập email" />
+                                    <label asp-for="nguoiDung.Email" class="control-label"></label>
+                                    <input asp-for="nguoiDung.Email" value="@Model.nguoiDung.Email" class="form-control"  readonly/>
+                                    <span asp-validation-for="nguoiDung.Email" class="text-danger"></span>
                                 </div>
-
-                                <div class="form-group mb-3">
-                                    <label class="control-label">Số Điện Thoại</label>
-                                    <input class="form-control" placeholder="Vui lòng nhập SDT" />
+                                 <div class="form-group mb-3">
+                                    <label asp-for="nguoiDung.Ten" class="control-label"></label>
+                                    <input asp-for="nguoiDung.Ten" value="@Model.nguoiDung.Ten" class="form-control" />
+                                    <span asp-validation-for="nguoiDung.Ten" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="control-label">Địa Chỉ</label>
-                                    <input class="form-control" placeholder="Vui lòng nhập Địa Chỉ" />
+                                    <label asp-for="nguoiDung.Sdt" class="control-label">Số Điện Thoại</label>
+                                    <input asp-for="nguoiDung.Sdt" value="@Model.nguoiDung.Sdt" class="form-control"  />
+                                    <span asp-validation-for="nguoiDung.Sdt" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="control-label">Ngày Sinh</label>
-                                    <input type="date" class="form-control" />
+                                    <label asp-for="nguoiDung.DiaChi" class="control-label">Địa Chỉ</label>
+                                    <input asp-for="nguoiDung.DiaChi" value="@Model.nguoiDung.DiaChi" class="form-control" />
+                                    <span asp-validation-for="nguoiDung.DiaChi" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="nguoiDung.NgaySinh" class="control-label">Ngày Sinh</label>
+                                    <input asp-for="nguoiDung.NgaySinh" type="date" value="@(Model.nguoiDung.NgaySinh?.ToString("yyyy-MM-dd"))" class="form-control" />
+                                    <span asp-validation-for="nguoiDung.NgaySinh" class="text-danger"></span>
                                 </div>
                                
                                 <div class="row d-flex justify-content-end">
@@ -75,27 +86,30 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card w-100">
-                        <div class="card-header text-center">
-                            <h4>Địa Chỉ Mặc Định</h4>
+                        <div class="card-header d-flex flex-row">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h5  class="text-start me-4">Địa Chỉ Mặc Định</h5>
+                            </div>
+                            <button type="button" id="themdiachi" class="btn btn-dark"><i class='bx bx-edit'></i></button>
                         </div>
                         <div class="card-body">
                             <form asp-controller="DiaChi" asp-action="ThemDiaChi">
                                 <div class="form-group mb-3">
-                                    <label class="control-label">Tỉnh/Thành phố</label>
-                                    <input class="form-control"  readonly/>
+                                    <label asp-for="diaChi.ThanhPho" class="control-label"></label>
+                                    <input asp-for="diaChi.ThanhPho" value="@Model.diaChi.ThanhPho" class="form-control" readonly />
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label class="control-label">Quận/Huyện</label>
-                                    <input class="form-control"  readonly />
+                                    <label asp-for="diaChi.Quan" class="control-label">Quận/Huyện</label>
+                                    <input asp-for="diaChi.Quan" value="@Model.diaChi.Quan" class="form-control" readonly />
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="control-label">Phường/Xã</label>
-                                    <input class="form-control" readonly />
+                                    <label asp-for="diaChi.Phuong" class="control-label">Phường/Xã</label>
+                                    <input asp-for="diaChi.Phuong" value="@Model.diaChi.Phuong" class="form-control" readonly />
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="control-label">Địa chỉ cụ thể</label>
-                                    <input class="form-control" readonly />
+                                    <label asp-for="diaChi.DiaChiCuThe" class="control-label">Địa chỉ cụ thể</label>
+                                    <input asp-for="diaChi.DiaChiCuThe" value="@Model.diaChi.DiaChiCuThe" class="form-control" readonly />
                                 </div>
                                
                                 
@@ -107,5 +121,119 @@
             </div>
         </div>
     </div>
-</div>   
+</div>
+<div id="bg-modal">
+    <div id="modalcontent" style="height:530px;">
+
+        <div class="p-3">
+            <h4 class="p-2 no-padding-bottom"> Thông Tin Nhận Hàng</h4>
+            <form method="post" asp-controller="DiaChi" asp-action="CatNhatDiaChiMD">
+                <input type="hidden" asp-for="diaChi.IdDiachi" value="@Model.diaChi.IdDiachi" />
+                <input type="hidden" asp-for="diaChi.IdNguoiDung" value="@Model.diaChi.IdNguoiDung" />
+                <input type="hidden" asp-for="diaChi.MacDinh" value="@Model.diaChi.MacDinh" />
+                <div class="form-group mb-3">
+                    <label asp-for="diaChi.HoTen" class="control-label"></label>
+                    <input asp-for="diaChi.HoTen" class="form-control" placeholder="Vui lòng nhập tên của bạn" />
+                    <span class="text-danger" asp-validation-for="diaChi.HoTen"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Sdt" class="control-label"></label>
+                            <input asp-for="diaChi.Sdt" class="form-control"  placeholder="Nhập số điện thoại" />
+                            <span class="text-danger" asp-validation-for="diaChi.Sdt"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Email" class="control-label"></label>
+                            <input asp-for="diaChi.Email" class="form-control" placeholder="Nhập Email" />
+                            <span class="text-danger" asp-validation-for="diaChi.Email"></span>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <h4 class="p-2 no-padding-bottom"> Địa Chỉ Nhận Hàng</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.ThanhPho" class="control-label"></label>
+                            <input asp-for="diaChi.ThanhPho" class="form-control" placeholder="Nhập Tỉnh/Thành Phố" />
+                            <span class="text-danger" asp-validation-for="diaChi.ThanhPho"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Quan" class="control-label"></label>
+                            <input asp-for="diaChi.Quan" class="form-control" placeholder="Nhập Quận/Huyện" />
+                            <span class="text-danger" asp-validation-for="diaChi.Quan"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.Phuong" class="control-label"></label>
+                            <input asp-for="diaChi.Phuong" class="form-control" placeholder="Nhập Phường/Xã" />
+                            <span class="text-danger" asp-validation-for="diaChi.Phuong"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="diaChi.DiaChiCuThe" class="control-label">Địa Chỉ Cụ Thể</label>
+                            <input asp-for="diaChi.DiaChiCuThe" class="form-control" placeholder="Nhập Địa Chỉ" />
+                            <span class="text-danger" asp-validation-for="diaChi.DiaChiCuThe"></span>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="row d-flex justify-content-end">
+                    <div class="col-md-6 text-end">
+                        <button type="button" id="huybo" class="btn btn-outline-dark">Hủy Bỏ</button>
+                        <button class="btn btn-dark">Cật Nhật</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("themdiachi").addEventListener("click", function () {
+        // Hiển thị modal
+        document.getElementById("bg-modal").style.display = "flex";
+        // Vô hiệu hóa cuộn trang
+        document.body.style.overflow = "hidden";
+        // Cuộn lên đầu trang
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+        // Tạo và thêm backdrop
+
+        // Định vị lại modal
+        var modal = document.getElementById("modalcontent");
+        var modalWidth = modal.offsetWidth;
+        var modalHeight = modal.offsetHeight;
+        modal.style.marginLeft = -(modalWidth / 7) + "px";
+        modal.style.marginTop = -((modalHeight + modalHeight) / 1.5) + "px";
+    });
+
+    // Đóng modal khi bấm ra ngoài
+    document.getElementById("bg-modal").addEventListener("click", function (event) {
+        if (event.target === this) {
+            document.getElementById("bg-modal").style.display = "none";
+            document.body.style.overflow = "auto";
+            //  document.querySelector(".bg-modal").remove();
+        }
+    });
+    document.getElementById("huybo").addEventListener("click", function (event) {
+        if (event.target === this) {
+            document.getElementById("bg-modal").style.display = "none";
+            document.body.style.overflow = "auto";
+            //  document.querySelector(".bg-modal").remove();
+        }
+    });
+</script>
 

@@ -16,7 +16,7 @@
                         <div class="col-md-5">
                             <div class="banner-content">
                                 <h1 class="display-4 text-uppercase text-dark pb-5">CÁC SẢN PHẨM BÀN PHÍM GIẢM 20%.</h1>
-                                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">MUA NGAY</a>
+                                <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.banphim[0].IdDm" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">MUA NGAY</a>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -34,7 +34,7 @@
                         <div class="col-md-6">
                             <div class="banner-content">
                                 <h1 class="display-4 text-uppercase text-dark pb-5">NHIỀU QUÀ TẶNG HẤP DẪN KHI MUA LAPTOP</h1>
-                                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none ">MUA NGAY</a>
+                                <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.manhinh[0].IdDm" class="btn btn-medium btn-dark text-uppercase btn-rounded-none ">MUA NGAY</a>
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -65,7 +65,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">BÀN PHÍM</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                    <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id ="@Model.banphim[0].IdDm" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -75,12 +75,13 @@
                     {
                         <div class="swiper-slide">
                             <div class="product-card position-relative">
+                               
                                 <div style="height:270px; width:270px;" class="image-holder">
                                     <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
@@ -88,10 +89,11 @@
                                         @sp.ThuongHieu
                                     </h6>
                                     <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark" >@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
                                     </h5>
                                     <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>  
                                 </div>
+                                
                             </div>
                         </div>
                     }
@@ -109,7 +111,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">CHUỘT</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                    <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.chuot[0].IdDm" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -119,12 +121,13 @@
                     {
                         <div class="swiper-slide">
                             <div class="product-card position-relative">
+                                
                                 <div style="height:270px; width:270px;" class="image-holder">
                                     <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
@@ -132,10 +135,11 @@
                                         @sp.ThuongHieu
                                     </h6>
                                     <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                            <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
                                     </h5>
                                     <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
+                                
                             </div>
                         </div>
                     }
@@ -153,7 +157,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">TAI NGHE</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                    <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.tainghe[0].IdDm" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -163,12 +167,13 @@
                     {
                         <div class="swiper-slide">
                             <div class="product-card position-relative">
+                              
                                 <div style="height:270px; width:270px;" class="image-holder">
                                     <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
@@ -176,10 +181,11 @@
                                         @sp.ThuongHieu
                                     </h6>
                                     <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark" >@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                            <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
                                     </h5>
                                     <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
+                               
                             </div>
                         </div>
                     }
@@ -197,7 +203,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">PC MÁY TÍNH BỘ</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                    <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.pc[0].IdDm" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -207,12 +213,13 @@
                     {
                         <div class="swiper-slide">
                             <div class="product-card position-relative">
+                               
                                 <div style="height:270px; width:270px;" class="image-holder">
                                     <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
@@ -224,6 +231,7 @@
                                     </h5>
                                     <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
+                                
                             </div>
                         </div>
                     }
@@ -241,7 +249,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">LAPTOP</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                    <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.laptop[0].IdDm" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -252,12 +260,13 @@
                         
                         <div class="swiper-slide">
                             <div class="product-card position-relative">
+                               
                                 <div style="height:270px; width:270px;" class="image-holder">
                                     <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
@@ -265,10 +274,11 @@
                                         @sp.ThuongHieu
                                     </h6>
                                     <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                            <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
                                     </h5>
                                     <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                                </div>
+                                    </div>
+                                
                             </div>
                         </div>
                     }
@@ -287,7 +297,7 @@
             <div class="text-content offset-4 padding-medium">
                 <h3>10% off</h3>
                 <h2 class="display-2 pb-5 text-uppercase text-dark">SALE SẬP SÀN</h2>
-                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">XEM THÊM</a>
+                <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.manhinh[0].IdDm" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">XEM THÊM</a>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -301,7 +311,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">MÀN HÌNH</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                    <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@Model.manhinh[0].IdDm" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -311,12 +321,13 @@
                     {
                         <div class="swiper-slide">
                             <div class="product-card position-relative d-flex flex-column">
+                               
                                 <div style="height:270px; width:270px;" class="image-holder">
                                     <img  src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
                                 </div>
                                 <div class="cart-concern position-absolute">
                                     <div class="cart-button d-flex">
-                                        <a href="#" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                     </div>
                                 </div>
                                 <div class="card-detail d-flex flex-column justify-content-end align-items-baseline">
@@ -324,10 +335,11 @@
                                         @sp.ThuongHieu
                                     </h6>
                                     <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark" >@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
+                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
                                     </h5>
                                     <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
                                 </div>
+                                
                             </div>
                         </div>
                     }

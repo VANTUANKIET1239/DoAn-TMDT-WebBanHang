@@ -1,13 +1,13 @@
-﻿
+﻿@model List<HinhAnh_HoaDonViewModel>
 @{
     ViewData["Title"] = "DonHang";
-    Layout = "~/Views/Shared/_LayoutChuaDN.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container padding-large">
     <div class="row">
         <div class="col-md-3">
-            <div class="card">
+            <div class="card position-fixed">
                 <div class="card-body">
                     <div class="d-flex flex-row align-baseline">
                         <div class="me-2">
@@ -20,13 +20,13 @@
                     </div>
                     <div class="d-flex flex-column align-baseline mt-2">
                         <div class="mb-3">
-                            <a class="custom-a" asp-controller="User" asp-action="Details"><i class='bx bxs-user-account'></i> Thông Tin Tài Khoản</a>
+                            <a class="custom-a" asp-controller="User" asp-action="Details" asp-route-idnguoidung = "@ViewBag.idnguoidung" ><i class='bx bxs-user-account'></i> Thông Tin Tài Khoản</a>
                         </div>
                         <div class="mb-3">
-                            <a class="custom-a" asp-controller="User" asp-action="DonHang"> <i class='bx bx-receipt'></i> Quản Lý Đơn Hàng</a>
+                            <a class="custom-a activec" asp-controller="User" asp-action="DonHang" asp-route-idnguoidung="@ViewBag.idnguoidung"> <i class='bx bx-receipt'></i> Quản Lý Đơn Hàng</a>
                         </div>
                         <div class="mb-3">
-                            <a class="custom-a" asp-controller="User" asp-action="DiaChi"><i class='bx bx-map'></i> Sổ Địa Chỉ</a>
+                            <a class="custom-a" asp-controller="User" asp-action="DiaChi" asp-route-idnguoidung="@ViewBag.idnguoidung"><i class='bx bx-map'></i> Sổ Địa Chỉ</a>
                         </div>
 
 
@@ -60,27 +60,30 @@
                             </div>
                        </div>
                        <hr />
-                        <div class="row">
-                            <div class="col-md-2">
-                                <h6> 0120124224</h6>
+                        @foreach(HinhAnh_HoaDonViewModel hd in Model){
+                            <div class="row">
+                                <div class="col-md-2 d-flex flex-column justify-content-center">
+                                    <h6>@hd.HoaDon.Id</h6>
+                                </div>
+                                <div class="col-md-2">
+                                    <h6>@(hd.HoaDon.TimeStamp.ToString())</h6>
+                                </div>
+                                <div class="col-md-5">
+                                    @foreach(var ha in hd.HinhAnh){
+                                        <img class="img-fluid" style="height:50px;width:50px;" src="data:image /png;base64,@(Convert.ToBase64String(ha))" />
+                                    }
+                                  
+                                </div>
+                                <div class="col-md-2 d-flex flex-column justify-content-center">
+                                    <h6> @(hd.HoaDon.Total.ToString("#,##0") + "đ")</h6>
+                                </div>
+                                <div class="col-md-1 d-flex flex-column justify-content-center">
+                                    <a asp-action="ChiTietDonHang" asp-route-iddonhang="@hd.HoaDon.Id" class="btn btn-dark"><i class='bx bx-edit'></i></a>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <h6>14:00,23/07/2023</h6>
-                            </div>
-                            <div class="col-md-5">
-                                <img class="img-fluid" style="height:30px;width:30px;"/>
-                                <img class="img-fluid" style="height:30px;width:30px;"/>
-                                <img class="img-fluid" style="height:30px;width:30px;"/>
-                                <img class="img-fluid" style="height:30px;width:30px;"/>
-                                <img class="img-fluid" style="height:30px;width:30px;"/>
-                            </div>
-                            <div class="col-md-2">
-                                <h6> 30.000.000đ</h6>
-                            </div>
-                            <div class="col-md-1">
-                                <a class="btn btn-dark"><i class='bx bx-edit'></i></a>
-                            </div>
-                        </div>
+                            <hr />
+                        }
+                       
                     </div>
                 </div>
             </div>
