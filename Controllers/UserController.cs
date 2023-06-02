@@ -66,7 +66,7 @@ namespace CloudComputing.Controllers
                             if (kiet != 1)
                             {
                                 slcarthientai += 1;
-                                DetailCart detailCart = new DetailCart(keyValuePair.Key, nguoidung.Id, keyValuePair.Value.SoLuong,true);
+                                DetailCart detailCart = new(keyValuePair.Key, nguoidung.Id, keyValuePair.Value.SoLuong,true);
                                 _db.DetailCarts.Add(detailCart);
                                 _db.SaveChanges();
                             }
@@ -136,6 +136,12 @@ namespace CloudComputing.Controllers
                     return RedirectToAction("DangNhap", "User");
                 }
             }
+            else
+            {
+                var countnguoi = _db.NguoiDungs.Count();
+                string id = "ND" + (countnguoi + 1).ToString("000");
+                ViewBag.ID = id;
+            }
             return View(nguoiDung);
         }
         public IActionResult Details(string idnguoidung)
@@ -146,6 +152,11 @@ namespace CloudComputing.Controllers
             {
                 return NotFound();
             }
+            if(diachi == null)
+            {
+                diachi = new DiaChi();
+            }
+            
             NguoiDungDiaChi_ViewModel nguoiDungDiaChi_ViewModel = new NguoiDungDiaChi_ViewModel()
             {
                 nguoiDung = user,
@@ -157,7 +168,7 @@ namespace CloudComputing.Controllers
         public IActionResult Details(NguoiDung nguoiDung)
         {
             NguoiDungDiaChi_ViewModel nguoiDungDiaChi_ViewModel = new NguoiDungDiaChi_ViewModel();
-            var diachi = _db.DiaChis.FirstOrDefault(x => x.IdNguoiDung.Trim().Equals(nguoiDung.Id.Trim()) && x.MacDinh == true);
+            var diachi = _db.DiaChis.FirstOrDefault(x => x.IdNguoiDung.Trim().Equals(nguoiDung.Id.Trim()) && x.MacDinh == true) ?? new DiaChi();
             ModelState.Remove("nguoiDung.PassWordXN");
             if (ModelState.IsValid)
             {
@@ -200,9 +211,10 @@ namespace CloudComputing.Controllers
                 .Select(x => new HinhAnh_HoaDonViewModel()
                 {
                     HinhAnh = x.Select(y => y.hinhanhsp).ToList(),
-                    HoaDon = donhang.FirstOrDefault(z => z.Id == x.Select(x => x.iddh).FirstOrDefault())
+                    HoaDon = donhang.FirstOrDefault(z => z.Id == x.Select(x => x.iddh).FirstOrDefault()) ?? new HoaDon()
                 }).ToList();
             ViewBag.idnguoidung = idnguoidung;
+            ViewBag.username = HttpContext.Session.GetString("username");
             return View(hinhanh);
         }
         public IActionResult ChiTietDonHang(string iddonhang)
@@ -227,23 +239,26 @@ namespace CloudComputing.Controllers
         }
         public IActionResult DiaChi(string idnguoidung,string iddiachi)
         {
-            List<DiaChi> diachi = _db.DiaChis.Where(x => x.IdNguoiDung.Trim() == idnguoidung.Trim()).OrderByDescending(x => x.MacDinh).ToList();
+            var diachidb = _db.DiaChis;
+            List<DiaChi> diachi = diachidb.Where(x => x.IdNguoiDung.Trim() == idnguoidung.Trim()).OrderByDescending(x => x.MacDinh).ToList();
             if(diachi == null)
             {
                 return NotFound();
             }
             DiaChi diaChic = new DiaChi()
             {
-                IdDiachi= "DC" + (diachi.Count + 1).ToString("000"),
+                IdDiachi= "DC" + (diachidb.Count() + 1).ToString("000"),
                 IdNguoiDung = idnguoidung
             };
+            // nếu mà ngdung bấm vào qly địa chi
             DiaChis_diachiViewModel dia = new DiaChis_diachiViewModel()
             {
                 diaChis = diachi,
-                diaChi = iddiachi == null ? diaChic : _db.DiaChis.FirstOrDefault(x => x.IdDiachi.Trim() == iddiachi.Trim())
+                diaChi = iddiachi == null ? diaChic : _db.DiaChis.FirstOrDefault(x => x.IdDiachi.Trim() == iddiachi.Trim()) ?? new DiaChi()
             };
             ViewBag.IDND = idnguoidung;
             ViewBag.iddc = iddiachi;
+            ViewBag.username = HttpContext.Session.GetString("username");
             return View(dia);
         }
         

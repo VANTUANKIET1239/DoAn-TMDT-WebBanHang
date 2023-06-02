@@ -7,7 +7,7 @@
 <div class="container padding-large">
     <div class="row">
         <div class="col-md-3 ">
-            <div class="card position-fixed">
+            <div class="card">
                 <div class="card-body ">
                     <div class="d-flex flex-row align-baseline">
                         <div class="me-2">
@@ -85,14 +85,14 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card w-100">
+                    <div class="card w-100" >
                         <div class="card-header d-flex flex-row">
                             <div class="d-flex flex-column justify-content-center">
                                 <h5  class="text-start me-4">Địa Chỉ Mặc Định</h5>
                             </div>
-                            <button type="button" id="themdiachi" class="btn btn-dark"><i class='bx bx-edit'></i></button>
+                            <button type="button" id="themdiachi" class="btn btn-dark" @(Model.diaChi.HoTen == "" ? "disabled" : "")><i class='bx bx-edit'></i></button>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" >
                             <form asp-controller="DiaChi" asp-action="ThemDiaChi">
                                 <div class="form-group mb-3">
                                     <label asp-for="diaChi.ThanhPho" class="control-label"></label>

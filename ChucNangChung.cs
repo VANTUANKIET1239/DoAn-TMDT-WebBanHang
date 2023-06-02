@@ -4,11 +4,46 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization;
+using CloudComputing.ViewModels;
 
 namespace CloudComputing
 {
     public static class ChucNangChung
     {
+        public static void ThemSP<Tchitiet>(DbbhContext _db, SanPhamViewModel<Tchitiet> loaisp, List<IFormFile> hinhanh ) where Tchitiet : class
+        {
+            if (hinhanh.Count > 0)
+            {
+                for (int i = 0; i < hinhanh.Count; i++)
+                {
+                    HinhAnhSp ha = new HinhAnhSp();
+                    if (hinhanh[i].Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            hinhanh[i].CopyTo(memoryStream);
+                            ha.HinhAnh = memoryStream.ToArray();
+                        }
+                    }
+                    else
+                    {
+                        string filepath = "C:\\Users\\hungs\\Desktop\\Cloud\\wwwroot\\default - image.jpg";
+                        ha.HinhAnh = System.IO.File.ReadAllBytes(filepath);
+                    }
+                    var hanh = _db.HinhAnhSps.ToList();
+                    ha.IdHinhanh = "HA" + (hanh.Count + 1).ToString("000");
+                    ha.IdSp = loaisp.SanPham.IdSp;
+                    _db.HinhAnhSps.Add(ha);
+                    _db.SaveChanges();
+                }
+            }
+
+            loaisp.SanPham.TrangThai = true;
+            _db.SanPhams.Add(loaisp.SanPham);
+            _db.SaveChanges();
+            _db.Set<Tchitiet>().Add(loaisp.ChiTiet);
+            _db.SaveChanges();
+        }
         public static string SHA256_ENCRYPT(string matkhau)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(matkhau);

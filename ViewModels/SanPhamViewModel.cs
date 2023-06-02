@@ -2,11 +2,9 @@
 
 namespace CloudComputing.ViewModels
 {
-    public class PCManhinh_SanPhamViewModel
+    public class SanPhamViewModel<Tchitiet>
     {
-        public PcManHinh ChiTiet { get; set; }
+        public Tchitiet ChiTiet { get; set; }
         public SanPham SanPham { get; set; }
-
-
     }
 }

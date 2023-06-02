@@ -1,0 +1,444 @@
+﻿@*@model SanPhamViewModel<object>
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string danhmucid = ViewBag.danhmucID;
+    string idsanpham = ViewBag.idsp;
+}
+
+<div class="row d-flex flex-row">
+    @foreach (HinhAnhSp s in ViewBag.HA)
+    {
+        <div class="card" style="width:100px;height:100px;">
+            <div class="card-header">
+                <a asp-area="Admin" asp-controller="SanPham" asp-action="XoaAnh" asp-route-idhinhanh="@s.IdHinhanh" class="btn btn-danger">Xóa</a>
+            </div>
+            <div class="card-body">
+                <img class="img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(s.HinhAnh))" />
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <h5 class="card-header">Thêm Sản Phẩm Bàn Phím</h5>
+            <div class="card-body">
+                <form method="post" asp-action="ThemSP_BANPHIM" enctype="multipart/form-data">
+                    <input asp-for="ChiTiet.Id" value="@idsanpham" type="hidden" />
+                    <input asp-for="ChiTiet.IdDanhmuc" value="@danhmucid" type="hidden" />
+                    <input asp-for="SanPham.IdDm" value="@danhmucid" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.IdSp" class="control-label"></label>
+                        <input asp-for="SanPham.IdSp" value="@idsanpham" class="form-control" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.uploadfile" class="control-label"></label>
+                        <input accept="image/*" name="hinhanh" id="chonhinhanh" type="file" class="form-control" multiple />
+                        <span asp-validation-for="SanPham.uploadfile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.TenSanPham" class="control-label"></label>
+                        <textarea style="resize:none" asp-for="SanPham.TenSanPham" class="form-control"> </textarea>
+                        <span asp-validation-for="SanPham.TenSanPham" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.MoTa" class="control-label"></label>
+                        <textarea asp-for="SanPham.MoTa" class="form-control"></textarea>
+                        <span asp-validation-for="SanPham.MoTa" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.ThuongHieu" class="control-label"></label>
+                        <input asp-for="SanPham.ThuongHieu" class="form-control" />
+                        <span asp-validation-for="SanPham.ThuongHieu" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="SanPham.BaoHanh" class="control-label"></label>
+                                <input asp-for="SanPham.BaoHanh" class=" form-control" />
+                                <span asp-validation-for="SanPham.BaoHanh" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="SanPham.KhoiLuong" class="control-label"></label>
+                                <input asp-for="SanPham.KhoiLuong" class="form-control" placeholder="Gam" />
+                                <span asp-validation-for="SanPham.KhoiLuong" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="SanPham.Gia" class="control-label"></label>
+                        <input asp-for="SanPham.Gia" class="form-control" />
+                        <span asp-validation-for="SanPham.Gia" class="text-danger"></span>
+                    </div>
+
+                    @if (typeof(Tchitiet) == typeof(BanPhim))
+                    {
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.Mau" class="control-label"></label>
+                                    <input asp-for="ChiTiet.Mau" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.Mau" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.Den" class="control-label"></label>
+                                    <input asp-for="ChiTiet.Den" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.Den" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.LoaiBanPhim" class="control-label"></label>
+                            <input asp-for="ChiTiet.LoaiBanPhim" class="form-control" />
+                            <span asp-validation-for="ChiTiet.LoaiBanPhim" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.KichThuoc" class="control-label"></label>
+                            <input asp-for="ChiTiet.KichThuoc" class="form-control" />
+                            <span asp-validation-for="ChiTiet.KichThuoc" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.KetNoi" class="control-label"></label>
+                            <input asp-for="ChiTiet.KetNoi" class="form-control" />
+                            <span asp-validation-for="ChiTiet.KetNoi" class="text-danger"></span>
+                        </div>
+                    }
+                    else if (typeof(Tchitiet) == typeof(ChuotMayTinh))
+                    {
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.Mau" class="control-label"></label>
+                                    <input asp-for="ChiTiet.Mau" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.Mau" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.DenLed" class="control-label"></label>
+                                    <input asp-for="ChiTiet.DenLed" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.DenLed" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.SoNutBam" class="control-label"></label>
+                                    <input asp-for="ChiTiet.SoNutBam" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.SoNutBam" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.KichThuoc" class="control-label"></label>
+                                    <input asp-for="ChiTiet.KichThuoc" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.KichThuoc" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.KieuKetNoi" class="control-label"></label>
+                            <input asp-for="ChiTiet.KieuKetNoi" class="form-control" />
+                            <span asp-validation-for="ChiTiet.KieuKetNoi" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.KetNoi" class="control-label"></label>
+                            <input asp-for="ChiTiet.KetNoi" class="form-control" />
+                            <span asp-validation-for="ChiTiet.KetNoi" class="text-danger"></span>
+                        </div>
+                    }
+                    else if (typeof(Tchitiet) == typeof(Laptop))
+                    {
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.SeriesLaptop" class="control-label"></label>
+                                    <input asp-for="ChiTiet.SeriesLaptop" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.SeriesLaptop" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.MauSac" class="control-label"></label>
+                                    <input asp-for="ChiTiet.MauSac" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.MauSac" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.Cpu" class="control-label"></label>
+                            <input asp-for="ChiTiet.Cpu" class="form-control" />
+                            <span asp-validation-for="ChiTiet.Cpu" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.ChipDoHoa" class="control-label"></label>
+                            <input asp-for="ChiTiet.ChipDoHoa" class="form-control" />
+                            <span asp-validation-for="ChiTiet.ChipDoHoa" class="text-danger"></span>
+                        </div>
+
+
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.Ram" class="control-label"></label>
+                            <input asp-for="ChiTiet.Ram" class="form-control" />
+                            <span asp-validation-for="ChiTiet.Ram" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.ManHinh" class="control-label"></label>
+                            <input asp-for="ChiTiet.ManHinh" class="form-control" />
+                            <span asp-validation-for="ChiTiet.ManHinh" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.CongKetNoi" class="control-label"></label>
+                            <input asp-for="ChiTiet.CongKetNoi" class="form-control" />
+                            <span asp-validation-for="ChiTiet.CongKetNoi" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.BanPhim" class="control-label"></label>
+                                    <input asp-for="ChiTiet.BanPhim" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.BanPhim" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.LuuTru" class="control-label"></label>
+                                    <input asp-for="ChiTiet.LuuTru" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.LuuTru" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.HeDieuHanh" class="control-label"></label>
+                                    <input asp-for="ChiTiet.HeDieuHanh" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.HeDieuHanh" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.Pin" class="control-label"></label>
+                                    <input asp-for="ChiTiet.Pin" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.Pin" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (typeof(Tchitiet) == typeof(PcManHinh))
+                    {
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.KichThuoc" class="control-label"></label>
+                            <input asp-for="ChiTiet.KichThuoc" class="form-control" />
+                            <span asp-validation-for="ChiTiet.KichThuoc" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.DoPhanGiai" class="control-label"></label>
+                            <input asp-for="ChiTiet.DoPhanGiai" class="form-control" />
+                            <span asp-validation-for="ChiTiet.DoPhanGiai" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.TamNen" class="control-label"></label>
+                                    <input asp-for="ChiTiet.TamNen" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.TamNen" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.KieuManHinh" class="control-label"></label>
+                                    <input asp-for="ChiTiet.KieuManHinh" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.KieuManHinh" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.CongXuatHinh" class="control-label"></label>
+                            <input asp-for="ChiTiet.CongXuatHinh" class="form-control" />
+                            <span asp-validation-for="ChiTiet.CongXuatHinh" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.TanSoQuet" class="control-label"></label>
+                                    <input asp-for="ChiTiet.TanSoQuet" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.TanSoQuet" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.GocNhin" class="control-label"></label>
+                                    <input asp-for="ChiTiet.GocNhin" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.GocNhin" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.BeMat" class="control-label"></label>
+                            <input asp-for="ChiTiet.BeMat" class="form-control" />
+                            <span asp-validation-for="ChiTiet.BeMat" class="text-danger"></span>
+                        </div>
+                    }
+                    else if (typeof(Tchitiet) == typeof(PcMayTinhBo))
+                    {
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.MauSac" class="control-label"></label>
+                            <input asp-for="ChiTiet.MauSac" class="form-control" />
+                            <span asp-validation-for="ChiTiet.MauSac" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.Cpu" class="control-label"></label>
+                            <input asp-for="ChiTiet.Cpu" class="form-control" />
+                            <span asp-validation-for="ChiTiet.Cpu" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.Ram" class="control-label"></label>
+                            <input asp-for="ChiTiet.Ram" class="form-control" />
+                            <span asp-validation-for="ChiTiet.Ram" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.LuuTru" class="control-label"></label>
+                            <input asp-for="ChiTiet.LuuTru" class="form-control" />
+                            <span asp-validation-for="ChiTiet.LuuTru" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.HeDieuHanh" class="control-label"></label>
+                            <input asp-for="ChiTiet.HeDieuHanh" class="form-control" />
+                            <span asp-validation-for="ChiTiet.HeDieuHanh" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ChiTiet.CongKetNoi" class="control-label"></label>
+                            <input asp-for="ChiTiet.CongKetNoi" class="form-control" />
+                            <span asp-validation-for="ChiTiet.CongKetNoi" class="text-danger"></span>
+                        </div>
+                    }
+                    else if (typeof(Tchitiet) == typeof(TaiNghe))
+                    {
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.Mau" class="control-label"></label>
+                                    <input asp-for="ChiTiet.Mau" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.Mau" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.Kieu" class="control-label"></label>
+                                    <input asp-for="ChiTiet.Kieu" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.Kieu" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.KetNoi" class="control-label"></label>
+                                    <input asp-for="ChiTiet.KetNoi" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.KetNoi" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.Microphone" class="control-label"></label>
+                                    <input asp-for="ChiTiet.Microphone" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.Microphone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.TanSoPhanHoi" class="control-label"></label>
+                                    <input asp-for="ChiTiet.TanSoPhanHoi" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.TanSoPhanHoi" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ChiTiet.TroKhang" class="control-label"></label>
+                                    <input asp-for="ChiTiet.TroKhang" class="form-control" />
+                                    <span asp-validation-for="ChiTiet.TroKhang" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+                    <div class="form-group text-end">
+                        <div style="float:left" class="align-text-bottom">
+                            <a asp-area="Admin" asp-controller="SanPham" asp-action="Index">Back to List</a>
+                        </div>
+                        <input type="submit" value="Cật Nhật Sản Phẩm" class="btn btn-primary w-50" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 me-0">
+        <div class="card mb-4">
+            <h5 class="card-header">Hình ảnh sản phẩm</h5>
+            <div id="khuhienanh" class="card-body">
+                <img id="hinhanh" class="img-thumbnail" src="~/default-image.jpg" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('chonhinhanh').addEventListener('change', function (event) {
+        var preview = document.getElementById('khuhienanh');
+        preview.innerHTML = '';
+
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '300px';
+                preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+*@

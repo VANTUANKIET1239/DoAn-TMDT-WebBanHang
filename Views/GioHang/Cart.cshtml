@@ -105,7 +105,7 @@
                             <p id="tongtien"><span style="font-size:24px;color:cadetblue"><strong>@((ViewBag.TongTien)?.ToString("#,##0") + "đ")</strong></span></p>
                         </div>
                     </div>
-                    <a asp-controller="ThanhToan" asp-action="Index" style="font-size:18px;"  class="btn btn-dark w-100 padding-large">Tiếp Tục</a>
+                    <a asp-controller="ThanhToan" id="tieptuc" asp-action="Index" style="font-size:18px;"  class="btn btn-dark w-100 padding-large">Tiếp Tục</a>
                 </div>
 
             </div>
@@ -137,6 +137,17 @@
             btn.parentElement.parentElement.submit();
         });
     }
-
+  
+    window.addEventListener('load', function () {
+        var tongtien = document.getElementById('tongtien').children[0].children[0].innerHTML;
+        var tieptuc = document.getElementById('tieptuc');
+        if(tongtien == "0đ"){
+            tieptuc.addEventListener("click", function (event) {
+              event.preventDefault();  
+            });
+            //alert("Không có sản phẩm để thanh toán");
+        }
+        console.log(tongtien);
+    });
 </script>
 

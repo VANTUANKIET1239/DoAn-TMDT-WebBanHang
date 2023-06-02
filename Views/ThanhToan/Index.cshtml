@@ -50,7 +50,7 @@
                                     </div>
 
                                     <div>
-                                        <h6 class="text-black">@Model.detailHoaDons[i].TenSp</h6>
+                                        <h6 class="text-black"> @(Model.detailHoaDons[i].TenSp?.Substring(0, Model.detailHoaDons[i].TenSp.Length < 50 ? Model.detailHoaDons[i].TenSp.Length : 50) + "...")</h6>
                                         <p style="font-size:18px;"><span>số lượng: @Model.detailHoaDons[i].SoLuong</span></p>
                                         <p style="font-size:18px;"><span>@((Model.detailHoaDons[i].DonGia * Model.detailHoaDons[i].SoLuong).ToString("#,##0") + "đ")</span></p>
                                     </div>
@@ -88,7 +88,6 @@
                             {
                                 <div class="col-6 mb-0 p-1">
                                 <div class="card w-100 diachi @(ViewBag.DC[i].MacDinh ? "hovered" : "")" style="border-radius:18px;height:130px;">
-
                                     <input type="hidden" asp-for="HoaDon.DiaChi" value="@($"{ViewBag.DC[i].DiaChiCuThe}, {ViewBag.DC[i].Phuong}, {ViewBag.DC[i].Quan}, {ViewBag.DC[i].ThanhPho}")" />
                                     <input type="hidden" asp-for="HoaDon.Sdt" value="@ViewBag.DC[i].Sdt" />
                                         <div class="p-2">
@@ -264,28 +263,36 @@
 
 
 <script>
+
     var thanhtoan = document.querySelectorAll('.thanhtoan');
     var diachi = document.querySelectorAll('.diachi');
-
+    function setele(x, ybool) {
+        x.children[0].disabled = ybool;
+        x.children[1].disabled = ybool;
+        x.children[2].disabled = ybool;
+    }
+    window.addEventListener('load', function () {
+        diachi.forEach(x => {
+                if(x.classList.contains("hovered")){
+                        diachi.forEach(t => {
+                    setele(t, true);                            
+                    });
+                    setele(x, false);                           
+                }               
+            });
+    
+    });
+  
     diachi.forEach(x => {
         x.addEventListener("click", function (event) {
             diachi.forEach(y => {
-                y.classList.remove('hovered');
-                console.log(y.children[0]);
-                console.log(y.children[1]);
-                console.log(y.children[2]);
-                y.children[0].disabled = true;
-                y.children[1].disabled = true;
-                y.children[2].disabled = true;
+                y.classList.remove('hovered');                
+                        setele(y, true);
+              
             });
             var card = event.target;
-            this.classList.add('hovered');
-            console.log(this.children[0]);
-             console.log(this.children[1]);
-              console.log(this.children[2]);
-            this.children[0].disabled = false;
-            this.children[1].disabled = false;
-            this.children[2].disabled = false;
+            this.classList.add('hovered');       
+                    setele(this, false);
         });
 
     });

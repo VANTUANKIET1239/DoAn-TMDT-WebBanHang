@@ -55,9 +55,12 @@ namespace CloudComputing.Controllers
             {
                 if (diachi.MacDinh) {
                     var dc = _db.DiaChis.FirstOrDefault(x => x.IdNguoiDung.Trim() == diachi.IdNguoiDung.Trim() && x.MacDinh == true);
-                    dc.MacDinh = false;
-                    _db.DiaChis.Update(dc);
-                    _db.SaveChanges();
+                    if(dc != null)
+                    {
+                        dc.MacDinh = false;
+                        _db.DiaChis.Update(dc);
+                        _db.SaveChanges();
+                    }                                       
                     diachi.MacDinh = true;
                 } 
                 else diachi.MacDinh = false;

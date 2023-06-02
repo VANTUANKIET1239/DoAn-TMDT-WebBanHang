@@ -13,24 +13,30 @@ public partial class SanPham
     public string IdDm { get; set; } = null!;
 
     [Required]
+    [Display(Name = "Tên Sản Phẩm")]
     public string? TenSanPham { get; set; }
     [NotMapped]
     public byte[]? HinhAnh { get; set; }
     [Required]
+    [Display(Name = "Thương Hiệu")]
     public string? ThuongHieu { get; set; }
     [Required]
+    [Display(Name = "Bảo Hành")]
     public string? BaoHanh { get; set; }
     [Required]
+    [Display(Name = "Khối Lượng")]
     public string? KhoiLuong { get; set; }
     [Required]
+    [Display(Name = "Đơn Gía")]
     public int? Gia { get; set; }
     [BindNever]
     public bool? TrangThai { get; set; }
     [Required]
+    [Display(Name = "Mô Tả")]
     public string? MoTa { get; set; }
 
     [NotMapped]
-    public List<IFormFile> uploadfile { get; set; }
+    public List<IFormFile>? uploadfile { get; set; }
 
     public SanPham()
     {

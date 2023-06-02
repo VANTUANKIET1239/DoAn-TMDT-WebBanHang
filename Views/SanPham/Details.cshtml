@@ -5,36 +5,36 @@
 }
 
 <div class="container">
-      <form method="get" asp-controller="GioHang" asp-action="ThemCart">
-    <div class="row padding-large no-padding-bottom">
-        <div class="col-md-6 border-dark" style="position:relative">
+    <form method="get" asp-controller="GioHang" asp-action="ThemCart">
+        <div class="row padding-large no-padding-bottom">
+            <div class="col-md-6 border-dark" style="position:relative">
 
 
-            <img style="height:500px;" id="hinhchinh" class="img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ViewBag.HA[0].HinhAnh))" />
-            <div class="row">
-                <div class="col-md-12 p-0">
-                    <div class="swiper product-watch-swiper">
-                        <div class="swiper-wrapper">
-                            @foreach (var ha in ViewBag.HA)
-                            {
-                                <div class="kiet swiper-slide">
-                                    <div style="width:100px;height:100px;">
-                                        <img class="hinhphu img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ha.HinhAnh))" />
+                <img style="height:500px;" id="hinhchinh" class="img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ViewBag.HA[0].HinhAnh))" />
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="swiper product-watch-swiper">
+                            <div class="swiper-wrapper">
+                                @foreach (var ha in ViewBag.HA)
+                                {
+                                    <div class="kiet swiper-slide">
+                                        <div style="width:100px;height:100px;">
+                                            <img class="hinhphu img-fluid" src="data:image /png;base64,@(Convert.ToBase64String(ha.HinhAnh))" />
+                                        </div>
                                     </div>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 d-flex flex-column">
-          
+            <div class="col-md-6 d-flex flex-column">
+
                 <input type="hidden" name="idsp" value="@ViewBag.SP.SanPham.IdSp" />
-            <h3 class="text-uppercase">@ViewBag.SP.SanPham.TenSanPham</h3>
-            <p><span>@ViewBag.SP.SanPham.ThuongHieu</span></p>
-            <p><span style="font-size:32px;color:cadetblue"><strong>@(ViewBag.SP.SanPham.Gia?.ToString("#,##0") + "đ")</strong></span></p>
-            
+                <h3 class="text-uppercase">@ViewBag.SP.SanPham.TenSanPham</h3>
+                <p><span>@ViewBag.SP.SanPham.ThuongHieu</span></p>
+                <p><span style="font-size:32px;color:cadetblue"><strong>@(ViewBag.SP.SanPham.Gia?.ToString("#,##0") + "đ")</strong></span></p>
+
                 <div class="input-group mb-3 w-25">
 
                     <button id="tru" class="btn btn-outline-secondary" type="button">-</button>
@@ -42,128 +42,130 @@
                     <button id="cong" class="btn btn-outline-secondary" type="button">+</button>
 
                 </div>
-            
-            <div class="van mt-auto justify-content-end">
+
+                <div class="van mt-auto justify-content-end">
 
 
-                <div class=" align-content-center">
-                    <button style="width:45%;height:50px" class="btn btn-light" type="submit"><i class='bx bx-cart-download'></i> Thêm vào giỏ hàng</button>
-                    <button style="width:45%;height:50px;text-align:center" class="btn btn-dark" type="button">Mua ngay</button>
+                    <div class=" align-content-center">
+                        <button style="width:45%;height:50px" class="btn btn-light" type="submit"><i class='bx bx-cart-download'></i> Thêm vào giỏ hàng</button>
+
+                        <a asp-controller="SanPham" asp-action="MuaNgaySP" asp-route-idsanpham="@ViewBag.SP.SanPham.IdSp" style="width:45%;height:50px;text-align:center" class="btn btn-dark">Mua ngay</a>
+
+                    </div>
+
                 </div>
 
             </div>
-          
         </div>
-    </div>
-  
-    <div class="nav-align-top mb-4 padding-medium">
-        <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item">
-                <button type="button"
-                        class="nav-link active"
-                        role="tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#navs-justified-home"
-                        aria-controls="navs-justified-home"
-                        aria-selected="true">
-                    <i class="tf-icons bx bx-home"></i> Thông Tin Chi Tiết
-                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">3</span>
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button"
-                        class="nav-link"
-                        role="tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#navs-justified-profile"
-                        aria-controls="navs-justified-profile"
-                        aria-selected="false">
-                    <i class="tf-icons bx bx-user"></i> Mô Tả Sản Phẩm
-                </button>
-            </li>
 
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
-                <table class="table table-light-blue">
-                    <thead>
-                        <tr>
-                            <th scope="col">Thông Tin</th>
-                            <th scope="col">Chi Tiết</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var ct in ViewBag.SP.ChiTiet.GetType().GetProperties())
-                        {
-                            if (ct.Name.Trim() == "Id") continue;
-                            if (ct.Name.Trim() == "IdDanhmuc") continue;
-                            else
+        <div class="nav-align-top mb-4 padding-medium">
+            <ul class="nav nav-tabs nav-fill" role="tablist">
+                <li class="nav-item">
+                    <button type="button"
+                            class="nav-link active"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-justified-home"
+                            aria-controls="navs-justified-home"
+                            aria-selected="true">
+                        <i class="tf-icons bx bx-home"></i> Thông Tin Chi Tiết
+                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">3</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button"
+                            class="nav-link"
+                            role="tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#navs-justified-profile"
+                            aria-controls="navs-justified-profile"
+                            aria-selected="false">
+                        <i class="tf-icons bx bx-user"></i> Mô Tả Sản Phẩm
+                    </button>
+                </li>
+
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
+                    <table class="table table-light-blue">
+                        <thead>
+                            <tr>
+                                <th scope="col">Thông Tin</th>
+                                <th scope="col">Chi Tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ct in ViewBag.SP.ChiTiet.GetType().GetProperties())
                             {
-                                <tr>
-                                    <td>@ct.Name</td>
-                                    <td>@ct.GetValue(ViewBag.SP.ChiTiet)</td>
-                                </tr>
+                                if (ct.Name.Trim() == "Id") continue;
+                                if (ct.Name.Trim() == "IdDanhmuc") continue;
+                                else
+                                {
+                                    <tr>
+                                        <td>@ct.Name</td>
+                                        <td>@ct.GetValue(ViewBag.SP.ChiTiet)</td>
+                                    </tr>
+                                }
+
+
                             }
 
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+                    <p class="padding-small" style="color:black;">
+                        @ViewBag.SP.SanPham.MoTa
+                    </p>
 
-                        }
+                </div>
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
-                <p class="padding-small" style="color:black;">
-                    @ViewBag.SP.SanPham.MoTa
-                </p>
-
-            </div>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="display-header d-flex justify-content-between pb-3">
-            <h3 class="display-7 text-dark text-uppercase">Sản phẩm cùng loại được quan tâm</h3>
-            <div class="btn-right">
-                <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
             </div>
         </div>
-        <div class="swiper product-swiper">
-            <div class="swiper-wrapper">
-                <!-- -- 1 san pham -->
-                @foreach (SanPham sp in Model)
-                {
-                    if(sp != null)
+        <div class="row">
+            <div class="display-header d-flex justify-content-between pb-3">
+                <h3 class="display-7 text-dark text-uppercase">Sản phẩm cùng loại được quan tâm</h3>
+                <div class="btn-right">
+                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase ">Xem tất cả</a>
+                </div>
+            </div>
+            <div class="swiper product-swiper">
+                <div class="swiper-wrapper">
+                    <!-- -- 1 san pham -->
+                    @foreach (SanPham sp in Model)
                     {
-                        if (sp.IdSp.Trim().Equals(ViewBag.SP.SanPham.IdSp)) continue;
-                        <div class="swiper-slide">
-                            <a asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none">
-                                <div class="product-card position-relative d-flex flex-column">
-                                    <div style="height:270px; width:270px;" class="image-holder">
-                                        <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                        if (sp != null)
+                        {
+                            if (sp.IdSp.Trim().Equals(ViewBag.SP.SanPham.IdSp)) continue;
+                            <div class="swiper-slide">
+                                <a asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none">
+                                    <div class="product-card position-relative d-flex flex-column">
+                                        <div style="height:270px; width:270px;" class="image-holder">
+                                            <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+                                        </div>
+                                        <div class="card-detail d-flex flex-column justify-content-end align-items-baseline">
+                                            <h6 class="card-title text-uppercase">
+                                                @sp.ThuongHieu
+                                            </h6>
+                                            <h6 class="card-title text-uppercase text-dark">
+                                                @(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")
+                                            </h6>
+                                            <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
+                                        </div>
                                     </div>
-                                    <div class="card-detail d-flex flex-column justify-content-end align-items-baseline">
-                                        <h6 class="card-title text-uppercase">
-                                            @sp.ThuongHieu
-                                        </h6>
-                                        <h6 class="card-title text-uppercase text-dark">
-                                            @(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")
-                                        </h6>
-                                        <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        }
                     }
-                }
-                <!-- --/1 san pham -->
+                    <!-- --/1 san pham -->
 
+                </div>
             </div>
+            <div class="swiper-pagination position-absolute text-center"></div>
         </div>
-        <div class="swiper-pagination position-absolute text-center"></div>
-    </div>
     </form>
 </div>
-<script>
+<script type="text/javascript">
     const btncong = document.getElementById('cong');
     const btntru = document.getElementById('tru');
     const soluong = document.getElementById('soluong');

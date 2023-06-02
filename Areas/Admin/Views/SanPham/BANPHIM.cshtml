@@ -1,10 +1,11 @@
-﻿@model Banphim_SanPhamViewModel
+﻿@model SanPhamViewModel<BanPhim>
 @{
     ViewData["Title"] = "BANPHIM";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     List<DanhMuc> danhmuctoanbo = ViewBag.danhmuc;
     string danhmucid = ViewBag.danhmucID;
     string idsanpham = ViewBag.idsp;
+    string? check = ViewBag?.chinhsua;
 }
 
 <div class="row">
@@ -42,7 +43,7 @@
         <div class="card mb-4">
             <h5 class="card-header">Thêm Sản Phẩm Bàn Phím</h5>
             <div class="card-body">
-                <form method="post" asp-action="ThemSP_BANPHIM" enctype="multipart/form-data">
+                <form method="post" asp-action="ThemSP_BANPHIM" enctype="multipart/form-data" >
                     <input asp-for="ChiTiet.Id" value="@idsanpham" type="hidden" />
                     <input asp-for="ChiTiet.IdDanhmuc" value="@danhmucid" type="hidden" />
                     <input asp-for="SanPham.IdDm" value="@danhmucid" type="hidden" />
@@ -130,8 +131,8 @@
                     <div class="form-group text-end">
                         <div style="float:left" class="align-text-bottom">
                             <a asp-action="ThemSP">Back to List</a>
-                        </div>
-                        <input type="submit" value="Thêm Sản Phẩm" class="btn btn-primary w-50" />
+                        </div>                                             
+                            <input type="submit" value="Thêm Sản Phẩm" class="btn btn-primary w-50" />                        
                     </div>
                 </form>
             </div>

@@ -100,8 +100,8 @@ namespace CloudComputing.Controllers
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
             string orderInfo = "test";
-            string returnUrl = "https://localhost:44310/ThanhToan/ConfirmPaymentClient";
-            string notifyurl = "https://69d5-171-250-162-63.ngrok-free.app/ThanhToan/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string returnUrl = "https://thuongmaidientu1.azurewebsites.net/ThanhToan/ConfirmPaymentClient";
+            string notifyurl = "https://thuongmaidientu1.azurewebsites.net/ThanhToan/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
             string amount = tongtien.ToString();
             string orderid = orderidhehe; //mã đơn hàng
@@ -179,7 +179,7 @@ namespace CloudComputing.Controllers
         public void SavePayment()
         {
             //cập nhật dữ liệu vào db
-            String a = "";
+           // String a = "";
         }
     }
 }

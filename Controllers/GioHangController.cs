@@ -18,7 +18,7 @@ namespace CloudComputing.Controllers
         }
         public IActionResult XoaAllCart()
         {
-            if (HttpContext.Session.TryGetValue("username", out byte[] value))
+            if (HttpContext.Session.TryGetValue("username", out byte[]? value))
             {
                 var giohangall = _db.DetailCarts;
                 _db.DetailCarts.RemoveRange(giohangall);
@@ -62,7 +62,7 @@ namespace CloudComputing.Controllers
         {
             List<DetailCart> giohang = new List<DetailCart>();
             List<SP_GioHangViewModel> spgiohang = new List<SP_GioHangViewModel>();
-            string? idnguoidung = HttpContext.Session.GetString("id");
+            string? idnguoidung = HttpContext.Session.GetString("id") ?? "";
             var sp = ChucNangChung.ToanBoSP(_db).ToList();
             if (HttpContext.Session.TryGetValue("username", out byte[] value))
             {
@@ -72,11 +72,12 @@ namespace CloudComputing.Controllers
                 spgiohang = sp.Join(giohang, spham => spham.IdSp.Trim(), gh => gh.IdSp.Trim(), (spham, gh) => new SP_GioHangViewModel()
                 {
                     sanPham = spham,
-
                     soluong = idsanpham == null ? gh.SoLuong : (spham.IdSp.Trim() == idsanpham.Trim() ? (byte)soluongmua : gh.SoLuong),
                     idus = idnguoidung,
                     check = gh.State
                 }).ToList();
+                // nếu idsanpham null thì nghĩa là không có nhấn nút cộng trừ số lượng, mỗi lần nhấn tích hoặc nút cộng trừ đều sẽ có số lượng trong 
+                // soluongmua
                 if(idsanpham != null)
                 {
                     var giohangdb = _db.DetailCarts.FirstOrDefault(x => x.IdSp == idsanpham);
@@ -106,9 +107,9 @@ namespace CloudComputing.Controllers
             {
                 if (HttpContext.Session.TryGetValue("Cart", out byte[] vava))
                 {
-                    string? jsongiohang = HttpContext.Session.GetString("Cart");
-                    var cartsession = JsonSerializer.Deserialize<Dictionary<string, DetailCart>>(jsongiohang);
-                    giohang = cartsession.Select(x => new DetailCart(x.Key, idnguoidung, x.Value.SoLuong, true)).ToList();
+                    string? jsongiohang = HttpContext.Session.GetString("Cart") ?? "";
+                    var cartsession = JsonSerializer.Deserialize<Dictionary<string, DetailCart>>(jsongiohang) ?? new Dictionary<string,DetailCart>();
+                    giohang = cartsession.Select(x => new DetailCart(x.Key, x.Value.IdUser, x.Value.SoLuong, x.Value.State)).ToList();
                     spgiohang = sp.Join(giohang, spham => spham.IdSp.Trim(), gh => gh.IdSp.Trim(), (spham, gh) => new SP_GioHangViewModel()
                     {
                         sanPham = spham,
@@ -123,7 +124,7 @@ namespace CloudComputing.Controllers
                             if (s.sanPham.IdSp.Trim() == idsanpham.Trim())
                             {
                                 s.check = checkmua;
-                                cartsession[s.sanPham.IdSp.Trim()] = new DetailCart(s.sanPham.IdSp.Trim(), idnguoidung, s.soluong, s.check);
+                                cartsession[s.sanPham.IdSp.Trim()] = new DetailCart(s.sanPham.IdSp.Trim(), s.idus, s.soluong, s.check);
                                 HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cartsession));
                                 break;
                             }
@@ -140,8 +141,11 @@ namespace CloudComputing.Controllers
         public IActionResult ThemCart(string idsp, byte soluong)
         {
             string? idnguoidung = HttpContext.Session.GetString("id");
+            // nếu soluong == 0 thì nghĩa là người dùng không phải đang add cart ở trang chi tiết sản phẩm
+            // checkindex == false thì trang sẽ là chi tiết sản phẩm
+            // checkindex == true thì trang sẽ là trang chủ
             bool checkindex = false;
-            if (soluong == 0) soluong = 1; checkindex = true;
+            if (soluong == 0) { soluong = 1; checkindex = true; }
 
             if (HttpContext.Session.TryGetValue("username", out byte[]? value))
             {
@@ -154,7 +158,7 @@ namespace CloudComputing.Controllers
                 }
                 else
                 {
-                    DetailCart card = new DetailCart(idsp, idnguoidung, soluong, true);
+                    DetailCart card = new DetailCart(idsp, idnguoidung, soluong, false);
                     _db.DetailCarts.Add(card);
                     _db.SaveChanges();
                     int cartsl = (HttpContext.Session.GetInt32("giohang") ?? 0);
@@ -167,7 +171,7 @@ namespace CloudComputing.Controllers
                 if (!HttpContext.Session.TryGetValue("Cart", out byte[]? vv))
                 {
                     Dictionary<string, DetailCart> cart = new Dictionary<string, DetailCart>();
-                    cart.Add(idsp, new DetailCart(idsp, idnguoidung, soluong, true));
+                    cart.Add(idsp, new DetailCart(idsp, idnguoidung, soluong, false));
                     HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
                 }
                 else
@@ -182,7 +186,7 @@ namespace CloudComputing.Controllers
                     else
                     {
 
-                        cart.Add(idsp, new DetailCart(idsp, idnguoidung, soluong, true));
+                        cart.Add(idsp, new DetailCart(idsp, idnguoidung, soluong, false));
 
                     }
                     HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
