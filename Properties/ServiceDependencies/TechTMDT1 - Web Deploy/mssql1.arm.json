@@ -51,7 +51,7 @@
             {
               "kind": "v12.0",
               "location": "[parameters('resourceLocation')]",
-              "name": "laptop-ssk4eou4",
+              "name": "laptop-ssk4eou41",
               "type": "Microsoft.Sql/servers",
               "apiVersion": "2017-10-01-preview"
             },
@@ -63,11 +63,11 @@
               },
               "kind": "v12.0,user",
               "location": "[parameters('resourceLocation')]",
-              "name": "laptop-ssk4eou4/DBBH",
+              "name": "laptop-ssk4eou41/DBBH",
               "type": "Microsoft.Sql/servers/databases",
               "apiVersion": "2017-10-01-preview",
               "dependsOn": [
-                "laptop-ssk4eou4"
+                "laptop-ssk4eou41"
               ]
             }
           ]

@@ -17,7 +17,7 @@ namespace CloudComputing.Areas.Admin.Controllers
         {
             HttpContext.Session.Remove("username");
             HttpContext.Session.Remove("id");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
         public IActionResult ShowKhachHang()
         {

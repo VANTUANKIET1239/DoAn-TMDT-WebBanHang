@@ -35,7 +35,7 @@ namespace CloudComputing.Controllers
                     _db.Add(thanh.HoaDon);
                     _db.DetailHoaDons.AddRange(thanh.detailHoaDons);
                     _db.SaveChanges();                
-                    return RedirectToAction("ConfirmPaymentClient", new { orderidhehe = thanh.HoaDon.Id});
+                    return RedirectToAction("ConfirmPaymentClientTM", new { orderidhehe = thanh.HoaDon.Id});
                 }
                 
             }
@@ -100,10 +100,10 @@ namespace CloudComputing.Controllers
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
             string orderInfo = "test";
-            string returnUrl = "https://thuongmaidientu1.azurewebsites.net/ThanhToan/ConfirmPaymentClient";
-            string notifyurl = "https://thuongmaidientu1.azurewebsites.net/ThanhToan/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string returnUrl = "https://techk.azurewebsites.net/ThanhToan/ConfirmPaymentClient";
+            string notifyurl = "https://techk.azurewebsites.net/ThanhToan/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
-            string amount = tongtien.ToString();
+            string amount = tongtien.ToString();    
             string orderid = orderidhehe; //mã đơn hàng
             string requestId = DateTime.Now.Ticks.ToString();
             string extraData = "";
@@ -174,7 +174,26 @@ namespace CloudComputing.Controllers
            
             return View();
         }
+        public ActionResult ConfirmPaymentClientTM(string orderidhehe)
+        {
+            //lấy kết quả Momo trả về và hiển thị thông báo cho người dùng (có thể lấy dữ liệu ở đây cập nhật xuống db)
+     
+          
+                ViewBag.ME = orderidhehe;
+                var donhang = _db.HoaDons.FirstOrDefault(x => x.Id == orderidhehe);
+                var chitiet = _db.DetailHoaDons.Where(x => x.IdHoaDon == orderidhehe).ToList();
+                string ten = HttpContext.Session.GetString("username") ?? "";
+                string email = HttpContext.Session.GetString("emailthanhtoan") ?? "";
+                ChucNangChung.SendEmail(email, "[Xác Nhận Đơn Hàng]", ChucNangChung.vietmail(chitiet, donhang, ten));
+                var giohang = _db.DetailCarts.Where(x => x.State == true).ToList();
+                _db.DetailCarts.RemoveRange(giohang);
+                _db.SaveChanges();
+                int? slthanhtoan = HttpContext.Session.GetInt32("giohang") ?? 0;
+                HttpContext.Session.SetInt32("giohang", (int)slthanhtoan - giohang.Count);
 
+            return View();
+        }
+       
         [HttpPost]
         public void SavePayment()
         {
