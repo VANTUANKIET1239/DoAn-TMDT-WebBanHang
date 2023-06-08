@@ -1,0 +1,136 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    string? namenguoidung = HttpContextAccessor.HttpContext.Session.GetString("username");
+    string? idnguoidung = HttpContextAccessor.HttpContext.Session.GetString("id");
+    var jsondanhmuc = HttpContextAccessor.HttpContext.Session.GetString("danhmuc");
+    int? slcart = 0;
+    if (namenguoidung != null)
+    {
+        slcart = HttpContextAccessor.HttpContext.Session.GetInt32("giohang");
+    }
+    else
+    {
+        if (HttpContextAccessor.HttpContext.Session.GetString("Cart") != null)
+        {
+            slcart = JsonSerializer.Deserialize<Dictionary<string, DetailCart>>(HttpContextAccessor.HttpContext.Session.GetString("Cart") ?? "").Count();
+        }
+    }
+    List<DanhMuc> dm = new List<DanhMuc>();
+    if (jsondanhmuc != null)
+    {
+        dm = JsonSerializer.Deserialize<List<DanhMuc>>(jsondanhmuc) ?? new List<DanhMuc>();
+    }
+}
+<header id="header" style="height:70px;" class="site-header header-scrolled position-fixed text-black bg-light">
+<nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/images/main-logo.png" class="logo">
+        </a>
+        <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <svg class="navbar-icon">
+                <use xlink:href="#navbar-icon"></use>
+            </svg>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
+            <div class="offcanvas-header px-4 pb-0">
+                <a class="navbar-brand" href="index.html">
+                    <img src="~/images/main-logo.png" class="logo">
+                </a>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link me-4 active">Trang Chủ</a>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Danh Mục</a>
+                        <ul class="dropdown-menu">
+
+                            @foreach (DanhMuc d in dm)
+                            {
+
+                                <li>
+                                    <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="@d.Id" class="dropdown-item">@d.TenDm</a>
+                                </li>
+                            }
+
+                            <li>
+                                <a asp-controller="SanPham" asp-action="ToanBoSP" asp-route-id="TB" class="dropdown-item">Toàn Bộ Sản Phẩm</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <div class="user-items">
+                            <ul class="d-flex justify-content-end list-unstyled">
+                                <li class="search-item pe-3">
+                                    <a href="#" class="search-button text-decoration-none text-dark">
+
+                                        <svg class="search">
+                                            <use xlink:href="#search"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                @if (!(namenguoidung == null))
+                                {
+                                    <li class="pe-3">
+                                        <svg class="user">
+                                            <use xlink:href="#user"> </use>
+                                        </svg>
+                                        <span class="dropdown m-2">
+                                            <a class=" me-4 dropdown-toggle text-decoration-none text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">@namenguoidung</a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a asp-controller="User" asp-action="Details" asp-route-idnguoidung="@idnguoidung" class="dropdown-item">THÔNG TIN TÀI KHOẢN</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-controller="User" asp-action="DonHang" asp-route-idnguoidung="@idnguoidung" class="dropdown-item">QUẢN LÝ ĐƠN HÀNG </a>
+                                                </li>
+                                                <li>
+                                                    <a asp-controller="User" asp-action="DiaChi" asp-route-idnguoidung="@idnguoidung" class="dropdown-item">SỔ ĐỊA CHỈ</a>
+                                                </li>
+
+                                                <li class="m-2 mb-1">
+                                                    <a id="dangxuat" asp-controller="User" asp-action="DangXuat" style="background-color:cadetblue" class="btn w-100">ĐĂNG XUẤT</a>
+                                                </li>
+
+
+                                            </ul>
+                                        </span>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="pe-3 align-items-baseline">
+                                        <svg class="user">
+                                            <use xlink:href="#user"> </use>
+                                        </svg>
+                                        <span>
+                                            <a class=" me-4  text-decoration-none text-dark" asp-controller="User" asp-action="DangNhap" role="button" aria-expanded="false">ĐĂNG NHẬP</a>
+
+                                        </span>
+                                    </li>
+                                }
+
+                                <li>
+                                    <a asp-controller="GioHang" asp-action="Cart" class="text-decoration-none text-dark">
+
+                                        <svg class="cart">
+                                            <use xlink:href="#cart"></use>
+                                        </svg>
+                                        <span>(@slcart) Sản Phẩm</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+</header>
+

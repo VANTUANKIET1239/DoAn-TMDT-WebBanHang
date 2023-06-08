@@ -100,11 +100,13 @@ namespace CloudComputing.Controllers
             }
             return View();
         }
+
         public IActionResult DangXuat()
         {
             HttpContext.Session.Remove("username");
             HttpContext.Session.Remove("id");
             TempData["success"] = "Đăng xuất Thành Công";
+            /*return PartialView("_layout");*/
             return RedirectToAction("Index", "Home");
         }
         public IActionResult DangKy()
@@ -187,12 +189,12 @@ namespace CloudComputing.Controllers
            
             return View(nguoiDungDiaChi_ViewModel);
         }
-        public IActionResult DonHang(string idnguoidung)  
+        public IActionResult DonHang(string idnguoidung, int pagesize = 6, int page = 1)
         {
             var donhang = _db.HoaDons.Where(x => x.IdUser.Trim() == idnguoidung).ToList();
             
             if(donhang == null)
-            {
+            {   
                 return NotFound();
             }
             var spdonhang = _db.DetailHoaDons.ToList();
@@ -213,9 +215,22 @@ namespace CloudComputing.Controllers
                     HinhAnh = x.Select(y => y.hinhanhsp).ToList(),
                     HoaDon = donhang.FirstOrDefault(z => z.Id == x.Select(x => x.iddh).FirstOrDefault()) ?? new HoaDon()
                 }).ToList();
+            // phân trang 
+            int totalCount = hinhanh.Count;
+            int skip = (page - 1) * pagesize;
+            var pagedItems = hinhanh.Skip(skip).Take(pagesize).ToList();
+
+
+            var viewModel = new PagedViewModel<HinhAnh_HoaDonViewModel>
+            {
+                Items = pagedItems,
+                PageIndex = page,
+                PageSize = pagesize,
+                TotalCount = totalCount
+            };
             ViewBag.idnguoidung = idnguoidung;
             ViewBag.username = HttpContext.Session.GetString("username");
-            return View(hinhanh);
+            return View(viewModel);
         }
         public IActionResult ChiTietDonHang(string iddonhang)
         {

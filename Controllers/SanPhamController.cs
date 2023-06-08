@@ -219,8 +219,7 @@ namespace CloudComputing.Controllers
             
             ViewBag.thuonghieu = ThuongHieu;
             ViewBag.thutugia = filter;
-            ViewBag.ViewModel = viewModel;
-            return View(pagedItems);
+            return View(viewModel);
         }
     }
     

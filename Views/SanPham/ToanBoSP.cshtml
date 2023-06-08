@@ -1,4 +1,4 @@
-﻿@model List<SanPham>
+﻿@model PagedViewModel<SanPham>
 
 @{
     ViewData["Title"] = "ToanBoSP";
@@ -19,7 +19,7 @@
                     <select name="ThuongHieu" class="form-select" id="selectTH" aria-label="Default select example" onchange="this.form.submit()">
 
                         <option value="" disabled selected>Chọn thương hiệu</option>
-                       
+
                         @foreach (var th in ViewBag.TH)
                         {
                             @if (ViewBag.thuonghieu != null)
@@ -47,7 +47,7 @@
                     <select name="filter" class="form-select" id="selectTH" aria-label="Default select example" onchange="this.form.submit()">
 
                         <option value="" disabled selected>Chọn thứ tự giá</option>
-                       
+
                         @if (ViewBag.thutugia != null)
                         {
                             @if (ViewBag.thutugia.Trim() == "tangdan")
@@ -74,16 +74,10 @@
 
             </div>
 
-            @*<input style="margin-left:20px" class="btn btn-primary" type="submit" value="Xác Nhận" />*@
-
-
-
-
-
         </div>
 
         <div class="row">
-            @foreach (SanPham a in Model)
+            @foreach (SanPham a in Model.Items)
             {
                 <div class="col-lg-3 col-md-4 col-sm-5 col-6">
                     <div class="card position-relative mb-4 m-3">
@@ -112,17 +106,17 @@
             <ul class="pagination">
 
                 <li class="page-item prev">
-                    <a class="page-link" style="@(ViewBag.ViewModel.PageIndex != 1  ? "" : "pointer-events: none;")color:black;" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@(ViewBag.ViewModel.PageIndex - 1)"><i class="tf-icon bx bx-chevron-left"></i></a>
+                    <a class="page-link" style="@(Model.PageIndex != 1  ? "" : "pointer-events: none;")color:black;" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@(Model.PageIndex - 1)"><i class="tf-icon bx bx-chevron-left"></i></a>
                 </li>
-                @for (var i = 1; i <= ViewBag.ViewModel.TotalPages; i++)
+                @for (var i = 1; i <= Model.TotalPages; i++)
                 {
-                    <li class="page-item @(i == ViewBag.ViewModel.PageIndex ? "active" : "") text-black">
+                    <li class="page-item @(i == Model.PageIndex ? "active" : "") text-black">
                         <a class="page-link" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@i">@i</a>
                     </li>
                 }
 
                 <li class="page-item next">
-                    <a style="@(ViewBag.ViewModel.PageIndex != ViewBag.ViewModel.TotalPages ? "" : "pointer-events: none;")color:black;" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@(ViewBag.ViewModel.PageIndex + 1)" class="page-link"><i class="tf-icon bx bx-chevron-right"></i></a>
+                    <a style="@(Model.PageIndex != Model.TotalPages ? "" : "pointer-events: none;")color:black;" asp-controller="SanPham" asp-action="ToanBoSP" asp-route-page="@(Model.PageIndex + 1)" class="page-link"><i class="tf-icon bx bx-chevron-right"></i></a>
                 </li>
 
             </ul>
