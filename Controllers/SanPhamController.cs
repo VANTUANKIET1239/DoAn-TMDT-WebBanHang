@@ -43,6 +43,7 @@ namespace CloudComputing.Controllers
                 ViewBag.SP = chuot;               
                 ViewBag.HA = hinhanhsp;
                 ViewBag.DM = dm;
+              
                 
             }
             else if (dm.TenBang.Trim() == "BANPHIM") {
