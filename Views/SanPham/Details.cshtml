@@ -165,30 +165,32 @@
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    const btncong = document.getElementById('cong');
-    const btntru = document.getElementById('tru');
-    const soluong = document.getElementById('soluong');
+@section Scripts{
+    <script>
+        const btncong = document.getElementById('cong');
+        const btntru = document.getElementById('tru');
+        const soluong = document.getElementById('soluong');
 
-    btncong.addEventListener("click", function () {
-        soluong.value = parseInt(soluong.value) + 1;
-    });
-    btntru.addEventListener("click", function () {
-        if (parseInt(soluong.value) > 1) {
-            soluong.value = parseInt(soluong.value) - 1;
-        }
-    });
-
-    const divs = document.querySelectorAll('.kiet');
-    const hinhchinh = document.getElementById('hinhchinh');
-    divs.forEach(div => {
-        div.addEventListener('mouseover', function () {
-            divs.forEach(otherDiv => {
-                otherDiv.classList.remove('hovered');
-            });
-            this.classList.add('hovered');
-            var a = div.querySelector('.hinhphu');
-            hinhchinh.src = a.src;
+        btncong.addEventListener("click", function () {
+            soluong.value = parseInt(soluong.value) + 1;
         });
-    });
-</script>
+        btntru.addEventListener("click", function () {
+            if (parseInt(soluong.value) > 1) {
+                soluong.value = parseInt(soluong.value) - 1;
+            }
+        });
+
+        const divs = document.querySelectorAll('.kiet');
+        const hinhchinh = document.getElementById('hinhchinh');
+        divs.forEach(div => {
+            div.addEventListener('mouseover', function () {
+                divs.forEach(otherDiv => {
+                    otherDiv.classList.remove('hovered');
+                });
+                this.classList.add('hovered');
+                var a = div.querySelector('.hinhphu');
+                hinhchinh.src = a.src;
+            });
+        });
+    </script>
+}

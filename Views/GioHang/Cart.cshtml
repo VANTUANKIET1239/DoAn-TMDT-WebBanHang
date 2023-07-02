@@ -115,39 +115,41 @@
 </div>
 
 
-<script>
-    var btntrus = document.getElementsByClassName('tru');
-    for(let i =0; i< btntrus.length; i++){
-        btntrus[i].addEventListener("click", function(event){
-            var btn = event.target;
-            var input = btn.parentElement.children[2];
-            if(parseInt(input.value) > 1){
-                input.value = parseInt(input.value) - 1;
-            }
-            btn.parentElement.parentElement.submit();
-        });
-    }
-
-    var btncongs = document.getElementsByClassName('cong');
-    for (let i = 0; i < btncongs.length; i++) {
-        btncongs[i].addEventListener("click", function (event) {
-            var btn = event.target;
-            var input = btn.parentElement.children[2];
-            input.value = parseInt(input.value) + 1;
-            btn.parentElement.parentElement.submit();
-        });
-    }
-  
-    window.addEventListener('load', function () {
-        var tongtien = document.getElementById('tongtien').children[0].children[0].innerHTML;
-        var tieptuc = document.getElementById('tieptuc');
-        if(tongtien == "0đ"){
-            tieptuc.addEventListener("click", function (event) {
-              event.preventDefault();  
+@section Scripts{
+    <script>
+        var btntrus = document.getElementsByClassName('tru');
+        for (let i = 0; i < btntrus.length; i++) {
+            btntrus[i].addEventListener("click", function (event) {
+                var btn = event.target;
+                var input = btn.parentElement.children[2];
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+                btn.parentElement.parentElement.submit();
             });
-            //alert("Không có sản phẩm để thanh toán");
         }
-        console.log(tongtien);
-    });
-</script>
 
+        var btncongs = document.getElementsByClassName('cong');
+        for (let i = 0; i < btncongs.length; i++) {
+            btncongs[i].addEventListener("click", function (event) {
+                var btn = event.target;
+                var input = btn.parentElement.children[2];
+                input.value = parseInt(input.value) + 1;
+                btn.parentElement.parentElement.submit();
+            });
+        }
+
+        window.addEventListener('load', function () {
+            var tongtien = document.getElementById('tongtien').children[0].children[0].innerHTML;
+            var tieptuc = document.getElementById('tieptuc');
+            if (tongtien == "0đ") {
+                tieptuc.addEventListener("click", function (event) {
+                    event.preventDefault();
+                });
+                //alert("Không có sản phẩm để thanh toán");
+            }
+            console.log(tongtien);
+        });
+    </script>
+
+}

@@ -199,41 +199,43 @@
         </div>
     </div>
 </div>
-<script>
-    document.getElementById("themdiachi").addEventListener("click", function () {
-        // Hiển thị modal
-        document.getElementById("bg-modal").style.display = "flex";
-        // Vô hiệu hóa cuộn trang
-        document.body.style.overflow = "hidden";
-        // Cuộn lên đầu trang
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+@section Scripts{
+    <script>
+        document.getElementById("themdiachi").addEventListener("click", function () {
+            // Hiển thị modal
+            document.getElementById("bg-modal").style.display = "flex";
+            // Vô hiệu hóa cuộn trang
+            document.body.style.overflow = "hidden";
+            // Cuộn lên đầu trang
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            // Tạo và thêm backdrop
+
+            // Định vị lại modal
+            var modal = document.getElementById("modalcontent");
+            var modalWidth = modal.offsetWidth;
+            var modalHeight = modal.offsetHeight;
+            modal.style.marginLeft = -(modalWidth / 7) + "px";
+            modal.style.marginTop = -((modalHeight + modalHeight) / 1.5) + "px";
         });
-        // Tạo và thêm backdrop
 
-        // Định vị lại modal
-        var modal = document.getElementById("modalcontent");
-        var modalWidth = modal.offsetWidth;
-        var modalHeight = modal.offsetHeight;
-        modal.style.marginLeft = -(modalWidth / 7) + "px";
-        modal.style.marginTop = -((modalHeight + modalHeight) / 1.5) + "px";
-    });
-
-    // Đóng modal khi bấm ra ngoài
-    document.getElementById("bg-modal").addEventListener("click", function (event) {
-        if (event.target === this) {
-            document.getElementById("bg-modal").style.display = "none";
-            document.body.style.overflow = "auto";
-            //  document.querySelector(".bg-modal").remove();
-        }
-    });
-    document.getElementById("huybo").addEventListener("click", function (event) {
-        if (event.target === this) {
-            document.getElementById("bg-modal").style.display = "none";
-            document.body.style.overflow = "auto";
-            //  document.querySelector(".bg-modal").remove();
-        }
-    });
-</script>
+        // Đóng modal khi bấm ra ngoài
+        document.getElementById("bg-modal").addEventListener("click", function (event) {
+            if (event.target === this) {
+                document.getElementById("bg-modal").style.display = "none";
+                document.body.style.overflow = "auto";
+                //  document.querySelector(".bg-modal").remove();
+            }
+        });
+        document.getElementById("huybo").addEventListener("click", function (event) {
+            if (event.target === this) {
+                document.getElementById("bg-modal").style.display = "none";
+                document.body.style.overflow = "auto";
+                //  document.querySelector(".bg-modal").remove();
+            }
+        });
+    </script>
+}
 

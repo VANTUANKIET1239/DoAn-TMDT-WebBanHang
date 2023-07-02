@@ -71,19 +71,19 @@
                     </div>
                 </div>
             }
-         
+
 
         </div>
     </div>
-    
+
 </div>
-<div id="bg-modal"  style="@(ViewBag.iddc == null ? "" : "display:flex;")">
+<div id="bg-modal" style="@(ViewBag.iddc == null ? "" : "display:flex;")">
     <div id="modalcontent" class="@(ViewBag.iddc == null ? "" : "active")">
 
         <div class="p-3">
             <h4 class="p-2 no-padding-bottom"> Thông Tin Nhận Hàng</h4>
-            <form method="post" asp-controller="DiaChi" asp-action="CatNhatDiaChiDC" >
-                <input type="hidden" asp-for="diaChi.IdDiachi"  />
+            <form method="post" asp-controller="DiaChi" asp-action="CatNhatDiaChiDC">
+                <input type="hidden" asp-for="diaChi.IdDiachi" />
                 <input type="hidden" asp-for="diaChi.IdNguoiDung" />
                 <div class="form-group mb-3">
                     <label asp-for="diaChi.HoTen" class="control-label"></label>
@@ -142,24 +142,25 @@
                         </div>
                     </div>
                 </div>
-             
-                    <div class="row d-flex justify-content-end">
+
+                <div class="row d-flex justify-content-end">
                     <div class="col-md-6 text-end">
                         <div class="form-group mb-3">
-                           @if(ViewBag.iddc != null && !Model.diaChi.MacDinh){
-                                <input type="checkbox" asp-for="diaChi.MacDinh" style="accent-color:black;"  />
-                                                                
+                            @if (ViewBag.iddc != null && !Model.diaChi.MacDinh)
+                            {
+                                <input type="checkbox" asp-for="diaChi.MacDinh" style="accent-color:black;" />
+
                             }
                             else
                             {
-                                <input type="checkbox" asp-for="diaChi.MacDinh" style="accent-color:black;" disabled/>
+                                <input type="checkbox" asp-for="diaChi.MacDinh" style="accent-color:black;" disabled />
                             }
                             <label class="control-label">Đặt làm mặc định</label>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="row d-flex justify-content-end">
                     <div class="col-md-6 text-end">
                         <button type="button" id="huybo" class="btn btn-outline-dark">Hủy Bỏ</button>
@@ -172,13 +173,13 @@
 </div>
 
 
-<div id="bg-modalthem" >
+<div id="bg-modalthem">
     <div id="modalcontentthem" class=" @(ViewBag.iddc == null ? "active" : "")">
 
-        <div id="formthem" class="p-3"> 
+        <div id="formthem" class="p-3">
             <h4 class="p-2 no-padding-bottom"> Thông Tin Nhận Hàng</h4>
             <form method="post" asp-controller="DiaChi" asp-action="ThemDiaChi">
-                 <input type="hidden" asp-for="diaChi.IdDiachi"   value="@Model.diaChi.IdDiachi"/>
+                <input type="hidden" asp-for="diaChi.IdDiachi" value="@Model.diaChi.IdDiachi" />
                 <input type="hidden" asp-for="diaChi.IdNguoiDung" value="@ViewBag.IDND" />
                 <div class="form-group mb-3">
                     <label asp-for="diaChi.HoTen" class="control-label"></label>
@@ -240,7 +241,7 @@
                 <div class="row d-flex justify-content-end">
                     <div class="col-md-6 text-end">
                         <div class="form-group mb-3">
-                            <input type="checkbox" asp-for="diaChi.MacDinh" style="accent-color:black;"  />
+                            <input type="checkbox" asp-for="diaChi.MacDinh" style="accent-color:black;" />
                             <label class="control-label">Đặt làm mặc định</label>
                         </div>
                     </div>
@@ -255,75 +256,63 @@
         </div>
     </div>
 </div>
-<script>
-    var diachithem = document.getElementsByClassName('chinhsuadiachi');
-  
-    var themdc = document.getElementById('themdiachi');
-    themdc.addEventListener("click", function () {
-        // Hiển thị modal
-        document.getElementById("bg-modalthem").style.display = "flex";
-        // Vô hiệu hóa cuộn trang
-        document.body.style.overflow = "hidden";
-        // Cuộn lên đầu trang
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-      
-      
-        // Định vị lại modal
-        var modal = document.getElementById("modalcontentthem");       
-        var modalHeight = modal.offsetHeight;   
-        modal.style.marginTop = -900 + "px";
-        var modal1 = document.getElementById("modalcontent");
-        var modalHeight1 = modal.offsetHeight;
-        modal1.style.marginTop = -900 + "px";
-         // Tạo và thêm backdrop
-        var inputs = document.getElementById('formthem').getElementsByTagName('input');
-        for (let i = 0; i < inputs.length; i++) {
-            if(inputs[i].type === "checkbox"){
-                inputs[i].checked = false;
+@section Scripts{
+    <script>
+        var diachithem = document.getElementsByClassName('chinhsuadiachi');
+
+        var themdc = document.getElementById('themdiachi');
+        themdc.addEventListener("click", function () {
+
+            document.getElementById("bg-modalthem").style.display = "flex";
+            document.body.style.overflow = "hidden";
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            var modal = document.getElementById("modalcontentthem");
+            var modalHeight = modal.offsetHeight;
+            modal.style.marginTop = -900 + "px";
+            var modal1 = document.getElementById("modalcontent");
+            var modalHeight1 = modal.offsetHeight;
+            modal1.style.marginTop = -900 + "px";
+
+            var inputs = document.getElementById('formthem').getElementsByTagName('input');
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].type === "checkbox") {
+                    inputs[i].checked = false;
+                }
+                else if (inputs[i].type === "hidden") continue;
+                else inputs[i].value = "";
+
             }
-            else if(inputs[i].type === "hidden") continue;
-            else inputs[i].value = "";
-           
-        }
 
-    });
+        });
 
-    // Đóng modal khi bấm ra ngoài
-    document.getElementById("bg-modal").addEventListener("click", function (event) {
-        if (event.target === this) {
-            document.getElementById("bg-modal").style.display = "none";
-            document.body.style.overflow = "auto";
-            //  document.querySelector(".bg-modal").remove();
-        }
-    });
-    document.getElementById("bg-modalthem").addEventListener("click", function (event) {
-        if (event.target === this) {
-            document.getElementById("bg-modalthem").style.display = "none";
-            document.body.style.overflow = "auto";
-            //  document.querySelector(".bg-modal").remove();
-        }
-    });
-    
-
-    document.getElementById('huybo').addEventListener("click", function (event) {
+        function ancuaso(bg) {
             if (event.target === this) {
-                document.getElementById("bg-modal").style.display = "none";
+                document.getElementById(bg).style.display = "none";
                 document.body.style.overflow = "auto";
-                //  document.querySelector(".bg-modal").remove();
             }
-        });
-    document.getElementById('huybothem').addEventListener("click", function (event) {
-        if (event.target === this) {
-            document.getElementById("bg-modalthem").style.display = "none";
-            document.body.style.overflow = "auto";
-            //  document.querySelector(".bg-modal").remove();
         }
-    });
-    
-   
-</script>
+        document.getElementById("bg-modal").addEventListener("click", function (event) {
+            ancuaso(("bg-modal");
+        });
+        document.getElementById("bg-modalthem").addEventListener("click", function (event) {
+            ancuaso("bg-modalthem");
+        });
 
 
+        document.getElementById('huybo').addEventListener("click", function (event) {
+            ancuaso(("bg-modal");
+        });
+        document.getElementById('huybothem').addEventListener("click", function (event) {
+            ancuaso("bg-modalthem");
+        });
+
+
+    </script>
+
+
+
+}

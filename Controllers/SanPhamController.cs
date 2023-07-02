@@ -26,7 +26,7 @@ namespace CloudComputing.Controllers
         public static SanPhamViewModel<T> DetailSP<T>(DbbhContext _db, SanPham sanpham, DanhMuc dm, ref List<SanPham> spthem ) where T :class, IEntitySPWithId
         {
 
-            var spchuot = _db.Set<T>().FirstOrDefault(x => (x as IEntitySPWithId).Id.Trim().Equals(sanpham.IdSp.Trim())) ?? Activator.CreateInstance<T>();
+            var spchuot = _db.Set<T>().FirstOrDefault(x => x.Id.Trim().Equals(sanpham.IdSp.Trim())) ?? Activator.CreateInstance<T>();
             spthem = ChucNangChung.SPtheoDM2(_db, dm.TenBang.Trim()).Take(6).ToList();
             SanPhamViewModel<T> chuot = new SanPhamViewModel<T>()
             {
