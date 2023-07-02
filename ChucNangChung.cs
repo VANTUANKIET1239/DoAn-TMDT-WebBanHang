@@ -10,7 +10,7 @@ namespace CloudComputing
 {
     public static class ChucNangChung
     {
-        public static void ThemSP<Tchitiet>(DbbhContext _db, SanPhamViewModel<Tchitiet> loaisp, List<IFormFile> hinhanh ) where Tchitiet : class
+        public static void ThemSP<Tchitiet>(DbbhContext _db, SanPhamViewModel<Tchitiet> loaisp, List<IFormFile> hinhanh) where Tchitiet : class
         {
             if (hinhanh.Count > 0)
             {
@@ -44,6 +44,14 @@ namespace CloudComputing
             _db.Set<Tchitiet>().Add(loaisp.ChiTiet);
             _db.SaveChanges();
         }
+        public static string chuyendoitiente(int? tien)
+        {
+            return tien?.ToString("#,##0") + "đ";
+        }
+        public static string chuyendoitieude(string title)
+        {
+            return title.Substring(0, title.Length < 50 ? title.Length : 50) + "...";
+        }
         public static string SHA256_ENCRYPT(string matkhau)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(matkhau);
@@ -74,13 +82,13 @@ namespace CloudComputing
             mailMessage.IsBodyHtml = true;
             smtpClient.Send(mailMessage);
         }
-        public static List<SanPham> SPtheoDM(DbbhContext _db, string tenbang)
+      /*  public static List<SanPham> SPtheoDM(DbbhContext _db, string tenbang)
         {
             var toanbosp = _db.SanPhams.Where(x => x.TrangThai == true).ToList();
-            List<DanhMuc> danhmuc = _db.DanhMucs.Where(x => x.State == true).ToList();
+            var danhmuc = _db.DanhMucs.Where(x => x.State == true && x.TenBang.Trim() == tenbang).FirstOrDefault();
             List<HinhAnhSp> hinhanh = _db.HinhAnhSps.ToList();
             List<SanPham> bp = toanbosp
-                .Where(x => x.IdDm.Trim() == danhmuc.FirstOrDefault(y => y.TenBang.Trim() == tenbang, new DanhMuc()).Id.Trim())
+                .Where(x => x.IdDm.Trim() == danhmuc.Id.Trim())
                 .Join(hinhanh, banphim => banphim.IdSp.Trim(), ha => ha.IdSp.Trim(), (banphim, ha) => new SanPham()
                 {
                     IdSp = banphim.IdSp,
@@ -99,27 +107,59 @@ namespace CloudComputing
                 .Select(x => x.FirstOrDefault(new SanPham()))
                 .ToList();
             return bp;
+        }*/
+        public static List<SanPham> SPtheoDM2(DbbhContext _db, string tenbang)
+        {
+            List<SanPham> bp = _db.SanPhams
+                .Where(sp => sp.TrangThai == true)
+                .Join(_db.DanhMucs
+                    .Where(dm => dm.State == true && dm.TenBang.Trim() == tenbang),
+                    sp => sp.IdDm.Trim(),
+                    dm => dm.Id.Trim(),
+                    (sp, dm) => new { SanPham = sp, DanhMuc = dm })
+                .Join(_db.HinhAnhSps,
+                    spdm => spdm.SanPham.IdSp.Trim(),
+                    ha => ha.IdSp.Trim(),
+                    (spdm, ha) => new { spdm.SanPham, spdm.DanhMuc, HinhAnh = ha })
+                .GroupBy(x => x.SanPham.IdSp)
+                .Select(g => new SanPham
+                {
+                    IdSp = g.Key,
+                    IdDm = g.First().DanhMuc.Id,
+                    Gia = g.First().SanPham.Gia,
+                    TenSanPham = g.First().SanPham.TenSanPham,
+                    HinhAnh = g.First().HinhAnh.HinhAnh,
+                    ThuongHieu = g.First().SanPham.ThuongHieu,
+                    BaoHanh = g.First().SanPham.BaoHanh,
+                    KhoiLuong = g.First().SanPham.KhoiLuong,
+                    TrangThai = g.First().SanPham.TrangThai,
+                    MoTa = g.First().SanPham.MoTa,
+                    uploadfile = g.First().SanPham.uploadfile
+                })
+                .ToList();
+            return bp;
         }
+       
         public static List<SanPham> ToanBoSP(DbbhContext _db)
         {
             var toanbosp = _db.SanPhams.Where(x => x.TrangThai == true).ToList();
             var hinhanhsp = _db.HinhAnhSps.ToList();
-            List<SanPham> bp = toanbosp.Join(hinhanhsp, sp => sp.IdSp.Trim(), ha => ha.IdSp.Trim(), (sp, ha) => new SanPham()
+            List<SanPham> bp = toanbosp.Join(hinhanhsp, sp => sp.IdSp.Trim(), ha => ha.IdSp.Trim(), (sp, ha) => new {sanpham = sp,hinhanh = ha})
+            .GroupBy(x => x.sanpham.IdSp)
+            .Select(x => new SanPham()
             {
-                IdSp = sp.IdSp,
-                IdDm = sp.IdDm,
-                Gia = sp.Gia,
-                TenSanPham = sp.TenSanPham,
-                HinhAnh = ha.HinhAnh,
-                ThuongHieu = sp.ThuongHieu,
-                BaoHanh = sp.BaoHanh,
-                KhoiLuong = sp.KhoiLuong,
-                TrangThai = sp.TrangThai,
-                MoTa = sp.MoTa,
-                uploadfile = sp.uploadfile,
+                IdSp = x.Key,
+                IdDm = x.First().sanpham.IdDm,
+                Gia = x.First().sanpham.Gia,
+                TenSanPham = x.First().sanpham.TenSanPham,
+                HinhAnh = x.First().hinhanh.HinhAnh,
+                ThuongHieu = x.First().sanpham.ThuongHieu,
+                BaoHanh = x.First().sanpham.BaoHanh,
+                KhoiLuong = x.First().sanpham.KhoiLuong,
+                TrangThai = x.First().sanpham.TrangThai,
+                MoTa = x.First().sanpham.MoTa,
+                uploadfile = x.First().sanpham.uploadfile,
             })
-            .GroupBy(x => x.IdSp)
-            .Select(x => x.FirstOrDefault(new SanPham()))
             .ToList();
             return bp;
         }
@@ -159,6 +199,19 @@ namespace CloudComputing
 
             htmlBody += @"</table>
     <p>Cảm ơn bạn đã mua hàng từ chúng tôi!</p>";
+            return htmlBody;
+        }
+
+        public static string guimaillaymk(string randomnumber)
+
+        {
+            string htmlBody = $@"<h2>Xác nhận Email đổi mật khẩu</h2>
+    <p>Xin chào,</p>
+    <p>Cảm ơn bạn đã sử dụng dịch vụ. Dưới đây là mã xác nhận đổi mật khẩu:</p>
+    <hr/>
+    <h3>{randomnumber}</h3>
+    <hr/>
+    <p>Cảm ơn bạn rất nhiều!</p>";
             return htmlBody;
         }
     }

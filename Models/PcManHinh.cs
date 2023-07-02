@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CloudComputing.Conditions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CloudComputing.Models;
 
-public partial class PcManHinh
+public partial class PcManHinh : IEntitySPWithId
 {
     public string Id { get; set; } = null!;
     [Required]

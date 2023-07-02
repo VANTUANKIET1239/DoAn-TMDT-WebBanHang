@@ -72,32 +72,7 @@
             <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
                     <!-- -- 1 san pham -->
-                    @foreach(SanPham sp in Model.banphim)
-                    {
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                               
-                                <div style="height:270px; width:270px;" class="image-holder">
-                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                                    <h6 class="card-title text-uppercase">
-                                        @sp.ThuongHieu
-                                    </h6>
-                                    <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
-                                    </h5>
-                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>  
-                                </div>
-                                
-                            </div>
-                        </div>
-                    }
+                 <partial name="_hienthithongtinsp" for="banphim"/>
                     <!-- --/1 san pham -->
                   
                 </div>
@@ -118,32 +93,7 @@
             <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
                     <!-- -- 1 san pham -->
-                    @foreach (SanPham sp in Model.chuot)
-                    {
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                                
-                                <div style="height:270px; width:270px;" class="image-holder">
-                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                                    <h6 class="card-title text-uppercase">
-                                        @sp.ThuongHieu
-                                    </h6>
-                                    <h5 class="card-title text-uppercase">
-                                            <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
-                                    </h5>
-                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    }
+                    <partial name="_hienthithongtinsp" for="chuot" />
                     <!-- --/1 san pham -->
 
                 </div>
@@ -164,32 +114,7 @@
             <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
                     <!-- -- 1 san pham -->
-                    @foreach (SanPham sp in Model.tainghe)
-                    {
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                              
-                                <div style="height:270px; width:270px;" class="image-holder">
-                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                                    <h6 class="card-title text-uppercase">
-                                        @sp.ThuongHieu
-                                    </h6>
-                                    <h5 class="card-title text-uppercase">
-                                            <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
-                                    </h5>
-                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                    }
+                    <partial name="_hienthithongtinsp" for="tainghe" />
                     <!-- --/1 san pham -->
 
                 </div>
@@ -210,32 +135,7 @@
             <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
                     <!-- -- 1 san pham -->
-                    @foreach (SanPham sp in Model.pc)
-                    {
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                               
-                                <div style="height:270px; width:270px;" class="image-holder">
-                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                                    <h6 class="card-title text-uppercase">
-                                        @sp.ThuongHieu
-                                    </h6>
-                                    <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
-                                    </h5>
-                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    }
+                    <partial name="_hienthithongtinsp" for="pc" />
                     <!-- --/1 san pham -->
 
                 </div>
@@ -256,33 +156,7 @@
             <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
                     <!-- -- 1 san pham -->
-                    @foreach (SanPham sp in Model.laptop)
-                    {
-                        
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                               
-                                <div style="height:270px; width:270px;" class="image-holder">
-                                    <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
-                                    <h6 class="card-title text-uppercase">
-                                        @sp.ThuongHieu
-                                    </h6>
-                                    <h5 class="card-title text-uppercase">
-                                            <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
-                                    </h5>
-                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                                    </div>
-                                
-                            </div>
-                        </div>
-                    }
+                    <partial name="_hienthithongtinsp" for="laptop" />
                     <!-- --/1 san pham -->
 
                 </div>
@@ -318,32 +192,7 @@
             <div class="swiper product-swiper">
                 <div class="swiper-wrapper">
                     <!-- -- 1 san pham -->
-                    @foreach (SanPham sp in Model.manhinh)
-                    {
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative d-flex flex-column">
-                               
-                                <div style="height:270px; width:270px;" class="image-holder">
-                                    <img  src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                        <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex flex-column justify-content-end align-items-baseline">
-                                    <h6 class="card-title text-uppercase">
-                                        @sp.ThuongHieu
-                                    </h6>
-                                    <h5 class="card-title text-uppercase">
-                                        <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")</a>
-                                    </h5>
-                                    <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    }
+                    <partial name="_hienthithongtinsp" for="manhinh" />
                     <!-- --/1 san pham -->
 
                 </div>

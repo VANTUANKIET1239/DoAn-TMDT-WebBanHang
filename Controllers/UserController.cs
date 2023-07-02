@@ -1,7 +1,9 @@
-﻿using CloudComputing.Models;
+﻿using CloudComputing.Conditions;
+using CloudComputing.Models;
 using CloudComputing.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -23,18 +25,19 @@ namespace CloudComputing.Controllers
             return View();
         }
         [HttpPost]
-       
-        public IActionResult DangNhap(string Email, string PassWord,string? checkthanhtoan)
+
+        public IActionResult DangNhap(string Email, string PassWord, string? checkthanhtoan)
         {
-         
-                if (ModelState.IsValid)
-                {
+
+            if (ModelState.IsValid)
+            {
                 var nguoidung = _db.NguoiDungs.FirstOrDefault(x => x.State == true && x.Email.Trim() == Email.Trim());
-                
-                if (nguoidung == null) {    
+
+                if (nguoidung == null)
+                {
                     ModelState.AddModelError("Email", "Email không đúng");
-                }                
-                     
+                }
+
                 else if (!nguoidung.PassWord.Trim().Equals(ChucNangChung.SHA256_ENCRYPT(PassWord).Trim()))
                 {
                     ModelState.AddModelError("PassWord", "Sai mật khẩu");
@@ -43,59 +46,61 @@ namespace CloudComputing.Controllers
                 {
                     var giohang = _db.DetailCarts.Where(x => x.IdUser.Trim() == nguoidung.Id).ToList();
                     int slcarthientai = giohang.Count;
-                    if(HttpContext.Session.TryGetValue("Cart",out byte[] value))
+                    if (HttpContext.Session.TryGetValue("Cart", out byte[] value))
                     {
                         int kiet = 0;
-                        Dictionary<string, DetailCart>? sptronggio = JsonSerializer.Deserialize<Dictionary<string,DetailCart>>(HttpContext.Session.GetString("Cart") ?? "") ?? new Dictionary<string, DetailCart>();
-                        foreach (KeyValuePair<string, DetailCart> keyValuePair in sptronggio)
+                        Dictionary<string, DetailCart>? sptronggio = JsonSerializer.Deserialize<Dictionary<string, DetailCart>>(HttpContext.Session.GetString("Cart") ?? "") ?? new Dictionary<string, DetailCart>();
+                        if (sptronggio != null)
                         {
-                            for (int i = 0; i < giohang.Count; i++)
+                            List<DetailCart> spgiohangList = sptronggio.Values.ToList();
+                            Dictionary<string, DetailCart> spgiongnhau = giohang.Intersect(spgiohangList, new DetailCartComparer()).ToDictionary(x => x.IdSp);
+                            Dictionary<string, DetailCart> spkhacnhau = spgiohangList.Except(spgiongnhau.Values.ToList(), new DetailCartComparer()).ToDictionary(x => x.IdSp);
+
+                            foreach (DetailCart dtc in giohang)
                             {
-                                kiet = 0;
-                                if (giohang[i].IdSp.Trim() == keyValuePair.Key.Trim())
+                                if (spgiongnhau.ContainsKey(dtc.IdSp))
                                 {
-                                    ++kiet;
-                                    giohang[i].SoLuong += Convert.ToByte(Convert.ToInt32(giohang[i].SoLuong) + Convert.ToInt32(keyValuePair.Value.SoLuong));
-                                    _db.DetailCarts.Update(giohang[i]);
+                                    dtc.SoLuong += (byte)Convert.ToInt32(spgiongnhau[dtc.IdSp].SoLuong);
+                                    _db.DetailCarts.Update(dtc);
                                     _db.SaveChanges();
-                                    break;
                                 }
-
-
                             }
-                            if (kiet != 1)
+
+                            foreach (KeyValuePair<string, DetailCart> dtc in spkhacnhau)
                             {
                                 slcarthientai += 1;
-                                DetailCart detailCart = new(keyValuePair.Key, nguoidung.Id, keyValuePair.Value.SoLuong,true);
+                                DetailCart detailCart = new(dtc.Key, nguoidung.Id, dtc.Value.SoLuong, true);
                                 _db.DetailCarts.Add(detailCart);
                                 _db.SaveChanges();
                             }
-                        }
-                        HttpContext.Session.Remove("Cart");
+                         
 
+                        }                                     
+                       
                     }
 
+                    HttpContext.Session.Remove("Cart");
                     HttpContext.Session.SetInt32("giohang", slcarthientai);
                     HttpContext.Session.SetString("username", nguoidung.Ten);
                     HttpContext.Session.SetString("id", nguoidung.Id);
-                 
+
                     TempData["success"] = "Đăng Nhập Thành Công";
-                  
+
                     if ((checkthanhtoan != null) && nguoidung.Roles.Trim() == "NGUOIDUNG")
                     {
 
                         return RedirectToAction("Index", "ThanhToan");
                     }
-                    else if(nguoidung.Roles.Trim() == "NGUOIDUNG")
+                    else if (nguoidung.Roles.Trim() == "NGUOIDUNG")
                     {
                         return RedirectToAction("Index", "Home");
-                       
+
                     }
                     else
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
-                    
+
                 }
             }
             return View();
@@ -119,7 +124,7 @@ namespace CloudComputing.Controllers
         [HttpPost]
         public IActionResult DangKy(NguoiDung nguoiDung)
         {
-        
+
             if (ModelState.IsValid)
             {
                 if (!nguoiDung.PassWord.Trim().Equals(nguoiDung.PassWordXN.Trim()))
@@ -150,15 +155,15 @@ namespace CloudComputing.Controllers
         {
             var user = _db.NguoiDungs.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(idnguoidung.Trim()));
             var diachi = _db.DiaChis.FirstOrDefault(x => x.IdNguoiDung.Trim().Equals(idnguoidung.Trim()) && x.MacDinh == true);
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
-            if(diachi == null)
+            if (diachi == null)
             {
                 diachi = new DiaChi();
             }
-            
+
             NguoiDungDiaChi_ViewModel nguoiDungDiaChi_ViewModel = new NguoiDungDiaChi_ViewModel()
             {
                 nguoiDung = user,
@@ -184,17 +189,17 @@ namespace CloudComputing.Controllers
                     nguoiDung = nguoiDung,
                     diaChi = diachi
                 };
-                return RedirectToAction("Details",new { idnguoidung = nguoiDung.Id});
+                return RedirectToAction("Details", new { idnguoidung = nguoiDung.Id });
             }
-           
+
             return View(nguoiDungDiaChi_ViewModel);
         }
         public IActionResult DonHang(string idnguoidung, int pagesize = 6, int page = 1)
         {
             var donhang = _db.HoaDons.Where(x => x.IdUser.Trim() == idnguoidung).ToList();
-            
-            if(donhang == null)
-            {   
+
+            if (donhang == null)
+            {
                 return NotFound();
             }
             var spdonhang = _db.DetailHoaDons.ToList();
@@ -205,7 +210,7 @@ namespace CloudComputing.Controllers
             });
             List<HinhAnh_HoaDonViewModel> hinhanh = spvadonhang
                 .GroupBy(x => x.iddonhang)
-                .Select(x => x.Join(ChucNangChung.ToanBoSP(_db), spdh => spdh.idsanpham, sptb => sptb.IdSp, (spdh, sptb) => new 
+                .Select(x => x.Join(ChucNangChung.ToanBoSP(_db), spdh => spdh.idsanpham, sptb => sptb.IdSp, (spdh, sptb) => new
                 {
                     iddh = x.Key,
                     hinhanhsp = sptb.HinhAnh
@@ -239,8 +244,8 @@ namespace CloudComputing.Controllers
             string? ten = HttpContext.Session.GetString("username");
             var donhang = _db.HoaDons.FirstOrDefault(x => x.Id == iddonhang);
             var chitietdonhang = _db.DetailHoaDons.Where(x => x.IdHoaDon == iddonhang).ToList();
-            var chitietspdonhang = chitietdonhang.Join(ChucNangChung.ToanBoSP(_db),ct => ct.IdSp, sptb => sptb.IdSp, (ct,sptb) => new
-            {              
+            var chitietspdonhang = chitietdonhang.Join(ChucNangChung.ToanBoSP(_db), ct => ct.IdSp, sptb => sptb.IdSp, (ct, sptb) => new
+            {
                 thuonghieu = sptb.ThuongHieu,
                 hinhanhsp = sptb.HinhAnh,
             }).ToList();
@@ -252,17 +257,17 @@ namespace CloudComputing.Controllers
             ViewBag.tennguoidung = ten;
             return View();
         }
-        public IActionResult DiaChi(string idnguoidung,string iddiachi)
+        public IActionResult DiaChi(string idnguoidung, string iddiachi)
         {
             var diachidb = _db.DiaChis;
             List<DiaChi> diachi = diachidb.Where(x => x.IdNguoiDung.Trim() == idnguoidung.Trim()).OrderByDescending(x => x.MacDinh).ToList();
-            if(diachi == null)
+            if (diachi == null)
             {
                 return NotFound();
             }
             DiaChi diaChic = new DiaChi()
             {
-                IdDiachi= "DC" + (diachidb.Count() + 1).ToString("000"),
+                IdDiachi = "DC" + (diachidb.Count() + 1).ToString("000"),
                 IdNguoiDung = idnguoidung
             };
             // nếu mà ngdung bấm vào qly địa chi
@@ -276,6 +281,96 @@ namespace CloudComputing.Controllers
             ViewBag.username = HttpContext.Session.GetString("username");
             return View(dia);
         }
-        
+        [HttpGet]
+        public IActionResult QuenMatKhau()
+            {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult QuenMatKhau(string email)
+        {
+            if (email == "") ModelState.AddModelError("email", "Email chưa được nhập");
+            var checkemail = _db.NguoiDungs.Where(x => x.State == true && x.Email.Trim() == email.Trim()).FirstOrDefault();
+            if (checkemail == null) ModelState.AddModelError("email", "Email không tồn tại");
+            else
+            {
+                return RedirectToAction("XacNhanMa", "User",new {emailcheck = true, email = email});
+            }
+            return View();
+        }
+        [NonAction]
+        private string GenerateVerificationCode()
+        {
+            Random random = new Random();
+            int randumnumber  = random.Next(0,99999);
+            return randumnumber.ToString();
+        }
+        [HttpGet]
+        public IActionResult XacNhanMa(bool emailcheck, string email)
+        {
+            if (!emailcheck) return NotFound();
+            string verificationCode = GenerateVerificationCode(); // Hàm này sinh mã xác nhận ngẫu nhiên
+            DateTime expirationTime = DateTime.Now.AddMinutes(1);
+
+            VerificationCode code = new VerificationCode
+            {
+                Code = verificationCode,
+                ExpirationTime = expirationTime
+            };
+            ChucNangChung.SendEmail(email.Trim(), "[Mail xác nhận đổi mật khẩu]", ChucNangChung.guimaillaymk(verificationCode));
+            ViewBag.emailxn = email;
+            return View(code);
+        }
+        [HttpPost]
+        public IActionResult XacNhanMa(string code, string maxacnhan, string emailxn)
+        {
+            if(maxacnhan.Trim() != code.Trim())
+            {
+                return NotFound();
+            }
+            return RedirectToAction("MatKhauMoi", "User", new {emailxn = emailxn});
+        }
+        [HttpGet]
+        public IActionResult MatKhauMoi(string emailxn) 
+        {         
+            ViewBag.emailxn = emailxn;            
+            return View(new Dictionary<string, string>() { { "", "" },});
+        }
+
+        [HttpGet]
+        public IActionResult GuiLaiMa(bool emailcheck, string email)
+        {
+            return RedirectToAction("XacNhanMa", "User", new { emailcheck = emailcheck, email = email });
+        }
+        [HttpPost]
+        public IActionResult MatKhauMoi(string matkhaucu, string matkhaumoi, string xacnhanmatkhaumoi, string emailxn)
+        {
+            Dictionary<string,string> validate = new Dictionary<string, string>();
+           
+            
+            var nguoidung = _db.NguoiDungs.Where(x => x.State == true && x.Email.Trim() == emailxn.Trim()).FirstOrDefault();
+
+            if (nguoidung?.PassWord != ChucNangChung.SHA256_ENCRYPT(matkhaucu)) 
+            {
+                validate.Add("saimkcu", "Mật khẩu cũ nhập không đúng");
+                ViewBag.valid = "saimkcu";
+            } 
+            else if(matkhaumoi.Trim() != xacnhanmatkhaumoi.Trim())
+            {
+                validate.Add("matkhaukhongkhop", "Mật khẩu mới với xác nhận không khớp");
+                ViewBag.valid = "matkhaukhongkhop";
+            }
+            else
+            {
+                nguoidung.PassWord = ChucNangChung.SHA256_ENCRYPT(matkhaumoi);
+                _db.NguoiDungs.Update(nguoidung);
+                _db.SaveChanges();
+                return RedirectToAction("DangNhap", "User");
+            }
+            return View(validate);
+        }
+
+
     }
 }
+

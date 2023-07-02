@@ -33,7 +33,7 @@
                 <input type="hidden" name="idsp" value="@ViewBag.SP.SanPham.IdSp" />
                 <h3 class="text-uppercase">@ViewBag.SP.SanPham.TenSanPham</h3>
                 <p><span>@ViewBag.SP.SanPham.ThuongHieu</span></p>
-                <p><span style="font-size:32px;color:cadetblue"><strong>@(ViewBag.SP.SanPham.Gia?.ToString("#,##0") + "đ")</strong></span></p>
+                <p><span style="font-size:32px;color:cadetblue"><strong>@(ChucNangChung.chuyendoitiente(ViewBag.SP.SanPham.Gia))</strong></span></p>
 
                 <div class="input-group mb-3 w-25">
 
@@ -150,7 +150,7 @@
                                             <h6 class="card-title text-uppercase text-dark">
                                                 @(sp.TenSanPham.Substring(0, sp.TenSanPham.Length < 50 ? sp.TenSanPham.Length : 50) + "...")
                                             </h6>
-                                            <h4 style="font-size:18px;color:cadetblue" class="item-price">@(sp.Gia?.ToString("#,##0") + "đ")</h4>
+                                            <h4 style="font-size:18px;color:cadetblue" class="item-price">@(ChucNangChung.chuyendoitiente(sp.Gia))</h4>
                                         </div>
                                     </div>
                                 </a>

@@ -75,7 +75,7 @@
                         </form>
                     </div>
                     <div class="col-md-3 text-center align-items-center d-flex justify-content-sm-center">
-                        <p><span style="font-size:18px;color:cadetblue">@((gio.sanPham.Gia * gio.soluong)?.ToString("#,##0") + "đ")</span></p>
+                        <p><span style="font-size:18px;color:cadetblue">@(ChucNangChung.chuyendoitiente(gio.sanPham.Gia * gio.soluong))</span></p>
                     </div>
 
                     <div class="col-md-1 align-items-center d-flex flex-row">
@@ -102,7 +102,7 @@
                             <h5>Tổng Tiền</h5>
                         </div>
                         <div class="col-md-4">
-                            <p id="tongtien"><span style="font-size:24px;color:cadetblue"><strong>@((ViewBag.TongTien)?.ToString("#,##0") + "đ")</strong></span></p>
+                            <p id="tongtien"><span style="font-size:24px;color:cadetblue"><strong>@(ChucNangChung.chuyendoitiente(ViewBag.TongTien))</strong></span></p>
                         </div>
                     </div>
                     <a asp-controller="ThanhToan" id="tieptuc" asp-action="Index" style="font-size:18px;"  class="btn btn-dark w-100 padding-large">Tiếp Tục</a>

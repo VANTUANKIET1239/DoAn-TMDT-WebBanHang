@@ -18,7 +18,7 @@
                     <label class="form-label"><h5>Thương Hiệu</h5></label>
                     <select name="ThuongHieu" class="form-select" id="selectTH" aria-label="Default select example" onchange="this.form.submit()">
 
-                        <option value="" disabled selected>Chọn thương hiệu</option>
+                        
 
                         @foreach (var th in ViewBag.TH)
                         {
@@ -91,9 +91,9 @@
                                     @a.ThuongHieu
                                 </h6>
                                 <h5 class="card-title text-uppercase">
-                                    <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@(a.TenSanPham.Substring(0, a.TenSanPham.Length < 50 ? a.TenSanPham.Length : 50) + "...")</a>
+                                    <a style="font-size:13px;" class="text-decoration-none text-dark" href="#">@(ChucNangChung.chuyendoitieude(a.TenSanPham))</a>
                                 </h5>
-                                <h4 style="font-size:15px;color:cadetblue" class="item-price">@(a.Gia?.ToString("#,##0") + "đ")</h4>
+                                <h4 style="font-size:15px;color:cadetblue" class="item-price">@(ChucNangChung.chuyendoitiente(a.Gia))</h4>
                             </div>
                         </a>
 

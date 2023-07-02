@@ -1,0 +1,68 @@
+﻿
+@model VerificationCode
+@{
+    ViewData["Title"] = "XacNhanMa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center padding-large no-padding-bottom">
+    <div class="card w-25">
+        <div class="card-header text-center">
+            <h3>Xác Nhận Email</h3>
+           <div class="d-flex justify-content-center">
+                <div class="d-lfex justify-content-center" style="width:150px;height:25px">
+                    <span class="text-danger" id="demthoigian"></span>
+                </div>
+           </div>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-controller="User" asp-action="XacNhanMa">
+                <input type="hidden" name="code" value="@Model.Code"/>
+                <input type="hidden" name="emailxn" value="@ViewBag.emailxn" />
+                <div class="form-group">
+                    <label for="maxacnhan" class="control-label">Nhập mã xác nhận</label>
+                    <input name="maxacnhan" type="text" class="form-control" required />
+                    <span id="validation" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-center padding-small no-padding-bottom">
+                    <a class="btn btn-warning me-3" asp-controller="User" asp-action="GuiLaiMa" asp-route-emailcheck="true" asp-route-email = "@ViewBag.emailxn">Gửi lại mã</a>
+                    <input type="submit" id="btnsubmit" class="btn btn-success" value="Xác Nhận" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var countdownElement = $('#demthoigian');
+            var expirationTime = new Date('@(Model.ExpirationTime)'); // Lấy thời gian hết hạn từ Model (truyền từ server-side)
+
+            function updateCountdown() {
+                var currentTime = Date.now();
+                var remainingTime = Math.max(0, expirationTime.getTime() - currentTime);
+                console.log('expirationTime:', expirationTime.getTime())
+                console.log('currentTime:', currentTime);
+                // Chuyển đổi thời gian còn lại thành định dạng phút:giây
+                var minutes = Math.floor(remainingTime / 60000);
+                var seconds = Math.floor((remainingTime % 60000) / 1000);
+
+                countdownElement.text(minutes + ' phút ' + seconds + ' giây');
+
+                if (remainingTime > 0) {
+                    setTimeout(updateCountdown, 1000); // Cập nhật thời gian còn lại mỗi giây
+                } else {
+                    $('input[name="maxacnhan"]').prop('readonly',true);
+                    $('#btnsubmit').prop('disabled',true);
+                    countdownElement.text('Hết hạn'); // Hiển thị thông báo khi mã xác nhận hết hạn
+                }
+            }
+
+            updateCountdown();
+
+            
+        });
+    </script>
+}

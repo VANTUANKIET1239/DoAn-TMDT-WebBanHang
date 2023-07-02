@@ -65,7 +65,7 @@
                                 <p class="no-margin" style="font-size:13px;">Số lượng: @ViewBag.CHITIET[i].SoLuong</p>
                             </div>
                             <div>
-                                <h5 style="color:red" class="mt-2">@((ViewBag.CHITIET[i].SoLuong * ViewBag.CHITIET[i].DonGia)?.ToString("#,##0") + "đ")</h5>
+                                <h5 style="color:red" class="mt-2">@(ChucNangChung.chuyendoitiente(ViewBag.CHITIET[i].SoLuong * ViewBag.CHITIET[i].DonGia))</h5>
                             </div>
                         </div>
                     </div>
@@ -89,9 +89,9 @@
                         <p class="text-dark">Đã thanh toán:</p>
                     </div>
                     <div class="col-md-2">
-                        <p class="text-dark">@(ViewBag.HOADON.Total?.ToString("#,##0") + "đ")</p>
-                        <p class="text-dark">@(ViewBag.HOADON.ShipFee == 0 ? "Miễn phí" : (ViewBag.HOADON.ShipFee?.ToString("#,##0") + "đ"))</p>
-                        <p class="text-dark">@((ViewBag.HOADON.Total - ViewBag.HOADON.ShipFee)?.ToString("#,##0") + "đ")</p>
+                        <p class="text-dark">@(ChucNangChung.chuyendoitiente(ViewBag.HOADON.Total))</p>
+                        <p class="text-dark">@(ViewBag.HOADON.ShipFee == 0 ? "Miễn phí" : (ChucNangChung.chuyendoitiente(ViewBag.HOADON.ShipFee)))</p>
+                        <p class="text-dark">@(ChucNangChung.chuyendoitiente(ViewBag.HOADON.Total - ViewBag.HOADON.ShipFee))</p>
                     </div>
 
 

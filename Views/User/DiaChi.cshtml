@@ -175,7 +175,7 @@
 <div id="bg-modalthem" >
     <div id="modalcontentthem" class=" @(ViewBag.iddc == null ? "active" : "")">
 
-        <div id="formthem" class="p-3">
+        <div id="formthem" class="p-3"> 
             <h4 class="p-2 no-padding-bottom"> Thông Tin Nhận Hàng</h4>
             <form method="post" asp-controller="DiaChi" asp-action="ThemDiaChi">
                  <input type="hidden" asp-for="diaChi.IdDiachi"   value="@Model.diaChi.IdDiachi"/>

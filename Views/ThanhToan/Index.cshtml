@@ -52,7 +52,7 @@
                                     <div>
                                         <h6 class="text-black"> @(Model.detailHoaDons[i].TenSp?.Substring(0, Model.detailHoaDons[i].TenSp.Length < 50 ? Model.detailHoaDons[i].TenSp.Length : 50) + "...")</h6>
                                         <p style="font-size:18px;"><span>số lượng: @Model.detailHoaDons[i].SoLuong</span></p>
-                                        <p style="font-size:18px;"><span>@((Model.detailHoaDons[i].DonGia * Model.detailHoaDons[i].SoLuong).ToString("#,##0") + "đ")</span></p>
+                                        <p style="font-size:18px;"><span>@(ChucNangChung.chuyendoitiente(Model.detailHoaDons[i].DonGia * Model.detailHoaDons[i].SoLuong))</span></p>
                                     </div>
                                 </div>
 

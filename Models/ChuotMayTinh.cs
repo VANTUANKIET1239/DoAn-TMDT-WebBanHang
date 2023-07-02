@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CloudComputing.Conditions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CloudComputing.Models;
 
-public partial class ChuotMayTinh
+public partial class ChuotMayTinh : IEntitySPWithId
 {
     public string Id { get; set; } = null!;
     [Required]

@@ -19,17 +19,21 @@ namespace CloudComputing.Controllers
 
         public IActionResult Index()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var danhmuc = _db.DanhMucs.ToList();
             HttpContext.Session.SetString("danhmuc", JsonSerializer.Serialize(danhmuc));
             ToanBoSP_DanhMuc toanBoSP_DanhMuc = new ToanBoSP_DanhMuc()
             {
-                banphim = ChucNangChung.SPtheoDM(_db, "BANPHIM").Take(6).ToList(),
-                chuot = ChucNangChung.SPtheoDM(_db, "CHUOT").Take(6).ToList(),
-                tainghe = ChucNangChung.SPtheoDM(_db, "TAINGHE").Take(6).ToList(),
-                pc = ChucNangChung.SPtheoDM(_db, "PCMAYTINHBO").Take(6).ToList(),
-                manhinh = ChucNangChung.SPtheoDM(_db, "PCMANHINH").Take(6).ToList(),
-                laptop = ChucNangChung.SPtheoDM(_db, "LAPTOP").Take(6).ToList()
+                banphim = ChucNangChung.SPtheoDM2(_db, "BANPHIM").ToList(),
+                chuot = ChucNangChung.SPtheoDM2(_db, "CHUOT").ToList(),
+                tainghe = ChucNangChung.SPtheoDM2(_db, "TAINGHE").ToList(),
+                pc = ChucNangChung.SPtheoDM2(_db, "PCMAYTINHBO").ToList(),
+                manhinh = ChucNangChung.SPtheoDM2(_db, "PCMANHINH").ToList(),
+                laptop = ChucNangChung.SPtheoDM2(_db, "LAPTOP").ToList()
             };
+            sw.Stop();
+            Console.WriteLine("Thời gian chạy: " + sw.Elapsed.TotalMilliseconds);
             return View(toanBoSP_DanhMuc);
         }
         

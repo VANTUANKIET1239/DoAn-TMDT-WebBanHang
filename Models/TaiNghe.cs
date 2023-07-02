@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CloudComputing.Conditions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CloudComputing.Models;
 
-public partial class TaiNghe
+public partial class TaiNghe : IEntitySPWithId
 {
     public string Id { get; set; } = null!;
     [Display(Name = "Màu Sắc")]

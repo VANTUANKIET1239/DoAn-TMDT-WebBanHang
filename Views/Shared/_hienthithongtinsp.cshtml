@@ -1,0 +1,31 @@
+﻿@model List<SanPham>
+
+
+
+@foreach (SanPham sp in Model)
+{
+    <div class="swiper-slide">
+        <div class="product-card position-relative">
+
+            <div style="height:270px; width:270px;" class="image-holder">
+                <img src=" data:image /png;base64,@(Convert.ToBase64String(sp.HinhAnh))" alt="product-item" class="img-fluid">
+            </div>
+            <div class="cart-concern position-absolute">
+                <div class="cart-button d-flex">
+                    <a asp-controller="GioHang" asp-action="ThemCart" asp-route-idsp="@sp.IdSp" class="btn btn-medium btn-black">THÊM VÀO GIỎ<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                </div>
+            </div>
+            <div class="card-detail d-flex flex-column justify-content-between align-items-baseline">
+                <h6 class="card-title text-uppercase">
+                    @sp.ThuongHieu
+                </h6>
+                <h5 class="card-title text-uppercase">
+                    <a style="font-size:13px;" asp-controller="SanPham" asp-action="Details" asp-route-id="@sp.IdSp" class="text-decoration-none text-dark">@(ChucNangChung.chuyendoitieude(sp.TenSanPham))</a>
+                </h5>
+                <h4 style="font-size:18px;color:cadetblue" class="item-price">@(ChucNangChung.chuyendoitiente(sp.Gia))</h4>
+            </div>
+
+        </div>
+    </div>
+}
+
