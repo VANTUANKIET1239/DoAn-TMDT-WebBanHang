@@ -26,4 +26,7 @@ Website bán hàng online
 - Clone dự án từ github về
 - Sử dụng file script Database và tạo cơ sở dữ liệu của dự án (DBBH)
 - Thay đổi DefaultConnection trong phần appsetting.json trong dự án nếu cần
+- Sử dụng tài khoản tạm để đăng nhập vào website nếu cần
+  + Tài khoản người dùng(TK: vantuankiet2207@gmail.com - MK: 12345678)
+  + Tài khoản Admin(TK: hungsamnguyen@gmail.com - MK: 123456)
 - Chạy dự án
