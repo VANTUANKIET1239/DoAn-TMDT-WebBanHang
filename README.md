@@ -22,3 +22,8 @@ Website bán hàng online
   + Trang Sổ địa chỉ: thêm và chỉnh sửa địa chỉ, chọn địa chỉ làm mặc định
   + Trang lịch sử mua hàng: xem chi tiết lich sử đơn hàng
   + Trang Đăng nhập - đăng ký: tạo tài khoản, đăng nhập tài khoản (Người dùng, Admin), tính năng quên mật khẩu(gửi mail mã xác nhận về cho người dùng).
+4. Cách chạy dự án
+- Clone dự án từ github về
+- Sử dụng file script Database và tạo cơ sở dữ liệu của dự án (DBBH)
+- Thay đổi DefaultConnection trong phần appsetting.json trong dự án nếu cần
+- Chạy dự án
