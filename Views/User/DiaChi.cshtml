@@ -256,62 +256,63 @@
         </div>
     </div>
 </div>
-@section Scripts{
-    <script>
-        var diachithem = document.getElementsByClassName('chinhsuadiachi');
+<script>
+    var diachithem = document.getElementsByClassName('chinhsuadiachi');
 
-        var themdc = document.getElementById('themdiachi');
-        themdc.addEventListener("click", function () {
+    var themdc = document.getElementById('themdiachi');
+    themdc.addEventListener("click", function () {
 
-            document.getElementById("bg-modalthem").style.display = "flex";
-            document.body.style.overflow = "hidden";
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-            var modal = document.getElementById("modalcontentthem");
-            var modalHeight = modal.offsetHeight;
-            modal.style.marginTop = -900 + "px";
-            var modal1 = document.getElementById("modalcontent");
-            var modalHeight1 = modal.offsetHeight;
-            modal1.style.marginTop = -900 + "px";
-
-            var inputs = document.getElementById('formthem').getElementsByTagName('input');
-            for (let i = 0; i < inputs.length; i++) {
-                if (inputs[i].type === "checkbox") {
-                    inputs[i].checked = false;
-                }
-                else if (inputs[i].type === "hidden") continue;
-                else inputs[i].value = "";
-
-            }
-
+        document.getElementById("bg-modalthem").style.display = "flex";
+        document.body.style.overflow = "hidden";
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
         });
 
-        function ancuaso(bg) {
-            if (event.target === this) {
-                document.getElementById(bg).style.display = "none";
-                document.body.style.overflow = "auto";
+        var modal = document.getElementById("modalcontentthem");
+        var modalHeight = modal.offsetHeight;
+        modal.style.marginTop = -900 + "px";
+        var modal1 = document.getElementById("modalcontent");
+        var modalHeight1 = modal.offsetHeight;
+        modal1.style.marginTop = -900 + "px";
+
+        var inputs = document.getElementById('formthem').getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].type === "checkbox") {
+                inputs[i].checked = false;
             }
+            else if (inputs[i].type === "hidden") continue;
+            else inputs[i].value = "";
+
         }
-        document.getElementById("bg-modal").addEventListener("click", function (event) {
-            ancuaso(("bg-modal");
-        });
-        document.getElementById("bg-modalthem").addEventListener("click", function (event) {
-            ancuaso("bg-modalthem");
-        });
+
+    });
+
+    function ancuaso(event, bg, bgitem) {
+        if (event.target === bgitem) {
+            document.getElementById(bg).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    }
+    document.getElementById("bg-modal").addEventListener("click", function (event) {
+        ancuaso(event,"bg-modal",this);
+    });
+    document.getElementById("bg-modalthem").addEventListener("click", function (event) {
+        ancuaso(event, "bg-modalthem", this);
+    });
 
 
-        document.getElementById('huybo').addEventListener("click", function (event) {
-            ancuaso(("bg-modal");
-        });
-        document.getElementById('huybothem').addEventListener("click", function (event) {
-            ancuaso("bg-modalthem");
-        });
+    document.getElementById('huybo').addEventListener("click", function (event) {
+        ancuaso(event, "bg-modal", this);
+    });
+    document.getElementById('huybothem').addEventListener("click", function (event) {
+        ancuaso(event, "bg-modalthem", this);
+    });
 
 
-    </script>
+</script>
+@section Scripts{
+   
 
 
 

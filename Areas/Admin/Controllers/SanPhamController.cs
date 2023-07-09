@@ -104,7 +104,7 @@ namespace CloudComputing.Areas.Admin.Controllers
             else
             {
                 var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
-                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                string idsp = "SP" + (_db.SanPhams.Count() + 1).ToString("000");
                 var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(chuot_SanPhamViewModel.SanPham.IdDm.Trim()));
                 ViewBag.danhmucID = danhmucne.Id;
                 ViewBag.danhmuc = danhmuctoanbo;
@@ -127,7 +127,7 @@ namespace CloudComputing.Areas.Admin.Controllers
             else
             {
                 var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
-                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                string idsp = "SP" + (_db.SanPhams.Count() + 1).ToString("000");
                 var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(banphim_SanPhamViewModel.SanPham.IdDm.Trim()));
                 ViewBag.danhmucID = danhmucne.Id;
                 ViewBag.danhmuc = danhmuctoanbo;
@@ -148,7 +148,7 @@ namespace CloudComputing.Areas.Admin.Controllers
             else
             {
                 var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
-                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                string idsp = "SP" + (_db.SanPhams.Count() + 1).ToString("000");
                 var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(pCManhinh_SanPhamViewModel.SanPham.IdDm.Trim()));
                 ViewBag.danhmucID = danhmucne.Id;
                 ViewBag.danhmuc = danhmuctoanbo;
@@ -169,7 +169,7 @@ namespace CloudComputing.Areas.Admin.Controllers
             else
             {
                 var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
-                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                string idsp = "SP" + (_db.SanPhams.Count() + 1).ToString("000");
                 var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(pCMaytinhbo_SanPhamViewModel.SanPham.IdDm.Trim()));
                 ViewBag.danhmucID = danhmucne.Id;
                 ViewBag.danhmuc = danhmuctoanbo;
@@ -191,7 +191,7 @@ namespace CloudComputing.Areas.Admin.Controllers
             else
             {
                 var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
-                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                string idsp = "SP" + (_db.SanPhams.Count() + 1).ToString("000");
                 var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(tainghe_SanPhamViewModel.SanPham.IdDm.Trim()));
                 ViewBag.danhmucID = danhmucne.Id;
                 ViewBag.danhmuc = danhmuctoanbo;
@@ -212,7 +212,7 @@ namespace CloudComputing.Areas.Admin.Controllers
             else
             {
                 var danhmuctoanbo = _db.DanhMucs.Where(x => x.State == true).ToList();
-                string idsp = "SP" + (_db.SanPhams.Where(x => x.TrangThai == true).Count() + 1).ToString("000");
+                string idsp = "SP" + (_db.SanPhams.Count() + 1).ToString("000");
                 var danhmucne = danhmuctoanbo.FirstOrDefault(x => x.State == true && x.Id.Trim().Equals(latop_SanPhamViewModel.SanPham.IdDm.Trim()));
                 ViewBag.danhmucID = danhmucne.Id;
                 ViewBag.danhmuc = danhmuctoanbo;
